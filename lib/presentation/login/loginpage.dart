@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_app/presentation/bottom_navigation/view/bottom_navigation_bar.dart';
-import 'package:recipe_app/presentation/registration/registration.dart';
+import 'package:recipe_app/presentation/registration/view/registration.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({super.key});

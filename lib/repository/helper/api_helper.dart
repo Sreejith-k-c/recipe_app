@@ -13,6 +13,7 @@ class ApiHelper {
     log("ApiHelper>getData");
     final url = Uri.parse(AppConfig.baseurl + endPoint);
     try {
+      log("$url");
       var response = await http.get(url);
       log("ApiHelper>>Api Called => status code=${response.statusCode}");
       if (response.statusCode == 200) {
