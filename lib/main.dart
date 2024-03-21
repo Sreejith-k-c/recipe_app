@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:recipe_app/view/splashscreen/welcom.dart';
+import 'package:provider/provider.dart';
+import 'package:recipe_app/presentation/splashscreen/welcom.dart';
+
+import 'presentation/homepage/controller/home_controller.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(create: (context)=>HomeController())
+  ],child: const MyApp(),));
 }
 
 class MyApp extends StatelessWidget {
