@@ -49,23 +49,6 @@ class RegistrationPage extends StatelessWidget {
               width: 100,
             ),
             const SizedBox(
-              height: 30,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 15, right: 15),
-              child: TextField(
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Email address',
-                  labelStyle: TextStyle(
-                    color: Colors.grey,
-                    fontStyle: FontStyle.italic,
-                  ),
-                ),
-                controller: emailcontroller,
-              ),
-            ),
-            const SizedBox(
               height: 15,
             ),
             Padding(
@@ -80,6 +63,23 @@ class RegistrationPage extends StatelessWidget {
                     fontStyle: FontStyle.italic,
                   ),
                 ),
+              ),
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 15, right: 15),
+              child: TextField(
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Email address',
+                  labelStyle: TextStyle(
+                    color: Colors.grey,
+                    fontStyle: FontStyle.italic,
+                  ),
+                ),
+                controller: emailcontroller,
               ),
             ),
             const SizedBox(
