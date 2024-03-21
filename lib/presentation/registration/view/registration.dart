@@ -112,7 +112,15 @@ class RegistrationPage extends StatelessWidget {
               padding: const EdgeInsets.only(left: 10, right: 10),
               child: InkWell(
                 onTap: () {
-                  Provider.of<RegistrationController>(context).onRegistration(context,usernamecontroller.text.trim(),emailcontroller.text.trim(),passwordcontroller.text.trim());
+                  Provider.of<RegistrationController>(context, listen: false)
+                      .onRegistration(
+                          context,
+                          usernamecontroller.text.trim(),
+                          emailcontroller.text.trim(),
+                          passwordcontroller.text.trim());
+                  usernamecontroller.clear();
+                  emailcontroller.clear();
+                  passwordcontroller.clear();
                 },
                 child: Container(
                   width: double.infinity,
