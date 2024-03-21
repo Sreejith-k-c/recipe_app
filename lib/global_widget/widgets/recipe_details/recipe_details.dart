@@ -45,11 +45,11 @@ class RecipeDetails extends StatelessWidget {
                           children: [
                             Text("Ingredients",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
                             SizedBox(height: 20,),
-                            Text("${resData!.ingredients}",style: TextStyle(fontWeight: FontWeight.bold),),
+                            Text(resData!.ingredients.toString(),style: TextStyle(fontWeight: FontWeight.bold),),
                             SizedBox(height: 20,),
                             Text("Preparation Steps",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
                             SizedBox(height: 20,),
-                            Text("${resData!.preparationSteps}",style: TextStyle(fontWeight: FontWeight.bold))
+                            Text(resData!.preparationSteps.toString(),style: TextStyle(fontWeight: FontWeight.bold))
                           ],
                         ),
                       ),

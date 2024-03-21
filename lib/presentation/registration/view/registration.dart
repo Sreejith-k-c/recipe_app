@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:recipe_app/presentation/login/loginpage.dart';
+import 'package:recipe_app/presentation/registration/controller/registration_controller.dart';
 
 class RegistrationPage extends StatelessWidget {
   RegistrationPage({super.key});
@@ -110,8 +112,7 @@ class RegistrationPage extends StatelessWidget {
               padding: const EdgeInsets.only(left: 10, right: 10),
               child: InkWell(
                 onTap: () {
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => LoginPage()));
+                  Provider.of<RegistrationController>(context).onRegistration(context,usernamecontroller.text.trim(),emailcontroller.text.trim(),passwordcontroller.text.trim());
                 },
                 child: Container(
                   width: double.infinity,
