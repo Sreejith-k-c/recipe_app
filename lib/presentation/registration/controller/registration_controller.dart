@@ -22,7 +22,7 @@ class RegistrationController extends ChangeNotifier {
           AppUtils.oneTimeSnackBar(message, context: context);
           Navigator.of(context).pushReplacement(
               MaterialPageRoute(builder: (context) => LoginPage()));
-          storeRecivedData(recData);
+          
         
       } else {
         if (recData["msg"] != "Failed") {
@@ -36,10 +36,5 @@ class RegistrationController extends ChangeNotifier {
     });
   }
 
-  storeRecivedData(resData) async {
-    log("storeRecivedData>>resData");
-    sharedPreferences = await SharedPreferences.getInstance();
-    String storeData = json.encode(resData["data"]);
-    sharedPreferences.setString(AppConfig.loginData, storeData);
-  }
+  
 }
