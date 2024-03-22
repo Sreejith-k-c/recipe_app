@@ -19,17 +19,19 @@ class LoginController extends ChangeNotifier {
         AppUtils.oneTimeSnackBar(message, context: context);
         Navigator.of(context).pushReplacement(
             MaterialPageRoute(builder: (context) => BottomNav()));
-            storeRecivedData(data);
+        storeRecivedData(data);
       } else {
         var message = "Login Failed";
         AppUtils.oneTimeSnackBar(message, context: context);
       }
     });
   }
+
   storeRecivedData(data) async {
-    log("storeRecivedData>>Loginata");
+    log("storeRecivedData>>Logindata>> and stred status of login");
     sharedPreferences = await SharedPreferences.getInstance();
     String storeData = json.encode(data);
     sharedPreferences.setString(AppConfig.loginData, storeData);
+    sharedPreferences.setBool(AppConfig.status, true);
   }
 }
