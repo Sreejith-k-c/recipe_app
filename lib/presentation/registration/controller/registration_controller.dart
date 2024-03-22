@@ -17,7 +17,7 @@ class RegistrationController extends ChangeNotifier {
 
       if (recData["status"] == 1) {
         var message = recData["msg"];
-          AppUtils.oneTimeSnackBar(message, context: context);
+          AppUtils.oneTimeSnackBar(message,txtColor: Colors.green, context: context);
           Navigator.of(context).pushReplacement(
               MaterialPageRoute(builder: (context) => LoginPage()));
           
@@ -25,10 +25,10 @@ class RegistrationController extends ChangeNotifier {
       } else {
         if (recData["msg"] != "Failed") {
           var message = recData["msg"];
-          AppUtils.oneTimeSnackBar(message, context: context);
+          AppUtils.oneTimeSnackBar(message, txtColor: Colors.red,context: context);
         } else {
           var message = recData["msg"];
-          AppUtils.oneTimeSnackBar(message, context: context);
+          AppUtils.oneTimeSnackBar(message, txtColor: Colors.red,context: context);
         }
       }
     });

@@ -16,13 +16,15 @@ class LoginController extends ChangeNotifier {
       if (recData["status"] == 1) {
         var data = recData["data"];
         var message = recData["msg"];
-        AppUtils.oneTimeSnackBar(message, context: context);
+        AppUtils.oneTimeSnackBar(message,
+            txtColor: Colors.green, context: context);
         Navigator.of(context).pushReplacement(
             MaterialPageRoute(builder: (context) => BottomNav()));
         storeRecivedData(data);
       } else {
         var message = "Login Failed";
-        AppUtils.oneTimeSnackBar(message, context: context);
+        AppUtils.oneTimeSnackBar(message,
+            txtColor: Colors.red, context: context);
       }
     });
   }
