@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
@@ -7,7 +6,6 @@ import 'package:recipe_app/core/app_utils.dart';
 import 'package:recipe_app/presentation/login/view/loginpage.dart';
 import 'package:recipe_app/repository/api/registration/service/registration_service.dart';
 
-import '../../../app_config/app_config.dart';
 
 class RegistrationController extends ChangeNotifier {
   late SharedPreferences sharedPreferences;
