@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:recipe_app/presentation/login/loginpage.dart';
+import 'package:recipe_app/presentation/login/view/loginpage.dart';
 import 'package:recipe_app/presentation/registration/controller/registration_controller.dart';
 
 class RegistrationPage extends StatelessWidget {

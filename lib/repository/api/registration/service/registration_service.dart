@@ -6,7 +6,7 @@ class RegistrationService {
   static Future<dynamic> postRegistration(Map<String, String> data) async {
     try {
       var encodedData =
-          await ApiHelper.postData(endPoint: "user/register/", body: data);
+          await ApiHelper.postRegisterData(endPoint: "user/register/", body: data);
       var message = encodedData["msg"];
       if (encodedData["status"] == 1) {
         log("$message");

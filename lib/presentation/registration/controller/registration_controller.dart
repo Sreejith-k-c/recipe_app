@@ -4,7 +4,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:recipe_app/core/app_utils.dart';
-import 'package:recipe_app/presentation/login/loginpage.dart';
+import 'package:recipe_app/presentation/login/view/loginpage.dart';
 import 'package:recipe_app/repository/api/registration/service/registration_service.dart';
 
 import '../../../app_config/app_config.dart';
@@ -18,19 +18,20 @@ class RegistrationController extends ChangeNotifier {
       log("onRegistration ${recData["status"]}");
 
       if (recData["status"] == 1) {
-        if (recData["msg"] == "Successfully Registered") {
-          var message = recData["msg"];
+        var message = recData["msg"];
           AppUtils.oneTimeSnackBar(message, context: context);
           Navigator.of(context).pushReplacement(
               MaterialPageRoute(builder: (context) => LoginPage()));
           storeRecivedData(recData);
+        
+      } else {
+        if (recData["msg"] != "Failed") {
+          var message = recData["msg"];
+          AppUtils.oneTimeSnackBar(message, context: context);
         } else {
           var message = recData["msg"];
           AppUtils.oneTimeSnackBar(message, context: context);
         }
-      } else {
-        var message = recData["msg"];
-        AppUtils.oneTimeSnackBar(message, context: context);
       }
     });
   }

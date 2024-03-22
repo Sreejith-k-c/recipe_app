@@ -37,8 +37,6 @@ class ApiHelper {
       rethrow;
     }
   }
-
-  //for post
   static postData({
     required String endPoint,
     Map<String, String>? header,
@@ -51,19 +49,47 @@ class ApiHelper {
     try {
       var response = await http.post(url, body: body);
       log("ApiHelper>>Api Called => status code=${response.statusCode}");
-      if (response.statusCode == 201) {
+      if (response.statusCode == 200) {
+        var decodedData = jsonDecode(response.body);
+        return decodedData;
+      } else {
+        log("Else Condition -> Api failed");
         var decodedData = jsonDecode(response.body);
         var data = {
-          "status": 1,
-          "msg": "Successfully Registered",
+          "status": 0,
+          "msg": "Failed",
           "data": decodedData
         };
         return data;
+      }
+    } catch (e) {
+      log("$e");
+      rethrow;
+    }
+  }
+
+
+  //for post
+  static postRegisterData({
+    required String endPoint,
+    Map<String, String>? header,
+    required Map<String, dynamic> body,
+  }) async {
+    log("Api-helper>postRegisterData");
+    log("$body");
+    final url = Uri.parse(AppConfig.baseurl + endPoint);
+    log("$url");
+    try {
+      var response = await http.post(url, body: body);
+      log("ApiHelper>>Api Called => status code=${response.statusCode}");
+      if (response.statusCode == 200) {
+        var decodedData = jsonDecode(response.body);
+        return decodedData;
       } else if (response.statusCode == 400) {
         var decodedData = jsonDecode(response.body);
         var data = {
-          "status": 1,
-          "msg": "User Already Exist",
+          "status": 0,
+          "msg": "RegisteredUser Already Exist",
           "data": decodedData
         };
         return data;
@@ -72,7 +98,7 @@ class ApiHelper {
         var decodedData = jsonDecode(response.body);
         var data = {
           "status": 0,
-          "msg": "Registration Failed",
+          "msg": "Failed",
           "data": decodedData
         };
         return data;

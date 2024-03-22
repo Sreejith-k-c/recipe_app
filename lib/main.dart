@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:recipe_app/presentation/login/controller/login_controller.dart';
 import 'package:recipe_app/presentation/registration/controller/registration_controller.dart';
 
 import 'package:recipe_app/presentation/splashscreen/welcom.dart';
@@ -11,6 +12,7 @@ void main() {
     providers: [
       ChangeNotifierProvider(create: (context) => HomeController()),
       ChangeNotifierProvider(create: (context) =>RegistrationController() ),
+      ChangeNotifierProvider(create: (context) =>LoginController())
       // ChangeNotifierProvider(create: (context) => ),
     ],
     child: const MyApp(),
