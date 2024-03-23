@@ -6,6 +6,7 @@ class AppUtils {
     String? message, {
     int time = 2,
     Color? bgColor,
+    Color?txtColor,
     TextStyle? textStyle,
     required BuildContext context,
     bool showOnTop = false,
@@ -24,11 +25,11 @@ class AppUtils {
         ) ,*/
 
         behavior: showOnTop ? SnackBarBehavior.floating : null,
-        backgroundColor: bgColor ?? Colors.white60,
+        backgroundColor: bgColor ?? Colors.white,
         content: Text(message!, style: textStyle ?? GoogleFonts.kanit(
     fontSize: 16,
     fontWeight: FontWeight.w500,
-    color: Colors.black
+    color:txtColor?? Colors.black
   )),
         duration: Duration(seconds: time),
         margin: showOnTop

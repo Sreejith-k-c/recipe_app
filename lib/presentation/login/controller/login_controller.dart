@@ -16,20 +16,24 @@ class LoginController extends ChangeNotifier {
       if (recData["status"] == 1) {
         var data = recData["data"];
         var message = recData["msg"];
-        AppUtils.oneTimeSnackBar(message, context: context);
+        AppUtils.oneTimeSnackBar(message,
+            txtColor: Colors.green, context: context);
         Navigator.of(context).pushReplacement(
             MaterialPageRoute(builder: (context) => BottomNav()));
-            storeRecivedData(data);
+        storeRecivedData(data);
       } else {
         var message = "Login Failed";
-        AppUtils.oneTimeSnackBar(message, context: context);
+        AppUtils.oneTimeSnackBar(message,
+            txtColor: Colors.red, context: context);
       }
     });
   }
+
   storeRecivedData(data) async {
-    log("storeRecivedData>>Loginata");
+    log("storeRecivedData>>Logindata>> and stred status of login");
     sharedPreferences = await SharedPreferences.getInstance();
     String storeData = json.encode(data);
     sharedPreferences.setString(AppConfig.loginData, storeData);
+    sharedPreferences.setBool(AppConfig.status, true);
   }
 }
