@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../global_widget/widgets/recipe_details/recipe_details.dart';
+import '../../../global_widget/recipe_details/recipe_details.dart';
 import '../controller/home_controller.dart';
 
 class HomeScreen extends StatelessWidget {
