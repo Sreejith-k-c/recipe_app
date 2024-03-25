@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:recipe_app/presentation/login/loginpage.dart';
+import 'package:recipe_app/presentation/login/view/loginpage.dart';
 
 class GetStarted extends StatelessWidget {
   const GetStarted({super.key});

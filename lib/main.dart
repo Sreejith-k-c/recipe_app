@@ -1,13 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:recipe_app/presentation/add_recipe/controller/add_recipe_controller.dart';
+import 'package:recipe_app/presentation/login/controller/login_controller.dart';
+import 'package:recipe_app/presentation/registration/controller/registration_controller.dart';
+
 import 'package:recipe_app/presentation/splashscreen/welcom.dart';
 
 import 'presentation/homepage/controller/home_controller.dart';
 
 void main() {
-  runApp(MultiProvider(providers: [
-    ChangeNotifierProvider(create: (context)=>HomeController())
-  ],child: const MyApp(),));
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (context) => HomeController()),
+      ChangeNotifierProvider(create: (context) =>RegistrationController() ),
+      ChangeNotifierProvider(create: (context) =>LoginController()),
+      ChangeNotifierProvider(create: (context) => AddRecipeController()),
+      // ChangeNotifierProvider(create: (context) => ),
+    ],
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {

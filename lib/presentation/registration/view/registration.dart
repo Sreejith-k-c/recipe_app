@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:recipe_app/presentation/login/loginpage.dart';
+import 'package:provider/provider.dart';
+import 'package:recipe_app/presentation/login/view/loginpage.dart';
+import 'package:recipe_app/presentation/registration/controller/registration_controller.dart';
 
 class RegistrationPage extends StatelessWidget {
   RegistrationPage({super.key});
@@ -49,23 +51,6 @@ class RegistrationPage extends StatelessWidget {
               width: 100,
             ),
             const SizedBox(
-              height: 30,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 15, right: 15),
-              child: TextField(
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Email address',
-                  labelStyle: TextStyle(
-                    color: Colors.grey,
-                    fontStyle: FontStyle.italic,
-                  ),
-                ),
-                controller: emailcontroller,
-              ),
-            ),
-            const SizedBox(
               height: 15,
             ),
             Padding(
@@ -80,6 +65,23 @@ class RegistrationPage extends StatelessWidget {
                     fontStyle: FontStyle.italic,
                   ),
                 ),
+              ),
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 15, right: 15),
+              child: TextField(
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Email address',
+                  labelStyle: TextStyle(
+                    color: Colors.grey,
+                    fontStyle: FontStyle.italic,
+                  ),
+                ),
+                controller: emailcontroller,
               ),
             ),
             const SizedBox(
@@ -110,8 +112,15 @@ class RegistrationPage extends StatelessWidget {
               padding: const EdgeInsets.only(left: 10, right: 10),
               child: InkWell(
                 onTap: () {
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => LoginPage()));
+                  Provider.of<RegistrationController>(context, listen: false)
+                      .onRegistration(
+                          context,
+                          usernamecontroller.text.trim(),
+                          emailcontroller.text.trim(),
+                          passwordcontroller.text.trim());
+                  usernamecontroller.clear();
+                  emailcontroller.clear();
+                  passwordcontroller.clear();
                 },
                 child: Container(
                   width: double.infinity,

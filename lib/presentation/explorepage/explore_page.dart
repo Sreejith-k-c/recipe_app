@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:recipe_app/global_widget/widgets/all_categories/all_categories.dart';
-import 'package:recipe_app/global_widget/widgets/category_details/category_details.dart';
-import 'package:recipe_app/global_widget/widgets/chef_details/chef_details.dart';
-import 'package:recipe_app/global_widget/widgets/creators/all_creators.dart';
-import 'package:recipe_app/global_widget/widgets/filter_page/filter_page.dart';
+import 'package:recipe_app/global_widget/all_categories/all_categories.dart';
+import 'package:recipe_app/global_widget/category_details/category_details.dart';
+import 'package:recipe_app/global_widget/chef_details/chef_details.dart';
+import 'package:recipe_app/global_widget/creators/all_creators.dart';
+import 'package:recipe_app/global_widget/filter_page/filter_page.dart';
 
 class ExplorePage extends StatefulWidget {
   const ExplorePage({super.key});

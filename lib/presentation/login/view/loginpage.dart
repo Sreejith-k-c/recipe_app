@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:recipe_app/presentation/bottom_navigation/view/bottom_navigation_bar.dart';
-import 'package:recipe_app/presentation/registration/registration.dart';
+import 'package:provider/provider.dart';
+import 'package:recipe_app/presentation/login/controller/login_controller.dart';
+import 'package:recipe_app/presentation/registration/view/registration.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({super.key});
-  final TextEditingController usernamecontroller = TextEditingController();
+  final TextEditingController emailcontroller = TextEditingController();
   final TextEditingController passwordcontroller = TextEditingController();
 
   @override
@@ -56,7 +57,7 @@ class LoginPage extends StatelessWidget {
                       fontStyle: FontStyle.italic,
                     ),
                   ),
-                  controller: usernamecontroller,
+                  controller: emailcontroller,
                 ),
               ),
               const SizedBox(
@@ -102,8 +103,11 @@ class LoginPage extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: InkWell(
                   onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => BottomNav()));
+                    Provider.of<LoginController>(context, listen: false)
+                        .onLogin(context, emailcontroller.text.trim(),
+                            passwordcontroller.text.trim());
+                    emailcontroller.clear();
+                    passwordcontroller.clear();
                   },
                   child: Container(
                     width: double.infinity,
