@@ -1,17 +1,46 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:recipe_app/presentation/add_recipe/controller/add_recipe_controller.dart';
 
-class AddRecipe extends StatelessWidget {
+import '../../../global_widget/image_icon_button/image_icon_button.dart';
+
+class AddRecipe extends StatefulWidget {
   AddRecipe({super.key});
+
+  @override
+  State<AddRecipe> createState() => _AddRecipeState();
+}
+
+class _AddRecipeState extends State<AddRecipe> {
   final TextEditingController titleController = TextEditingController();
+
   final TextEditingController descriptionController = TextEditingController();
+
   final TextEditingController categoryController = TextEditingController();
-  final TextEditingController ingridientController = TextEditingController();
+
+  final TextEditingController ingredientController = TextEditingController();
+
   final TextEditingController instructionsController = TextEditingController();
+
+  File? image;
+  Duration duration = Duration(hours: 2, minutes: 30);
+
+  Future<void> _getImage(ImageSource source) async {
+    final pickedFile = await ImagePicker().pickImage(source: source);
+    if (pickedFile != null) {
+      setState(() {
+        image = File(pickedFile.path);
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    var devHeight = MediaQuery.of(context).size.height;
+    var devWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         leading: Container(),
@@ -34,7 +63,7 @@ class AddRecipe extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(left: 20),
                 child: Text(
-                  'Category',
+                  'Category Name',
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 24,
@@ -133,6 +162,7 @@ class AddRecipe extends StatelessWidget {
                   ),
                 ),
               ),
+              /*
               SizedBox(
                 height: 30,
               ),
@@ -152,7 +182,7 @@ class AddRecipe extends StatelessWidget {
                 child: TextField(
                   minLines: 1,
                   maxLines: 50,
-                  controller: ingridientController,
+                  controller: ingredientController,
                   style: TextStyle(
                     fontSize: 20,
                   ),
@@ -233,13 +263,48 @@ class AddRecipe extends StatelessWidget {
                   ),
                 ],
               ),
+              */
               SizedBox(height: 20),
+              ListTile(
+                title: Text("Add image"),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  ImageIconButton(
+                      width: devWidth * 0.35,
+                      height: devHeight * 0.06,
+                      onPressed: () => _getImage(ImageSource.camera),
+                      icon: Icons.camera_alt_outlined,
+                      label: 'Camera'),
+                  ImageIconButton(
+                      width: devWidth * 0.35,
+                      height: devHeight * 0.06,
+                      onPressed: () => _getImage(ImageSource.gallery),
+                      icon: Icons.photo,
+                      label: 'Gallery'),
+                ],
+              ),
+              image != null
+                  ? Container(
+                      margin: EdgeInsets.symmetric(vertical: 20),
+                      height: 200,
+                      width: 200,
+                      child: Image.file(
+                        image!,
+                        fit: BoxFit.cover,
+                      ),
+                    )
+                  : SizedBox(),
               InkWell(
                 onTap: () {
-                  Provider.of<AddRecipeController>(context).onRecipeAdd(
-                      categoryController.text,
-                      titleController.text,
-                      descriptionController.text);
+                  Provider.of<AddRecipeController>(context, listen: false)
+                      .onRecipeAdd(
+                          categoryName: categoryController.text,
+                          title: titleController.text,
+                          desc: descriptionController.text,
+                          image: image,
+                          cookTime:  '${duration.inHours}hr ${duration.inMinutes.remainder(60)}min');
                 },
                 child: Container(
                   width: double.infinity,
