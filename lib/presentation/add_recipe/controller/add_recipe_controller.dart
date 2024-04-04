@@ -48,12 +48,13 @@ class AddRecipeController extends ChangeNotifier {
             "title": title,
             "desc": desc,
             "cook_time": cookTime,
-            "picture": imageUrlFromServer,
+            "picture": imageUrlFromServer,//too string aki nokenm
           };
 
           var decodedData = await AddRecipeService.postRecipe(data);
 
-          if (response.statusCode == 201) {
+          // if (response.statusCode == 201) {
+          if (decodedData["status"] == 1) {
             print(" Decodedd data ------${decodedData.toString()}");
             print("Recipe posted Successfully///////");
             print("Success status>>> ${response.statusCode}");
@@ -117,12 +118,12 @@ class AddRecipeController extends ChangeNotifier {
     //   "Authorization": "Bearer $accessToken",
     // });
     print("Request URL>>>>>: $url");
-    print("Request Headers: $headers");
+    print("Request Headers>>>>>>>: $headers");
     // print("Request Headers: $request.headers");
     print("Request Body: ${request.fields},Files>>>> ${request.files}");
 
     var res = await request.send();
-    print("Response:>>>>>> ${res.statusCode}- ${res.reasonPhrase}");
+    print("Response:>>>>>> ${res.statusCode}->>>>>> ${res.reasonPhrase}");
     return await http.Response.fromStream(res);
   }
 }
