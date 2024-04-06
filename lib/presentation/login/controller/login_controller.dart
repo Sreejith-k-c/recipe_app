@@ -15,9 +15,9 @@ class LoginController extends ChangeNotifier {
     LoginService.postLogin(data).then((recData) {
       if (recData["status"] == 1) {
         var data = recData["data"];
-        var message = recData["msg"];
-        AppUtils.oneTimeSnackBar(message,
-            txtColor: Colors.green, context: context);
+        //var message = recData["msg"];
+        // AppUtils.oneTimeSnackBar(message,
+        //     txtColor: Colors.green, context: context);
         Navigator.of(context).pushReplacement(
             MaterialPageRoute(builder: (context) => BottomNav()));
         storeRecivedData(data);
@@ -26,6 +26,7 @@ class LoginController extends ChangeNotifier {
         AppUtils.oneTimeSnackBar(message,
             txtColor: Colors.red, context: context);
       }
+      notifyListeners();
     });
   }
 
