@@ -163,6 +163,7 @@ class _AddRecipeState extends State<AddRecipe> {
                 ),
               ),
               /*
+              may not required parameters yo be added
               SizedBox(
                 height: 30,
               ),
@@ -296,6 +297,7 @@ class _AddRecipeState extends State<AddRecipe> {
                       ),
                     )
                   : SizedBox(),
+              SizedBox(height: 10,),
               InkWell(
                 onTap: () {
                   Provider.of<AddRecipeController>(context, listen: false)
@@ -304,7 +306,7 @@ class _AddRecipeState extends State<AddRecipe> {
                           title: titleController.text,
                           desc: descriptionController.text,
                           image: image,
-                          cookTime:  '${duration.inHours}hr ${duration.inMinutes.remainder(60)}min');
+                          cookTime:  '${duration.inHours}:${duration.inMinutes.remainder(60)}');
                 },
                 child: Container(
                   width: double.infinity,
