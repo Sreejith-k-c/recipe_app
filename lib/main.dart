@@ -5,9 +5,7 @@ import 'package:recipe_app/presentation/all_categories/controller/all_categories
 import 'package:recipe_app/presentation/explorepage/controller/expolre_page_controller.dart';
 import 'package:recipe_app/presentation/login/controller/login_controller.dart';
 import 'package:recipe_app/presentation/registration/controller/registration_controller.dart';
-
 import 'package:recipe_app/presentation/splashscreen/welcom.dart';
-
 import 'presentation/homepage/controller/home_controller.dart';
 
 void main() {
