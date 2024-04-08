@@ -101,8 +101,7 @@ class _DetailedCatogoryScreenState extends State<DetailedCatogoryScreen> {
                                           fontSize: 20),
                                     ),
                                     subtitle: Text(
-                                        "${providerData.detailedCatagoryModel.data?[index].totalTime.toString()}" ??
-                                            "Not Found"),
+                                        "${providerData.detailedCatagoryModel.data?[index].totalTime.toString()}"),
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.all(8.0),
