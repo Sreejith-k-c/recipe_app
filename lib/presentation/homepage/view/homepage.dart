@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:recipe_app/presentation/user_profile/controller/user_profile_controller.dart';
 
 import '../../../global_widget/recipe_details/recipe_details.dart';
 import '../controller/home_controller.dart';
@@ -15,15 +16,18 @@ class HomeScreen extends StatelessWidget {
         backgroundColor: Colors.orange,
         leading: Padding(
           padding: const EdgeInsets.only(left: 10),
-          child: CircleAvatar(
-            backgroundImage: NetworkImage(
-              "https://tse2.explicit.bing.net/th?id=OIP.2BvoUsJNneeu_ALPbUmCHwHaLH&pid=Api&P=0&h=180",
-            ),
-          ),
+          child: Consumer<UserProfileController>(
+              builder: (context, controller, _) {
+            return CircleAvatar(
+              backgroundImage: NetworkImage(controller.userAvatarModel.avatar ??
+                  "https://t4.ftcdn.net/jpg/00/65/77/27/360_F_65772719_A1UV5kLi5nCEWI0BNLLiFaBPEkUbv5Fv.jpg"),
+            );
+          }),
         ),
         title: Text(
           "Welcome User",
-          style: TextStyle(fontStyle: FontStyle.italic, fontWeight: FontWeight.bold),
+          style: TextStyle(
+              fontStyle: FontStyle.italic, fontWeight: FontWeight.bold),
         ),
         actions: [],
       ),
@@ -42,7 +46,11 @@ class HomeScreen extends StatelessWidget {
                   itemBuilder: (context, index) {
                     return InkWell(
                       onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>RecipeDetails(hController.homeModel.data?[index])));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => RecipeDetails(
+                                    hController.homeModel.data?[index])));
                       },
                       child: Card(
                         shape: RoundedRectangleBorder(
@@ -54,9 +62,11 @@ class HomeScreen extends StatelessWidget {
                             ListTile(
                               title: Text(
                                 "${hController.homeModel.data?[index].name.toString()}",
-                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 20),
                               ),
-                              subtitle: Text("${hController.homeModel.data?[index].totalTime.toString()}"),
+                              subtitle: Text(
+                                  "${hController.homeModel.data?[index].totalTime.toString()}"),
                             ),
                             Padding(
                               padding: const EdgeInsets.all(8.0),
@@ -72,7 +82,8 @@ class HomeScreen extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   IconButton(
                                     onPressed: () {
