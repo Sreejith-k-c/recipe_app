@@ -6,7 +6,7 @@ import 'package:recipe_app/app_config/app_config.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AppUtils {
-  Future<String?> getAccessToken() async {
+  static Future<String?> getAccessToken() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     String? tokenJsonString = sharedPreferences.getString(AppConfig.loginData);
     if (tokenJsonString != null) {
