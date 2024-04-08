@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:recipe_app/presentation/add_recipe/controller/add_recipe_controller.dart';
 import 'package:recipe_app/presentation/all_categories/controller/all_categories_controller.dart';
+import 'package:recipe_app/presentation/creators/controller/creators_controller.dart';
 import 'package:recipe_app/presentation/explorepage/controller/expolre_page_controller.dart';
 import 'package:recipe_app/presentation/login/controller/login_controller.dart';
 import 'package:recipe_app/presentation/registration/controller/registration_controller.dart';
@@ -21,6 +22,7 @@ void main() {
           create: (context) => AllCategoriesScreenController()),
       ChangeNotifierProvider(
           create: (context) => ExplorePageController()),
+      ChangeNotifierProvider(create: (context) =>CreatorsController() ),
       // ChangeNotifierProvider(create: (context) => ),
     ],
     child: const MyApp(),

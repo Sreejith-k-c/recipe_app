@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:recipe_app/global_widget/category_details/category_details.dart';
 import 'package:recipe_app/global_widget/chef_details/chef_details.dart';
-import 'package:recipe_app/global_widget/creators/all_creators.dart';
 import 'package:recipe_app/presentation/explorepage/controller/expolre_page_controller.dart';
 
 import '../all_categories/all_categories.dart';
 import '../all_categories/controller/all_categories_controller.dart';
+import '../creators/all_creators.dart';
 import '../search_details_screen/view/search_details_screen.dart';
 
 class ExplorePage extends StatefulWidget {
