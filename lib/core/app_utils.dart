@@ -1,7 +1,22 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:recipe_app/app_config/app_config.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AppUtils {
+  Future<String?> getAccessToken() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    String? tokenJsonString = sharedPreferences.getString(AppConfig.loginData);
+    if (tokenJsonString != null) {
+      Map<String, dynamic> tokenData = jsonDecode(tokenJsonString);
+      String? accessToken = tokenData['tokens']['access'];
+      return accessToken;
+    }
+    return null;
+  }
+
   static oneTimeSnackBar(
     String? message, {
     int time = 2,
