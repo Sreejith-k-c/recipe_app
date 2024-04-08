@@ -19,7 +19,7 @@ class _BottomNavState extends State<BottomNav> {
   List screens = [
      HomeScreen(),
     const ExplorePage(),
-    const AddRecipe(),
+     AddRecipe(),
     const SavedPage(),
     const ProfilePage(),
   ];
