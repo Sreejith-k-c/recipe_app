@@ -25,18 +25,26 @@ class _SearchDetailsScreenState extends State<SearchDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Consumer<ExplorePageController>(
-          builder: (context, controller, child) {
-        return controller.isLoading
-            ? Center(
-                child: CircularProgressIndicator(),
-              )
-            : ListView.builder(
-                itemCount: controller.exploreModal.data?.length,
-                itemBuilder: (context, index) => Container(
-                      child: Card(
-                          child: ListTile(
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.orange,
+          // automaticallyImplyLeading: false,
+          leading: IconButton(
+              onPressed: () =>Navigator.pop(context),
+              icon: Icon(Icons.arrow_back_outlined)),
+        ),
+        body: Consumer<ExplorePageController>(
+            builder: (context, controller, child) {
+          return controller.isLoading
+              ? Center(
+                  child: CircularProgressIndicator(),
+                )
+              : ListView.builder(
+                  itemCount: controller.exploreModal.data?.length,
+                  itemBuilder: (context, index) => Container(
+                    child: Card(
+                      child: ListTile(
                         leading: Container(
                           child: Image.network(
                               controller.exploreModal.data?[index].imageUrl ??
@@ -47,9 +55,12 @@ class _SearchDetailsScreenState extends State<SearchDetailsScreen> {
                         subtitle: Text(
                             controller.exploreModal.data?[index].totalTime ??
                                 ""),
-                      )),
-                    ));
-      }),
+                      ),
+                    ),
+                  ),
+                );
+        }),
+      ),
     );
   }
 }

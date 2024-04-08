@@ -8,6 +8,7 @@ import 'package:recipe_app/presentation/explorepage/controller/expolre_page_cont
 
 import '../all_categories/all_categories.dart';
 import '../all_categories/controller/all_categories_controller.dart';
+import '../search_details_screen/view/search_details_screen.dart';
 
 class ExplorePage extends StatefulWidget {
   const ExplorePage({super.key});
@@ -79,6 +80,8 @@ class _FavoratePageState extends State<ExplorePage> {
               hintText: "Search",
               controller: searchController,
               onSubmitted: (result) {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => SearchDetailsScreen()));
                 controller.fetchData(context, searchList: result.toLowerCase());
               },
             );

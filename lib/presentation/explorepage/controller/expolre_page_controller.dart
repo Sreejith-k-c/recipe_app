@@ -15,8 +15,6 @@ class ExplorePageController with ChangeNotifier {
     context, {
     String? searchList,
   }) async {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => SearchDetailsScreen()));
     isLoading = true;
     notifyListeners();
     ExpolrePageService.fetchDetails(searchList).then((value) {
