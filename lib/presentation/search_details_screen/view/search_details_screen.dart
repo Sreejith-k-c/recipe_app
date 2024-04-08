@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:recipe_app/presentation/search_details_screen/view/widgets/search_single_itemscreen.dart';
+import 'package:recipe_app/repository/api/all_categories/modal/all_categories_modal.dart';
 
 import '../../explorepage/controller/expolre_page_controller.dart';
 
@@ -42,7 +44,9 @@ class _SearchDetailsScreenState extends State<SearchDetailsScreen> {
                 )
               : ListView.builder(
                   itemCount: controller.exploreModal.data?.length,
-                  itemBuilder: (context, index) => Container(
+                  itemBuilder: (context, index) => InkWell(onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>SearchSingleItemScreen(title:controller.exploreModal.data?[index].title,image:controller.exploreModal.data?[index].imageUrl,ingredient:controller.exploreModal.data?[index].ingredientLines,prepare:controller.exploreModal.data?[index].preparationSteps)));
+                  },
                     child: Card(
                       child: ListTile(
                         leading: Container(
