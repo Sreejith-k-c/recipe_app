@@ -30,7 +30,8 @@ class _AddRecipeState extends State<AddRecipe> {
   TextEditingController _secondsController = TextEditingController();
 
   File? image;
-  Duration duration = Duration(hours: 2, minutes: 30);
+
+  // Duration duration = Duration(hours: 2, minutes: 30);
 
   Future<void> _getImage(ImageSource source) async {
     final pickedFile = await ImagePicker().pickImage(source: source);
@@ -42,22 +43,19 @@ class _AddRecipeState extends State<AddRecipe> {
   }
 
   String getCookTime() {
-    String hours = _hoursController.text.padLeft(2, '0');
-    String minutes = _minutesController.text.padLeft(2, '0');
-    String seconds = _secondsController.text.padLeft(2, '0');
+    String hours = _hoursController.text;
+    String minutes = _minutesController.text;
+    String seconds = _secondsController.text;
     return '$hours:$minutes:$seconds';
   }
 
-  void _updateDuration() {
-    Duration duration = Duration(
-      hours: int.tryParse(_hoursController.text) ?? 0,
-      minutes: int.tryParse(_minutesController.text) ?? 0,
-      seconds: int.tryParse(_secondsController.text) ?? 0,
-    );
-
-    // Use this duration object as required
-    print(duration.toString());
-  }
+  // void _updateDuration() {
+  //   Duration duration = Duration(
+  //     hours: int.tryParse(_hoursController.text) ?? 0,
+  //     minutes: int.tryParse(_minutesController.text) ?? 0,
+  //     seconds: int.tryParse(_secondsController.text) ?? 0,
+  //   );
+  // }
 
   // @override
   // void dispose() {
@@ -124,7 +122,7 @@ class _AddRecipeState extends State<AddRecipe> {
                 ),
               ),
               SizedBox(
-                height: 30,
+                height: 20,
               ),
               Padding(
                 padding: EdgeInsets.only(left: 20),
@@ -159,7 +157,7 @@ class _AddRecipeState extends State<AddRecipe> {
                 ),
               ),
               SizedBox(
-                height: 30,
+                height: 20,
               ),
               Padding(
                 padding: EdgeInsets.only(left: 20),
@@ -193,57 +191,84 @@ class _AddRecipeState extends State<AddRecipe> {
                   ),
                 ),
               ),
+              Padding(
+                padding: EdgeInsets.only(left: 20),
+                child: Text(
+                  'Cook Time',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
+                // mainAxisSize: MainAxisSize.min,
                 children: [
-                  // Hours input
                   SizedBox(
                     width: 50,
                     child: TextFormField(
                       controller: _hoursController,
                       keyboardType: TextInputType.number,
-                      decoration: InputDecoration(labelText: 'Hr'),
+                      decoration: InputDecoration.collapsed(
+                        // labelText: 'Hr',
+                        border: InputBorder.none, hintText: '   Hr',
+                      ),
                       maxLength: 2,
-                      onChanged: (_) => _updateDuration(),
+                      // onChanged: (_) => _updateDuration(),
                     ),
                   ),
-                  SizedBox(width: 5),
+                  SizedBox(width: 11),
                   Text(':', style: TextStyle(fontSize: 20)),
-                  SizedBox(width: 5),
-                  // Minutes input
+                  SizedBox(width: 11),
+
                   SizedBox(
                     width: 50,
                     child: TextFormField(
                       controller: _minutesController,
                       keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
-                        labelText: 'min',
-                      ),
+                      decoration: InputDecoration.collapsed(
+                          hintText: '    Min', border: InputBorder.none),
                       maxLength: 2,
-                      onChanged: (_) => _updateDuration(),
+                      // onChanged: (_) => _updateDuration(),
                     ),
                   ),
                   SizedBox(width: 5),
-                  Text(':', style: TextStyle(fontSize: 20)),
-                  SizedBox(width: 5),
+                  // Text(':', style: TextStyle(fontSize: 20)),
+                  // SizedBox(width: 5),
                   // Seconds input
-                  SizedBox(
-                    width: 50,
-                    child: TextFormField(
-                      controller: _secondsController,
-                      keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
-                        labelText: 'sec',
-                      ),
-                      maxLength: 2,
-                      onChanged: (_) => _updateDuration(),
-                    ),
-                  ),
+                  // SizedBox(
+                  //   width: 50,
+                  //   child: TextFormField(
+                  //     controller: _secondsController,
+                  //     keyboardType: TextInputType.number,
+                  //     decoration: InputDecoration(
+                  //       labelText: 'sec',
+                  //     ),
+                  //     maxLength: 2,
+                  //     // onChanged: (_) => _updateDuration(),
+                  //   ),
+                  // ),
                 ],
               ),
               SizedBox(height: 20),
-              ListTile(
-                title: Text("Add image"),
+              Padding(
+                padding: EdgeInsets.only(left: 20),
+                child: Text(
+                  'Add Image',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 20,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
