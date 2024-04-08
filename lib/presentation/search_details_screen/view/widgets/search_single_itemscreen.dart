@@ -19,7 +19,7 @@ class SearchSingleItemScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          title ?? '', // Display the provided title or an empty string if null
+          title ?? '', 
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
         ),
         centerTitle: true,
@@ -64,7 +64,7 @@ class SearchSingleItemScreen extends StatelessWidget {
                       ),
                       SizedBox(height: 20),
                       Text(
-                        ingredient?.join(", ") ?? "", // Join ingredients into a string separated by ', ' or display an empty string if null
+                        ingredient?.join(", ") ?? "No Data Found", // Join ingredients into a string separated by ', ' 
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                       SizedBox(height: 20),
@@ -74,7 +74,7 @@ class SearchSingleItemScreen extends StatelessWidget {
                       ),
                       SizedBox(height: 20),
                       Text(
-                        prepare?.join("\n") ?? "", // Join preparation steps into a string separated by '\n' or display an empty string if null
+                        prepare?.join(",") ?? "No Data Found", // Join preparation steps into a string separated by '\n'
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                     ],
