@@ -39,7 +39,7 @@ class Datum {
     List<String>? nutrition;
     List<String>? technique;
     String? totalTime;
-    int? rating;
+    double? rating;
     String? author;
 
     Datum({

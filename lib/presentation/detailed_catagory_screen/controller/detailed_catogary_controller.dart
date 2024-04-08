@@ -8,13 +8,14 @@ class DetailedCatogoryController extends ChangeNotifier {
   bool isLoading = false;
   DetailedCatagoryModel detailedCatagoryModel = DetailedCatagoryModel();
 
-  fetchData(BuildContext context, tag) {
+  Future fetchData(BuildContext context, tag) async{
     isLoading = true;
     notifyListeners();
     DetailedCatogoryService.fetchCatogorylist(tag).then((resData) {
       if (resData["status"] == 1) {
         detailedCatagoryModel = DetailedCatagoryModel.fromJson(resData);
         isLoading = false;
+        notifyListeners();
       } else {
         AppUtils.oneTimeSnackBar("Failed", context: context);
       }

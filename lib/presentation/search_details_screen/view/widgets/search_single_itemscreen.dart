@@ -39,7 +39,7 @@ class SearchSingleItemScreen extends StatelessWidget {
                     fit: BoxFit.cover,
                   ),
                 )
-                    : Text("image"),
+                    : Text("No Image Found"),
               ),
             ),
             Text(

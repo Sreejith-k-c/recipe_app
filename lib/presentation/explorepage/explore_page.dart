@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:recipe_app/global_widget/category_details/category_details.dart';
 import 'package:recipe_app/global_widget/chef_details/chef_details.dart';
 import 'package:recipe_app/global_widget/creators/all_creators.dart';
 import 'package:recipe_app/presentation/explorepage/controller/expolre_page_controller.dart';
 
 import '../all_categories/all_categories.dart';
 import '../all_categories/controller/all_categories_controller.dart';
+import '../detailed_catagory_screen/view/detailed_catogory_screen.dart';
 import '../search_details_screen/view/search_details_screen.dart';
 
 class ExplorePage extends StatefulWidget {
@@ -79,8 +79,10 @@ class _FavoratePageState extends State<ExplorePage> {
               hintText: "Search",
               controller: searchController,
               onSubmitted: (result) {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => SearchDetailsScreen()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => SearchDetailsScreen()));
                 controller.fetchData(context, searchList: result.toLowerCase());
               },
             );
@@ -186,45 +188,48 @@ class _FavoratePageState extends State<ExplorePage> {
                             child: ListView.builder(
                               scrollDirection: Axis.horizontal,
                               itemCount: 3,
-                              itemBuilder: (context, index) => Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: GestureDetector(
-                                  child: Consumer<
-                                          AllCategoriesScreenController>(
-                                      builder: (context, controller, child) =>
-                                          controller.isLoading == true
-                                              ? Center(
-                                                  child:
-                                                      CircularProgressIndicator())
-                                              : Container(
+                              itemBuilder: (context, index) => Consumer<
+                                      AllCategoriesScreenController>(
+                                  builder: (context, controller, child) =>
+                                      controller.isLoading == true
+                                          ? Center(
+                                              child:
+                                                  CircularProgressIndicator())
+                                          : InkWell(
+                                              onTap: () {
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            DetailedCatogoryScreen(
+                                                                tag: controller
+                                                                    .categoryModel
+                                                                    .data?[
+                                                                        index]
+                                                                    .tag)));
+                                              },
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Container(
                                                   width: 150,
                                                   child: ClipRRect(
                                                     borderRadius:
                                                         const BorderRadius.all(
                                                             Radius.circular(
                                                                 20)),
-                                                    child: GestureDetector(
-                                                      onTap: () =>
-                                                          Navigator.push(
-                                                              context,
-                                                              MaterialPageRoute(
-                                                                builder:
-                                                                    (context) =>
-                                                                        const CategoryDetails(),
-                                                              )),
-                                                      child: Image.network(
-                                                        controller
-                                                                .categoryModel
-                                                                .data?[index]
-                                                                .categoryImage ??
-                                                            "",
-                                                        fit: BoxFit.cover,
-                                                      ),
+                                                    child: Image.network(
+                                                      controller
+                                                              .categoryModel
+                                                              .data?[index]
+                                                              .categoryImage ??
+                                                          "",
+                                                      fit: BoxFit.cover,
                                                     ),
                                                   ),
-                                                )),
-                                ),
-                              ),
+                                                ),
+                                              ),
+                                            )),
                             ),
                           ),
                         ),
