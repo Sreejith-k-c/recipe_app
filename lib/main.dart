@@ -7,6 +7,7 @@ import 'package:recipe_app/presentation/explorepage/controller/expolre_page_cont
 import 'package:recipe_app/presentation/login/controller/login_controller.dart';
 import 'package:recipe_app/presentation/registration/controller/registration_controller.dart';
 import 'package:recipe_app/presentation/splashscreen/welcom.dart';
+import 'package:recipe_app/presentation/user_profile/controller/user_profile_controller.dart';
 import 'presentation/homepage/controller/home_controller.dart';
 
 void main() {
@@ -22,7 +23,7 @@ void main() {
           create: (context) => AllCategoriesScreenController()),
       ChangeNotifierProvider(create: (context) => ExplorePageController()),
       ChangeNotifierProvider(create: (context) => DetailedCatogoryController()),
-      // ChangeNotifierProvider(create: (context) => ),
+      ChangeNotifierProvider(create: (context) => UserProfileController()),
     ],
     child: const MyApp(),
   ));

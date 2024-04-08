@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
 import 'package:recipe_app/presentation/splashscreen/get_started.dart';
+import 'package:recipe_app/presentation/user_profile/controller/user_profile_controller.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key});
@@ -10,13 +11,16 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: Icon(Icons.account_circle),
-        title: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
               'username',
@@ -26,17 +30,23 @@ class _ProfilePageState extends State<ProfilePage> {
                 fontStyle: FontStyle.italic,
               ),
             ),
-            IconButton(onPressed: (){
-              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>GetStarted()));
-            }, icon: Icon(Icons.logout_rounded,
-            size: 30,color: Colors.black,))
+            IconButton(
+                onPressed: () {
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) => GetStarted()));
+                },
+                icon: Icon(
+                  Icons.logout_rounded,
+                  size: 30,
+                  color: Colors.black,
+                ))
           ],
         ),
       ),
       ///// body
       body: Column(
         children: [
-          const SizedBox(
+          SizedBox(
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: Column(
@@ -44,11 +54,16 @@ class _ProfilePageState extends State<ProfilePage> {
                   // profile photo
                   Padding(
                     padding: EdgeInsets.all(8.0),
-                    child: CircleAvatar(
-                      radius: 45,
-                      backgroundImage: NetworkImage(
-                          "https://tse2.explicit.bing.net/th?id=OIP.2BvoUsJNneeu_ALPbUmCHwHaLH&pid=Api&P=0&h=180"),
-                    ),
+                    child: Consumer<UserProfileController>(
+                        builder: (context, controller, _) {
+                      return CircleAvatar(
+                        radius: 45,
+                        backgroundImage: NetworkImage(controller.isLoading
+                            ? Center(child: CircularProgressIndicator())
+                            : controller.userAvatarModel.avatar ??
+                                "https://t4.ftcdn.net/jpg/00/65/77/27/360_F_65772719_A1UV5kLi5nCEWI0BNLLiFaBPEkUbv5Fv.jpg"),
+                      );
+                    }),
                   ),
                   SizedBox(height: 20),
                   Row(
