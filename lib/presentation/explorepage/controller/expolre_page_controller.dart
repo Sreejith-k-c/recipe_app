@@ -5,7 +5,6 @@ import 'package:recipe_app/core/app_utils.dart';
 import 'package:recipe_app/repository/api/explorepage/modal/explorepage_modal.dart';
 
 import '../../../repository/api/explorepage/service/explorepage_service.dart';
-import '../../search_details_screen/view/search_details_screen.dart';
 
 class ExplorePageController with ChangeNotifier {
   late ExploreModal exploreModal = ExploreModal();

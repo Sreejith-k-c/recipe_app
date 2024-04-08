@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:recipe_app/global_widget/category_details/category_details.dart';
 import 'package:recipe_app/global_widget/chef_details/chef_details.dart';
 import 'package:recipe_app/global_widget/creators/all_creators.dart';
-import 'package:recipe_app/global_widget/filter_page/filter_page.dart';
 import 'package:recipe_app/presentation/explorepage/controller/expolre_page_controller.dart';
 
 import '../all_categories/all_categories.dart';
@@ -87,40 +86,40 @@ class _FavoratePageState extends State<ExplorePage> {
             );
           }),
         ),
-        const SizedBox(
-          height: 30,
-        ),
-        Container(
-          height: 50,
-          alignment: Alignment.center,
-          child: Padding(
-            padding: const EdgeInsets.only(left: 10, right: 10),
-            child: GestureDetector(
-              onTap: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const FilterPage(),
-                  )),
-              child: ListView.builder(
-                itemCount: data.length,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) => Card(
-                  color: Colors.deepOrange,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      data[index],
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                          fontSize: 18),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ),
+        // const SizedBox(
+        //   height: 30,
+        // ),
+        // Container(
+        //   height: 50,
+        //   alignment: Alignment.center,
+        //   child: Padding(
+        //     padding: const EdgeInsets.only(left: 10, right: 10),
+        //     child: GestureDetector(
+        //       onTap: () => Navigator.push(
+        //           context,
+        //           MaterialPageRoute(
+        //             builder: (context) => const FilterPage(),
+        //           )),
+        //       child: ListView.builder(
+        //         itemCount: data.length,
+        //         scrollDirection: Axis.horizontal,
+        //         itemBuilder: (context, index) => Card(
+        //           color: Colors.deepOrange,
+        //           child: Padding(
+        //             padding: const EdgeInsets.all(8.0),
+        //             child: Text(
+        //               data[index],
+        //               style: const TextStyle(
+        //                   fontWeight: FontWeight.bold,
+        //                   color: Colors.white,
+        //                   fontSize: 18),
+        //             ),
+        //           ),
+        //         ),
+        //       ),
+        //     ),
+        //   ),
+        // ),
         const SizedBox(
           height: 20,
         ),
