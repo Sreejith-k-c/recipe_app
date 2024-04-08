@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -12,31 +11,55 @@ class SearchDetailsScreen extends StatefulWidget {
 }
 
 class _SearchDetailsScreenState extends State<SearchDetailsScreen> {
-  fetchData(){
-    Provider.of<ExplorePageController>(context, listen: false).fetchData(
-      context, );
-  }
   @override
   void initState() {
-   fetchData();
+    super.initState();
+    fetchData();
   }
+
+  fetchData() {
+    Provider.of<ExplorePageController>(context, listen: false).fetchData(
+      context,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body:Consumer<ExplorePageController>(
-        builder: (context,controller,child) {
-          return ListView.builder(
-              itemBuilder: (context, index) => Container(
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.orange,
+          // automaticallyImplyLeading: false,
+          leading: IconButton(
+              onPressed: () =>Navigator.pop(context),
+              icon: Icon(Icons.arrow_back_outlined)),
+        ),
+        body: Consumer<ExplorePageController>(
+            builder: (context, controller, child) {
+          return controller.isLoading
+              ? Center(
+                  child: CircularProgressIndicator(),
+                )
+              : ListView.builder(
+                  itemCount: controller.exploreModal.data?.length,
+                  itemBuilder: (context, index) => Container(
                     child: Card(
-                        child: ListTile(
-                      leading: Container(
-                        child: Image.network(controller.exploreModal.data?[index].imageUrl??""),
+                      child: ListTile(
+                        leading: Container(
+                          child: Image.network(
+                              controller.exploreModal.data?[index].imageUrl ??
+                                  ""),
+                        ),
+                        title: Text(
+                            controller.exploreModal.data?[index].title ?? ""),
+                        subtitle: Text(
+                            controller.exploreModal.data?[index].totalTime ??
+                                ""),
                       ),
-                      title: Text(controller.exploreModal.data?[index].title??""),
-                      subtitle: Text(controller.exploreModal.data?[index].totalTime??""),
-                    )),
-                  ));
-        }
+                    ),
+                  ),
+                );
+        }),
       ),
     );
   }
