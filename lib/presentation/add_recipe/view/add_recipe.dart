@@ -25,6 +25,10 @@ class _AddRecipeState extends State<AddRecipe> {
 
   final TextEditingController instructionsController = TextEditingController();
 
+  TextEditingController _hoursController = TextEditingController();
+  TextEditingController _minutesController = TextEditingController();
+  TextEditingController _secondsController = TextEditingController();
+
   File? image;
   Duration duration = Duration(hours: 2, minutes: 30);
 
@@ -36,6 +40,33 @@ class _AddRecipeState extends State<AddRecipe> {
       });
     }
   }
+
+  String getCookTime() {
+    String hours = _hoursController.text.padLeft(2, '0');
+    String minutes = _minutesController.text.padLeft(2, '0');
+    String seconds = _secondsController.text.padLeft(2, '0');
+    return '$hours:$minutes:$seconds';
+  }
+
+  void _updateDuration() {
+    Duration duration = Duration(
+      hours: int.tryParse(_hoursController.text) ?? 0,
+      minutes: int.tryParse(_minutesController.text) ?? 0,
+      seconds: int.tryParse(_secondsController.text) ?? 0,
+    );
+
+    // Use this duration object as required
+    print(duration.toString());
+  }
+
+  // @override
+  // void dispose() {
+  //   _hoursController.dispose();
+  //   _minutesController.dispose();
+  //   _secondsController.dispose();
+  //   super.dispose();
+  //
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -162,7 +193,138 @@ class _AddRecipeState extends State<AddRecipe> {
                   ),
                 ),
               ),
-              /*
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  // Hours input
+                  SizedBox(
+                    width: 50,
+                    child: TextFormField(
+                      controller: _hoursController,
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(labelText: 'Hr'),
+                      maxLength: 2,
+                      onChanged: (_) => _updateDuration(),
+                    ),
+                  ),
+                  SizedBox(width: 5),
+                  Text(':', style: TextStyle(fontSize: 20)),
+                  SizedBox(width: 5),
+                  // Minutes input
+                  SizedBox(
+                    width: 50,
+                    child: TextFormField(
+                      controller: _minutesController,
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                        labelText: 'min',
+                      ),
+                      maxLength: 2,
+                      onChanged: (_) => _updateDuration(),
+                    ),
+                  ),
+                  SizedBox(width: 5),
+                  Text(':', style: TextStyle(fontSize: 20)),
+                  SizedBox(width: 5),
+                  // Seconds input
+                  SizedBox(
+                    width: 50,
+                    child: TextFormField(
+                      controller: _secondsController,
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                        labelText: 'sec',
+                      ),
+                      maxLength: 2,
+                      onChanged: (_) => _updateDuration(),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 20),
+              ListTile(
+                title: Text("Add image"),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  ImageIconButton(
+                      width: devWidth * 0.35,
+                      height: devHeight * 0.06,
+                      onPressed: () => _getImage(ImageSource.camera),
+                      icon: Icons.camera_alt_outlined,
+                      label: 'Camera'),
+                  ImageIconButton(
+                      width: devWidth * 0.35,
+                      height: devHeight * 0.06,
+                      onPressed: () => _getImage(ImageSource.gallery),
+                      icon: Icons.photo,
+                      label: 'Gallery'),
+                ],
+              ),
+              image != null
+                  ? Container(
+                      margin: EdgeInsets.symmetric(vertical: 20),
+                      height: 200,
+                      width: 200,
+                      child: Image.file(
+                        image!,
+                        fit: BoxFit.cover,
+                      ),
+                    )
+                  : SizedBox(),
+              SizedBox(
+                height: 10,
+              ),
+              InkWell(
+                onTap: () {
+                  Provider.of<AddRecipeController>(context, listen: false)
+                      .onRecipeAdd(
+                          categoryName: categoryController.text,
+                          title: titleController.text,
+                          desc: descriptionController.text,
+                          image: image,
+                          cookTime: getCookTime());
+
+                  // cookTime:
+                  //     '${duration.inHours}:${duration.inMinutes.remainder(60)}');
+
+                  categoryController.clear();
+                  titleController.clear();
+                  descriptionController.clear();
+                  // dispose();
+                  _hoursController.clear();
+                  _minutesController.clear();
+                  _secondsController.clear();
+                },
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(10),
+                  margin: EdgeInsets.symmetric(horizontal: 20),
+                  decoration: BoxDecoration(
+                    color: Colors.orange[200],
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Center(
+                    child: Text(
+                      'Save',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 20,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/*
               may not required parameters yo be added
               SizedBox(
                 height: 30,
@@ -265,72 +427,3 @@ class _AddRecipeState extends State<AddRecipe> {
                 ],
               ),
               */
-              SizedBox(height: 20),
-              ListTile(
-                title: Text("Add image"),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  ImageIconButton(
-                      width: devWidth * 0.35,
-                      height: devHeight * 0.06,
-                      onPressed: () => _getImage(ImageSource.camera),
-                      icon: Icons.camera_alt_outlined,
-                      label: 'Camera'),
-                  ImageIconButton(
-                      width: devWidth * 0.35,
-                      height: devHeight * 0.06,
-                      onPressed: () => _getImage(ImageSource.gallery),
-                      icon: Icons.photo,
-                      label: 'Gallery'),
-                ],
-              ),
-              image != null
-                  ? Container(
-                      margin: EdgeInsets.symmetric(vertical: 20),
-                      height: 200,
-                      width: 200,
-                      child: Image.file(
-                        image!,
-                        fit: BoxFit.cover,
-                      ),
-                    )
-                  : SizedBox(),
-              SizedBox(height: 10,),
-              InkWell(
-                onTap: () {
-                  Provider.of<AddRecipeController>(context, listen: false)
-                      .onRecipeAdd(
-                          categoryName: categoryController.text,
-                          title: titleController.text,
-                          desc: descriptionController.text,
-                          image: image,
-                          cookTime:  '${duration.inHours}:${duration.inMinutes.remainder(60)}');
-                },
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(10),
-                  margin: EdgeInsets.symmetric(horizontal: 20),
-                  decoration: BoxDecoration(
-                    color: Colors.orange[200],
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Center(
-                    child: Text(
-                      'Save',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
