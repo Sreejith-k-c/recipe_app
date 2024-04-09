@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:recipe_app/global_widget/chef_details/chef_details.dart';
+import 'package:recipe_app/presentation/creators/controller/creators_controller.dart';
 import 'package:recipe_app/presentation/explorepage/controller/expolre_page_controller.dart';
 
 import '../all_categories/all_categories.dart';
@@ -38,6 +39,8 @@ class _FavoratePageState extends State<ExplorePage> {
   fetchData() {
     Provider.of<AllCategoriesScreenController>(context, listen: false)
         .fetchCategoriesList(context);
+    Provider.of<CreatorsController>(context, listen: false)
+        .fetchCreatorsList(context);
   }
 
   @override
@@ -244,7 +247,7 @@ class _FavoratePageState extends State<ExplorePage> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
-                      height: 300,
+                      height: 350,
                       //height: double.maxFinite,
                       padding: const EdgeInsets.only(
                         left: 10,
@@ -292,11 +295,11 @@ class _FavoratePageState extends State<ExplorePage> {
                             ],
                           ),
                           SizedBox(
-                            height: 200,
+                            height: 250,
                             width: double.infinity,
                             child: ListView.builder(
                               scrollDirection: Axis.horizontal,
-                              itemCount: 6,
+                              itemCount: 4,
                               itemBuilder: (context, index) => Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Container(
@@ -308,25 +311,35 @@ class _FavoratePageState extends State<ExplorePage> {
                                     child: Column(
                                       children: [
                                         GestureDetector(
-                                          onTap: () => Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const ChefDetails(),
-                                              )),
                                           child: const CircleAvatar(
-                                            maxRadius: 60,
-                                            backgroundImage: NetworkImage(
-                                                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaJm2_Izxs7ZDpd7gs1DGi7Is3zvPJB-a9hg&usqp=CAU'),
-                                          ),
+                                              maxRadius: 60,
+                                              backgroundImage: AssetImage(
+                                                  "recipe_app/assets/images/userimage3.jpg")),
                                         ),
-                                        const Expanded(
-                                            child: Text(
-                                          'name',
-                                          style: TextStyle(
+                                        Consumer<CreatorsController>(builder:
+                                            (context, controller, child) {
+                                          return Text(
+                                            controller.creatorsModel
+                                                    .users?[index].username ??
+                                                "",
+                                            style: TextStyle(
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.bold),
+                                          );
+                                        }),
+                                        MaterialButton(
+                                          shape: StadiumBorder(),
+                                          color: Colors.orange,
+                                          onPressed: () {},
+                                          child: Text(
+                                            'Follow',
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.bold,
                                               fontSize: 18,
-                                              fontWeight: FontWeight.bold),
-                                        ))
+                                            ),
+                                          ),
+                                        )
                                       ],
                                     ),
                                   ),
