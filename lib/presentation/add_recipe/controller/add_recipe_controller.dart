@@ -20,27 +20,25 @@ class AddRecipeController extends ChangeNotifier {
     return null;
   }
 
-  void onRecipeAdd({
-    required String categoryName,
-    required String title,
-    required String desc,
-    File? image,
-    required String cookTime,
-  }) async {
+  void onRecipeAdd(
+      {required String categoryName,
+      required String title,
+      required String desc,
+      File? image,
+      required String cookTime,
+      // List<String>? ingredients,
+      required String ingredientsJson,
+      required String procedureJson}) async {
+    List<String> ingredients = jsonDecode(ingredientsJson).cast<String>();
+    List<String> procedure = jsonDecode(procedureJson).cast<String>();
     try {
       String? accessToken = await getAccessToken();
 
       if (accessToken != null) {
         var imageUrl = "${AppConfig.baseurl}recipe/create/";
-        onUpload(
-          imageUrl,
-          image,
-          categoryName,
-          title,
-          desc,
-          cookTime,
-          accessToken,
-        ).then((value) {
+        onUpload(imageUrl, image, categoryName, title, desc, cookTime,
+                accessToken, ingredients, procedure)
+            .then((value) {
           if (value.statusCode == 201) {
             log("on upload${value.statusCode}");
             var data = jsonDecode(value.body);
@@ -66,6 +64,8 @@ class AddRecipeController extends ChangeNotifier {
     String desc,
     String cookTime,
     String accessToken,
+    List<String>? ingredientsJson,
+    List<String>? procedureJson,
   ) async {
     var request = http.MultipartRequest('POST', Uri.parse(url));
     Map<String, String> headers = {
@@ -85,11 +85,24 @@ class AddRecipeController extends ChangeNotifier {
         ),
       );
     }
+
+    String? ingredientsJsonString;
+    if (ingredientsJson != null) {
+      ingredientsJsonString = jsonEncode(ingredientsJson);
+    }
+    String? procedureJsonString;
+    if (procedureJson != null) {
+      procedureJsonString = jsonEncode(procedureJson);
+    }
+
     request.fields['picture'] = selectedImage!.path;
     request.fields['category_name'] = categoryName;
     request.fields['title'] = title;
     request.fields['desc'] = desc;
     request.fields['cook_time'] = cookTime;
+    request.fields['ingredients'] = ingredientsJsonString ?? "";
+    request.fields['procedure'] = procedureJsonString ?? "";
+
     request.headers.addAll(headers);
 
     print("Request URL>>>>>: $url");
@@ -101,13 +114,6 @@ class AddRecipeController extends ChangeNotifier {
     return await http.Response.fromStream(res);
   }
 }
-
-
-
-
-
-
-
 
 /*
 
