@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:recipe_app/presentation/explorepage/explore_page.dart';
 import 'package:recipe_app/presentation/saved/savedPage.dart';
 import 'package:recipe_app/presentation/homepage/view/homepage.dart';
-import 'package:recipe_app/presentation/user_profile/profilepage.dart';
+import 'package:recipe_app/presentation/user_profile/view/profilepage.dart';
 import 'package:recipe_app/presentation/add_recipe/view/add_recipe.dart';
 
 

@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -21,9 +22,8 @@ class _AddRecipeState extends State<AddRecipe> {
 
   final TextEditingController categoryController = TextEditingController();
 
-  final TextEditingController ingredientController = TextEditingController();
-
-  final TextEditingController instructionsController = TextEditingController();
+  List<TextEditingController> ingredientControllers = [];
+  List<TextEditingController> procedureControllers = [];
 
   TextEditingController _hoursController = TextEditingController();
   TextEditingController _minutesController = TextEditingController();
@@ -45,26 +45,9 @@ class _AddRecipeState extends State<AddRecipe> {
   String getCookTime() {
     String hours = _hoursController.text;
     String minutes = _minutesController.text;
-    String seconds = _secondsController.text;
-    return '$hours:$minutes:$seconds';
+    // String seconds = _secondsController.text;
+    return '$hours:$minutes';
   }
-
-  // void _updateDuration() {
-  //   Duration duration = Duration(
-  //     hours: int.tryParse(_hoursController.text) ?? 0,
-  //     minutes: int.tryParse(_minutesController.text) ?? 0,
-  //     seconds: int.tryParse(_secondsController.text) ?? 0,
-  //   );
-  // }
-
-  // @override
-  // void dispose() {
-  //   _hoursController.dispose();
-  //   _minutesController.dispose();
-  //   _secondsController.dispose();
-  //   super.dispose();
-  //
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -191,6 +174,129 @@ class _AddRecipeState extends State<AddRecipe> {
                   ),
                 ),
               ),
+              SizedBox(
+                height: 10,
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 20),
+                child: Text(
+                  'Ingredients',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              SizedBox(height: 20),
+              Column(
+                children: List.generate(
+                  ingredientControllers.length,
+                  (index) => Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: TextField(
+                            controller: ingredientControllers[index],
+                            decoration: InputDecoration(
+                              hintText: 'Procedure ${index + 1}',
+                              border: OutlineInputBorder(),
+                            ),
+                          ),
+                        ),
+                        IconButton(
+                          icon: Icon(Icons.remove),
+                          onPressed: () {
+                            setState(() {
+                              ingredientControllers.removeAt(index);
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        ingredientControllers.add(TextEditingController());
+                      });
+                    },
+                    child: Text(
+                      'Add Ingredient',
+                      style: TextStyle(color: Colors.black),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 20),
+                child: Text(
+                  'Procedure',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              SizedBox(height: 20),
+              Column(
+                children: List.generate(
+                  procedureControllers.length,
+                  (index) => Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: TextField(
+                            controller: procedureControllers[index],
+                            decoration: InputDecoration(
+                              hintText: 'Step ${index + 1}',
+                              border: OutlineInputBorder(),
+                            ),
+                          ),
+                        ),
+                        IconButton(
+                          icon: Icon(Icons.remove),
+                          onPressed: () {
+                            setState(() {
+                              procedureControllers.removeAt(index);
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        procedureControllers.add(TextEditingController());
+                      });
+                    },
+                    child: Text(
+                      'Add procedure',
+                      style: TextStyle(color: Colors.black),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
               Padding(
                 padding: EdgeInsets.only(left: 20),
                 child: Text(
@@ -207,7 +313,6 @@ class _AddRecipeState extends State<AddRecipe> {
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                // mainAxisSize: MainAxisSize.min,
                 children: [
                   SizedBox(
                     width: 50,
@@ -215,17 +320,15 @@ class _AddRecipeState extends State<AddRecipe> {
                       controller: _hoursController,
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration.collapsed(
-                        // labelText: 'Hr',
-                        border: InputBorder.none, hintText: '   Hr',
+                        border: InputBorder.none,
+                        hintText: '   Hr',
                       ),
                       maxLength: 2,
-                      // onChanged: (_) => _updateDuration(),
                     ),
                   ),
                   SizedBox(width: 11),
                   Text(':', style: TextStyle(fontSize: 20)),
                   SizedBox(width: 11),
-
                   SizedBox(
                     width: 50,
                     child: TextFormField(
@@ -234,25 +337,9 @@ class _AddRecipeState extends State<AddRecipe> {
                       decoration: InputDecoration.collapsed(
                           hintText: '    Min', border: InputBorder.none),
                       maxLength: 2,
-                      // onChanged: (_) => _updateDuration(),
                     ),
                   ),
                   SizedBox(width: 5),
-                  // Text(':', style: TextStyle(fontSize: 20)),
-                  // SizedBox(width: 5),
-                  // Seconds input
-                  // SizedBox(
-                  //   width: 50,
-                  //   child: TextFormField(
-                  //     controller: _secondsController,
-                  //     keyboardType: TextInputType.number,
-                  //     decoration: InputDecoration(
-                  //       labelText: 'sec',
-                  //     ),
-                  //     maxLength: 2,
-                  //     // onChanged: (_) => _updateDuration(),
-                  //   ),
-                  // ),
                 ],
               ),
               SizedBox(height: 20),
@@ -288,19 +375,23 @@ class _AddRecipeState extends State<AddRecipe> {
                 ],
               ),
               image != null
-                  ? Container(
-                      margin: EdgeInsets.symmetric(vertical: 20),
-                      height: 200,
-                      width: 200,
-                      child: Image.file(
-                        image!,
-                        fit: BoxFit.cover,
+                  ? Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Container(
+                        margin: EdgeInsets.symmetric(vertical: 20),
+                        height: 200,
+                        width: 200,
+                        child: Image.file(
+                          image!,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     )
                   : SizedBox(),
               SizedBox(
                 height: 10,
               ),
+              SizedBox(height: 20),
               InkWell(
                 onTap: () {
                   Provider.of<AddRecipeController>(context, listen: false)
@@ -309,18 +400,24 @@ class _AddRecipeState extends State<AddRecipe> {
                           title: titleController.text,
                           desc: descriptionController.text,
                           image: image,
+                          ingredientsJson: jsonEncode(ingredientControllers
+                              .map((controller) => controller.text)
+                              .toList()),
+                          procedureJson: jsonEncode(procedureControllers
+                              .map((controller) => controller.text)
+                              .toList()),
+                          // ingredients: ingredientControllers
+                          //     .map((controller) => controller.text)
+                          //     .toList(),
                           cookTime: getCookTime());
-
-                  // cookTime:
-                  //     '${duration.inHours}:${duration.inMinutes.remainder(60)}');
 
                   categoryController.clear();
                   titleController.clear();
                   descriptionController.clear();
-                  // dispose();
                   _hoursController.clear();
                   _minutesController.clear();
-                  _secondsController.clear();
+                  ingredientControllers.clear();
+                  procedureControllers.clear();
                 },
                 child: Container(
                   width: double.infinity,
