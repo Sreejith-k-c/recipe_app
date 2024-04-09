@@ -418,6 +418,9 @@ class _AddRecipeState extends State<AddRecipe> {
                   _minutesController.clear();
                   ingredientControllers.clear();
                   procedureControllers.clear();
+                  setState(() {
+                    image=null;
+                  });
                 },
                 child: Container(
                   width: double.infinity,
