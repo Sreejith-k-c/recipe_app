@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:recipe_app/presentation/explorepage/explore_page.dart';
 import 'package:recipe_app/presentation/saved/savedPage.dart';
 import 'package:recipe_app/presentation/homepage/view/homepage.dart';
-import 'package:recipe_app/presentation/user_profile/profilepage.dart';
-import 'package:recipe_app/global_widget/widgets/add_recipe/add_recipe.dart';
+import 'package:recipe_app/presentation/user_profile/view/profilepage.dart';
+import 'package:recipe_app/presentation/add_recipe/view/add_recipe.dart';
 
 
 class BottomNav extends StatefulWidget {
@@ -19,7 +19,7 @@ class _BottomNavState extends State<BottomNav> {
   List screens = [
      HomeScreen(),
     const ExplorePage(),
-    const AddRecipe(),
+     AddRecipe(),
     const SavedPage(),
     const ProfilePage(),
   ];

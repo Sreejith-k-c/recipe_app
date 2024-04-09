@@ -1,10 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:recipe_app/presentation/user_profile/controller/user_profile_controller.dart';
 
+import '../../../global_widget/recipe_details/recipe_details.dart';
 import '../controller/home_controller.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  fetchData() {
+    Provider.of<UserProfileController>(context, listen: false).fetchUserAvatar();
+    Provider.of<UserProfileController>(context, listen: false).fetchUserNameEmail();
+  }
+
+  @override
+  void initState() {
+    fetchData();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,16 +32,19 @@ class HomeScreen extends StatelessWidget {
         backgroundColor: Colors.orange,
         leading: Padding(
           padding: const EdgeInsets.only(left: 10),
-          child: CircleAvatar(
-            backgroundImage: NetworkImage(
-              "https://tse2.explicit.bing.net/th?id=OIP.2BvoUsJNneeu_ALPbUmCHwHaLH&pid=Api&P=0&h=180",
-            ),
-          ),
+          child: Consumer<UserProfileController>(builder: (context, controller, _) {
+            return CircleAvatar(
+              backgroundImage: NetworkImage(controller.userAvatarModel.avatar ??
+                  "https://t4.ftcdn.net/jpg/00/65/77/27/360_F_65772719_A1UV5kLi5nCEWI0BNLLiFaBPEkUbv5Fv.jpg"),
+            );
+          }),
         ),
-        title: Text(
-          "Welcome User",
-          style: TextStyle(fontStyle: FontStyle.italic, fontWeight: FontWeight.bold),
-        ),
+        title: Consumer<UserProfileController>(builder: (context, controller, _) {
+          return Text(
+            "Welcome ${controller.usernameEmailModel.username}",
+            style: TextStyle(fontStyle: FontStyle.italic, fontWeight: FontWeight.bold),
+          );
+        }),
         actions: [],
       ),
       body: FutureBuilder(
@@ -39,58 +60,66 @@ class HomeScreen extends StatelessWidget {
                 return ListView.builder(
                   itemCount: hController.homeModel.data?.length,
                   itemBuilder: (context, index) {
-                    return Card(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          ListTile(
-                            title: Text(
-                              "${hController.homeModel.data?[index].name.toString()}",
-                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                    return InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => RecipeDetails(hController.homeModel.data?[index])));
+                      },
+                      child: Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            ListTile(
+                              title: Text(
+                                "${hController.homeModel.data?[index].name.toString()}",
+                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                              ),
+                              subtitle: Text("${hController.homeModel.data?[index].totalTime.toString()}"),
                             ),
-                            subtitle: Text("${hController.homeModel.data?[index].totalTime.toString()}"),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(15),
-                              child: Image.network(
-                                "${hController.homeModel.data?[index].image.toString()}",
-                                fit: BoxFit.cover,
-                                height: 200,
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(15),
+                                child: Image.network(
+                                  "${hController.homeModel.data?[index].image.toString()}",
+                                  fit: BoxFit.cover,
+                                  height: 200,
+                                ),
                               ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                IconButton(
-                                  onPressed: () {
-                                    _showCommentDialog(context);
-                                  },
-                                  icon: Icon(
-                                    Icons.comment,
-                                    color: Colors.black,
-                                    size: 30,
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  IconButton(
+                                    onPressed: () {
+                                      _showCommentDialog(context);
+                                    },
+                                    icon: Icon(
+                                      Icons.comment,
+                                      color: Colors.black,
+                                      size: 30,
+                                    ),
                                   ),
-                                ),
-                                IconButton(
-                                  icon: Icon(
-                                    Icons.bookmark_add_outlined,
-                                    size: 30,
-                                    color: Colors.black,
+                                  IconButton(
+                                    icon: Icon(
+                                      Icons.bookmark_add_outlined,
+                                      size: 30,
+                                      color: Colors.black,
+                                    ),
+                                    onPressed: () {},
                                   ),
-                                  onPressed: () {},
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     );
                   },

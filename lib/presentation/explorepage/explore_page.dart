@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:recipe_app/global_widget/widgets/all_categories/all_categories.dart';
-import 'package:recipe_app/global_widget/widgets/category_details/category_details.dart';
-import 'package:recipe_app/global_widget/widgets/chef_details/chef_details.dart';
-import 'package:recipe_app/global_widget/widgets/creators/all_creators.dart';
-import 'package:recipe_app/global_widget/widgets/filter_page/filter_page.dart';
+import 'package:provider/provider.dart';
+import 'package:recipe_app/global_widget/chef_details/chef_details.dart';
+import 'package:recipe_app/presentation/creators/controller/creators_controller.dart';
+import 'package:recipe_app/presentation/explorepage/controller/expolre_page_controller.dart';
+
+import '../all_categories/all_categories.dart';
+import '../all_categories/controller/all_categories_controller.dart';
+import '../detailed_catagory_screen/view/detailed_catogory_screen.dart';
+import '../creators/all_creators.dart';
+import '../search_details_screen/view/search_details_screen.dart';
 
 class ExplorePage extends StatefulWidget {
   const ExplorePage({super.key});
@@ -13,6 +18,8 @@ class ExplorePage extends StatefulWidget {
 }
 
 class _FavoratePageState extends State<ExplorePage> {
+  TextEditingController searchController = TextEditingController();
+
   var catergory = [
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpuJ4h2m9R-0ddUYVi53CjFBtByDjmhxdafA&usqp=CAU',
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSk488-Mt1kJ0GxmhEr0h3lXlImeAkTNBXYbg&usqp=CAU',
@@ -29,65 +36,95 @@ class _FavoratePageState extends State<ExplorePage> {
     'Diet',
   ];
 
+  fetchData() {
+    Provider.of<AllCategoriesScreenController>(context, listen: false)
+        .fetchCategoriesList(context);
+    Provider.of<CreatorsController>(context, listen: false)
+        .fetchCreatorsList(context);
+  }
+
   @override
+  void initState() {
+    fetchData();
+    super.initState();
+  }
+
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
           body: Column(children: [
+        // Padding(
+        //   padding: const EdgeInsets.all(6.0),
+        //   child: Container(
+        //     height: 50,
+        //     decoration: BoxDecoration(
+        //         border: Border.all(color: Colors.black, width: 2),
+        //         borderRadius: BorderRadius.circular(20)),
+        //     child: TextFormField(
+        //       controller: searchController,
+        //       decoration: const InputDecoration(
+        //           border: InputBorder.none,
+        //           prefixIcon: Icon(
+        //             Icons.search,
+        //             size: 24,
+        //             color: Colors.black,
+        //           ),
+        //           hintText: 'Search',
+        //           hintStyle: TextStyle(color: Colors.black, fontSize: 18)),
+        //     ),
+        //   ),
+        // ),
         Padding(
-          padding: const EdgeInsets.all(6.0),
-          child: Container(
-            height: 50,
-            decoration: BoxDecoration(
-                border: Border.all(color: Colors.black, width: 2),
-                borderRadius: BorderRadius.circular(20)),
-            child: TextFormField(
-              decoration: const InputDecoration(
-                  border: InputBorder.none,
-                  prefixIcon: Icon(
-                    Icons.search,
-                    size: 24,
-                    color: Colors.black,
-                  ),
-                  hintText: 'Search',
-                  hintStyle: TextStyle(color: Colors.black, fontSize: 18)),
-            ),
-          ),
+          padding: const EdgeInsets.only(top: 40.0, left: 10, right: 10),
+          child: Consumer<ExplorePageController>(
+              builder: (context, controller, child) {
+            return SearchBar(
+              hintText: "Search",
+              controller: searchController,
+              onSubmitted: (result) {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => SearchDetailsScreen()));
+                controller.fetchData(context, searchList: result.toLowerCase());
+              },
+            );
+          }),
         ),
-        const SizedBox(
-          height: 30,
-        ),
-        Container(
-          height: 50,
-          alignment: Alignment.center,
-          child: Padding(
-            padding: const EdgeInsets.only(left: 10, right: 10),
-            child: GestureDetector(
-              onTap: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const FilterPage(),
-                  )),
-              child: ListView.builder(
-                itemCount: data.length,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) => Card(
-                  color: Colors.deepOrange,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      data[index],
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                          fontSize: 18),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ),
+        // const SizedBox(
+        //   height: 30,
+        // ),
+        // Container(
+        //   height: 50,
+        //   alignment: Alignment.center,
+        //   child: Padding(
+        //     padding: const EdgeInsets.only(left: 10, right: 10),
+        //     child: GestureDetector(
+        //       onTap: () => Navigator.push(
+        //           context,
+        //           MaterialPageRoute(
+        //             builder: (context) => const FilterPage(),
+        //           )),
+        //       child: ListView.builder(
+        //         itemCount: data.length,
+        //         scrollDirection: Axis.horizontal,
+        //         itemBuilder: (context, index) => Card(
+        //           color: Colors.deepOrange,
+        //           child: Padding(
+        //             padding: const EdgeInsets.all(8.0),
+        //             child: Text(
+        //               data[index],
+        //               style: const TextStyle(
+        //                   fontWeight: FontWeight.bold,
+        //                   color: Colors.white,
+        //                   fontSize: 18),
+        //             ),
+        //           ),
+        //         ),
+        //       ),
+        //     ),
+        //   ),
+        // ),
         const SizedBox(
           height: 20,
         ),
@@ -154,31 +191,48 @@ class _FavoratePageState extends State<ExplorePage> {
                             child: ListView.builder(
                               scrollDirection: Axis.horizontal,
                               itemCount: 3,
-                              itemBuilder: (context, index) => Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: GestureDetector(
-                                  child: Container(
-                                    width: 150,
-                                    child: ClipRRect(
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(20)
-                                          ),
-                                      child: GestureDetector(
-                                        onTap: () => Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const CategoryDetails(),
+                              itemBuilder: (context, index) => Consumer<
+                                      AllCategoriesScreenController>(
+                                  builder: (context, controller, child) =>
+                                      controller.isLoading == true
+                                          ? Center(
+                                              child:
+                                                  CircularProgressIndicator())
+                                          : InkWell(
+                                              onTap: () {
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            DetailedCatogoryScreen(
+                                                                tag: controller
+                                                                    .categoryModel
+                                                                    .data?[
+                                                                        index]
+                                                                    .tag)));
+                                              },
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Container(
+                                                  width: 150,
+                                                  child: ClipRRect(
+                                                    borderRadius:
+                                                        const BorderRadius.all(
+                                                            Radius.circular(
+                                                                20)),
+                                                    child: Image.network(
+                                                      controller
+                                                              .categoryModel
+                                                              .data?[index]
+                                                              .categoryImage ??
+                                                          "",
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
                                             )),
-                                        child: Image.network(
-                                          catergory[index],
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
                             ),
                           ),
                         ),
@@ -193,7 +247,7 @@ class _FavoratePageState extends State<ExplorePage> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
-                      height: 300,
+                      height: 350,
                       //height: double.maxFinite,
                       padding: const EdgeInsets.only(
                         left: 10,
@@ -241,11 +295,11 @@ class _FavoratePageState extends State<ExplorePage> {
                             ],
                           ),
                           SizedBox(
-                            height: 200,
+                            height: 250,
                             width: double.infinity,
                             child: ListView.builder(
                               scrollDirection: Axis.horizontal,
-                              itemCount: 6,
+                              itemCount: 4,
                               itemBuilder: (context, index) => Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Container(
@@ -257,24 +311,35 @@ class _FavoratePageState extends State<ExplorePage> {
                                     child: Column(
                                       children: [
                                         GestureDetector(
-                                          onTap: () => Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const ChefDetails(),
-                                              )),
                                           child: const CircleAvatar(
-                                            maxRadius: 60,
-                                            backgroundImage: NetworkImage(
-                                                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaJm2_Izxs7ZDpd7gs1DGi7Is3zvPJB-a9hg&usqp=CAU'),
-                                          ),
+                                              maxRadius: 60,
+                                              backgroundImage: AssetImage(
+                                                  "recipe_app/assets/images/userimage3.jpg")),
                                         ),
-                                        const Expanded(
-                                            child: Text(
-                                          'name',
-                                          style: TextStyle(fontSize: 18,
-                                          fontWeight: FontWeight.bold),
-                                        ))
+                                        Consumer<CreatorsController>(builder:
+                                            (context, controller, child) {
+                                          return Text(
+                                            controller.creatorsModel
+                                                    .users?[index].username ??
+                                                "",
+                                            style: TextStyle(
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.bold),
+                                          );
+                                        }),
+                                        MaterialButton(
+                                          shape: StadiumBorder(),
+                                          color: Colors.orange,
+                                          onPressed: () {},
+                                          child: Text(
+                                            'Follow',
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 18,
+                                            ),
+                                          ),
+                                        )
                                       ],
                                     ),
                                   ),
