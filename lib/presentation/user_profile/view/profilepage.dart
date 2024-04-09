@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:recipe_app/app_config/app_config.dart';
 import 'package:recipe_app/presentation/splashscreen/get_started.dart';
 import 'package:recipe_app/presentation/user_profile/controller/user_profile_controller.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key});
@@ -11,6 +13,7 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  late SharedPreferences sharedPreferences;
   fetchData() {
     Provider.of<UserProfileController>(context, listen: false).fetchUserAvatar();
     Provider.of<UserProfileController>(context, listen: false).fetchUserNameEmail();
@@ -20,6 +23,11 @@ class _ProfilePageState extends State<ProfilePage> {
   void initState() {
     fetchData();
     super.initState();
+  }
+  Future<void> userLogout()async{
+    sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.setString(AppConfig.loginData, "");
+    sharedPreferences.setBool(AppConfig.status, false);
   }
 
   @override
@@ -44,6 +52,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                     IconButton(
                         onPressed: () {
+                          userLogout();
                           Navigator.pushReplacement(
                               context, MaterialPageRoute(builder: (context) => GetStarted()));
                         },
