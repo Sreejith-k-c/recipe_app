@@ -26,4 +26,16 @@ class UserProfileService {
       log("$e");
     }
   }
+
+  static Future<dynamic> fetchUserRecipe() async {
+    log("UserProfileService -> fetchUserRecipe()");
+    try {
+      var decodedData = await ApiHelper.getDataWithoutStatus(
+          endPoint: "recipe/my-recipes/",
+          header: ApiHelper.getApiHeader(access: await AppUtils.getAccessToken()));
+      return decodedData;
+    } catch (e) {
+      log("$e");
+    }
+  }
 }

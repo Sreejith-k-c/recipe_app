@@ -14,9 +14,11 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   late SharedPreferences sharedPreferences;
+
   fetchData() {
     Provider.of<UserProfileController>(context, listen: false).fetchUserAvatar();
     Provider.of<UserProfileController>(context, listen: false).fetchUserNameEmail();
+    Provider.of<UserProfileController>(context, listen: false).fetchUSerRecipe();
   }
 
   @override
@@ -24,7 +26,8 @@ class _ProfilePageState extends State<ProfilePage> {
     fetchData();
     super.initState();
   }
-  Future<void> userLogout()async{
+
+  Future<void> userLogout() async {
     sharedPreferences = await SharedPreferences.getInstance();
     sharedPreferences.setString(AppConfig.loginData, "");
     sharedPreferences.setBool(AppConfig.status, false);
@@ -170,9 +173,12 @@ class _ProfilePageState extends State<ProfilePage> {
                         crossAxisSpacing: 8,
                         mainAxisSpacing: 8,
                         children: List.generate(
-                          20,
+                          controller.recipeModel.data!.length,
                           (index) => Container(
-                            color: Colors.orange,
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image: NetworkImage(
+                                        "${controller.recipeModel.data?[index].picture ?? "https://t3.ftcdn.net/jpg/04/34/72/82/360_F_434728286_OWQQvAFoXZLdGHlObozsolNeuSxhpr84.jpg"}"))),
                             child: Center(
                               child: Text(
                                 "",
