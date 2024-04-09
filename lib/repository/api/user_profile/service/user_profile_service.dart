@@ -9,8 +9,18 @@ class UserProfileService {
     try {
       var decodedData = await ApiHelper.getDataWithoutStatus(
           endPoint: "user/profile/avatar/",
-          header:
-              ApiHelper.getApiHeader(access: await AppUtils.getAccessToken()));
+          header: ApiHelper.getApiHeader(access: await AppUtils.getAccessToken()));
+      return decodedData;
+    } catch (e) {
+      log("$e");
+    }
+  }
+
+  static Future<dynamic> fetchUserNameEmail() async {
+    log("UserProfileService -> fetchUserNameEmail()");
+    try {
+      var decodedData = await ApiHelper.getDataWithoutStatus(
+          endPoint: "user/", header: ApiHelper.getApiHeader(access: await AppUtils.getAccessToken()));
       return decodedData;
     } catch (e) {
       log("$e");
