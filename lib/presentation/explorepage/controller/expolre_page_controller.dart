@@ -22,7 +22,7 @@ class ExplorePageController with ChangeNotifier {
         exploreModal = ExploreModal.fromJson(value);
         isLoading = false;
       } else {
-        AppUtils.oneTimeSnackBar("error", context: context);
+        // AppUtils.oneTimeSnackBar("error", context: context);
       }
       notifyListeners();
     });

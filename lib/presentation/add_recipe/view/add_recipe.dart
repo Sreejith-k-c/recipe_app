@@ -395,7 +395,7 @@ class _AddRecipeState extends State<AddRecipe> {
               InkWell(
                 onTap: () {
                   Provider.of<AddRecipeController>(context, listen: false)
-                      .onRecipeAdd(
+                      .onRecipeAdd(context,
                           categoryName: categoryController.text,
                           title: titleController.text,
                           desc: descriptionController.text,

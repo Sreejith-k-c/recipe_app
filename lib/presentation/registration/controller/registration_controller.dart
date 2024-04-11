@@ -16,19 +16,19 @@ class RegistrationController extends ChangeNotifier {
       log("onRegistration ${recData["status"]}");
 
       if (recData["status"] == 1) {
-        var message = recData["msg"];
-          AppUtils.oneTimeSnackBar(message,txtColor: Colors.green, context: context);
+        // var message = recData["msg"];
+          AppUtils.oneTimeSnackBar("success",txtColor: Colors.green, context: context);
           Navigator.of(context).pushReplacement(
               MaterialPageRoute(builder: (context) => LoginPage()));
           
         
       } else {
         if (recData["msg"] != "Failed") {
-          var message = recData["msg"];
-          AppUtils.oneTimeSnackBar(message, txtColor: Colors.red,context: context);
+          // var message = recData["msg"];
+          AppUtils.oneTimeSnackBar("fail1", txtColor: Colors.red,context: context);
         } else {
-          var message = recData["msg"];
-          AppUtils.oneTimeSnackBar(message, txtColor: Colors.red,context: context);
+          // var message = recData["msg"];
+          AppUtils.oneTimeSnackBar("fail2", txtColor: Colors.red,context: context);
         }
       }
     });

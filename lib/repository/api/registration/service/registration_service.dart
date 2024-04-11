@@ -7,12 +7,12 @@ class RegistrationService {
     try {
       var encodedData =
           await ApiHelper.postRegisterData(endPoint: "user/register/", body: data);
-      var message = encodedData["msg"];
+      // var message = encodedData["msg"];
       if (encodedData["status"] == 1) {
-        log("$message");
+        // log("$message");
         return encodedData;
       } else {
-        log(message);
+        // log(message);
         return encodedData;
       }
     } catch (e) {

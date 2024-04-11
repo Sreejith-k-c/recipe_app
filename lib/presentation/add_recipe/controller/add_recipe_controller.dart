@@ -2,8 +2,12 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:recipe_app/core/app_utils.dart';
+import 'package:recipe_app/presentation/bottom_navigation/bottom_navigation_bar.dart';
+import 'package:recipe_app/presentation/user_profile/view/profilepage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../app_config/app_config.dart';
@@ -20,7 +24,7 @@ class AddRecipeController extends ChangeNotifier {
     return null;
   }
 
-  void onRecipeAdd(
+  void onRecipeAdd(BuildContext context,
       {required String categoryName,
       required String title,
       required String desc,
@@ -44,15 +48,20 @@ class AddRecipeController extends ChangeNotifier {
             var data = jsonDecode(value.body);
             log("$data");
             log("Added Successfully");
+            AppUtils.oneTimeSnackBar("Added Succesfully", context: context,bgColor: Colors.green);
+            Navigator.of(context).push(MaterialPageRoute(builder: (context)=>BottomNav(),));
           } else {
             log("FAILED TO UPLOAD");
+            AppUtils.oneTimeSnackBar(" Error adding ", context: context,bgColor: Colors.red);
           }
         });
       } else {
         log("access token is null");
+        AppUtils.oneTimeSnackBar(" Error adding ", context: context,bgColor: Colors.red);
       }
     } catch (e) {
       log("$e");
+      AppUtils.oneTimeSnackBar(" Error adding ", context: context,bgColor: Colors.red);
     }
   }
 
