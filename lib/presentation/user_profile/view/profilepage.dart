@@ -95,6 +95,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             child: InkWell(
                               onLongPress: () {
                                 //getProfilePic(ImageSource.gallery);
+                                print("long pressed profile");
                               },
                               child: CircleAvatar(
                                 radius: 45,
