@@ -26,7 +26,7 @@ class _AllCreatorsState extends State<AllCreators> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Chef',
+          'Users',
           style: TextStyle(
               fontWeight: FontWeight.bold, color: Colors.black, fontSize: 24),
         ),
@@ -53,8 +53,8 @@ class _AllCreatorsState extends State<AllCreators> {
                     leading: const CircleAvatar(
                       maxRadius: 50,
                       //minRadius: 40,
-                      backgroundImage:
-                          AssetImage("recipe_app/assets/images/userimage3.jpg"),
+                      // backgroundImage:
+                      //     AssetImage("recipe_app/assets/images/userimage3.jpg"),
                     ),
                     title: Text(
                       controller.creatorsModel.users?[index].username ?? "",
@@ -62,7 +62,10 @@ class _AllCreatorsState extends State<AllCreators> {
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                     trailing: TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Provider.of<CreatorsController>(context,listen: false).followUser(
+                            context, controller.creatorsModel.users?[index].id.toString(),);
+                      },
                       child: const Text(
                         'Follow',
                         style: TextStyle(
