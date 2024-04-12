@@ -24,6 +24,7 @@ class _ProfilePageState extends State<ProfilePage> {
     Provider.of<UserProfileController>(context, listen: false).fetchUserAvatar();
     Provider.of<UserProfileController>(context, listen: false).fetchUserNameEmail();
     Provider.of<UserProfileController>(context, listen: false).fetchUSerRecipe();
+    Provider.of<UserProfileController>(context, listen: false).fetchFollowerList();
   }
 
   @override
@@ -123,7 +124,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                     ),
                                   ),
                                   Text(
-                                    "299",
+                                    controller.followerCountModel.followers?.length.toString() ?? "0",
                                     style: TextStyle(
                                       fontStyle: FontStyle.italic,
                                       fontWeight: FontWeight.w600,

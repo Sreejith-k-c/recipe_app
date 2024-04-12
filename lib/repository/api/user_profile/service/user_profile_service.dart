@@ -9,7 +9,8 @@ class UserProfileService {
     try {
       var decodedData = await ApiHelper.getDataWithoutStatus(
           endPoint: "user/profile/avatar/",
-          header: ApiHelper.getApiHeader(access: await AppUtils.getAccessToken()));
+          header: ApiHelper.getApiHeader(
+              access: await AppUtils.getAccessToken()));
       return decodedData;
     } catch (e) {
       log("$e");
@@ -20,7 +21,9 @@ class UserProfileService {
     log("UserProfileService -> fetchUserNameEmail()");
     try {
       var decodedData = await ApiHelper.getDataWithoutStatus(
-          endPoint: "user/", header: ApiHelper.getApiHeader(access: await AppUtils.getAccessToken()));
+          endPoint: "user/",
+          header: ApiHelper.getApiHeader(
+              access: await AppUtils.getAccessToken()));
       return decodedData;
     } catch (e) {
       log("$e");
@@ -32,9 +35,22 @@ class UserProfileService {
     try {
       var decodedData = await ApiHelper.getDataWithoutStatus(
           endPoint: "recipe/my-recipes/",
-          header: ApiHelper.getApiHeader(access: await AppUtils.getAccessToken()));
+          header: ApiHelper.getApiHeader(
+              access: await AppUtils.getAccessToken()));
       return decodedData;
     } catch (e) {
+      log("$e");
+    }
+  }
+
+  static Future<dynamic> fetchFollower() async {
+    try {
+      var decodedData = await ApiHelper.getData(
+          endPoint: "followers/followers-list/",
+          header: ApiHelper.getApiHeader(
+              access: await AppUtils.getAccessToken()));
+      return decodedData;
+    }catch(e){
       log("$e");
     }
   }
