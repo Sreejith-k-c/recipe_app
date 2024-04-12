@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:recipe_app/global_widget/chef_details/chef_details.dart';
 import 'package:recipe_app/presentation/creators/controller/creators_controller.dart';
@@ -137,7 +139,7 @@ class _FavoratePageState extends State<ExplorePage> {
                 Padding(
                   padding: const EdgeInsets.only(left: 10, right: 10),
                   child: Container(
-                    height: 250,
+                    height: 300,
                     padding: const EdgeInsets.only(
                       left: 10,
                       right: 10,
@@ -153,7 +155,7 @@ class _FavoratePageState extends State<ExplorePage> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Padding(
+                            Padding(
                               padding: EdgeInsets.only(top: 20),
                               child: Text(
                                 "Top categories",
@@ -212,24 +214,72 @@ class _FavoratePageState extends State<ExplorePage> {
                                                                     .tag)));
                                               },
                                               child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: Container(
-                                                  width: 150,
-                                                  child: ClipRRect(
-                                                    borderRadius:
-                                                        const BorderRadius.all(
-                                                            Radius.circular(
-                                                                20)),
-                                                    child: Image.network(
-                                                      controller
-                                                              .categoryModel
-                                                              .data?[index]
-                                                              .categoryImage ??
-                                                          "",
-                                                      fit: BoxFit.cover,
+                                                padding: EdgeInsets.all(8.0),
+                                                child: Row(
+                                                  children: [
+                                                    // Container(
+                                                    //   width: 150,
+                                                    //   child: ClipRRect(
+                                                    //     borderRadius:
+                                                    //     BorderRadius.all(
+                                                    //         Radius.circular(
+                                                    //             20)),
+                                                    //     child: Image.network(
+                                                    //       controller
+                                                    //           .categoryModel
+                                                    //           .data?[index]
+                                                    //           .categoryImage ??
+                                                    //           "",
+                                                    //       fit: BoxFit.fill,
+                                                    //     ),
+                                                    //   ),
+                                                    // ),
+                                                    ClipRRect(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              30),
+                                                      child: Container(
+                                                        color: Colors.white,
+                                                        padding:
+                                                            EdgeInsets.all(10),
+                                                        width: 250,
+                                                        child: Row(
+                                                          children: [
+                                                            CircleAvatar(
+                                                              maxRadius: 45,
+                                                              backgroundImage: NetworkImage(controller
+                                                                      .categoryModel
+                                                                      .data?[
+                                                                          index]
+                                                                      .categoryImage ??
+                                                                  ""),
+                                                            ),
+                                                            SizedBox(
+                                                              width: 10,
+                                                            ),
+                                                            Text(
+                                                              controller
+                                                                      .categoryModel
+                                                                      .data?[
+                                                                          index]
+                                                                      .displayName ??
+                                                                  "",
+                                                              style: TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontSize: 20),
+                                                            )
+                                                          ],
+                                                        ),
+                                                      ),
                                                     ),
-                                                  ),
+                                                    // Text(controller
+                                                    //         .categoryModel
+                                                    //         .data?[index]
+                                                    //         .displayName ??
+                                                    //     "")
+                                                  ],
                                                 ),
                                               ),
                                             )),

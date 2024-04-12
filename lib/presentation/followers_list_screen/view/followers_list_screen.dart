@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:recipe_app/presentation/creators/controller/creators_controller.dart';
+import 'package:recipe_app/presentation/user_profile/controller/user_profile_controller.dart';
 
-class AllCreators extends StatefulWidget {
-  const AllCreators({super.key});
+class FollowerListScreen extends StatefulWidget {
+  const FollowerListScreen({super.key});
 
   @override
-  State<AllCreators> createState() => _AllCreatorsState();
+  State<FollowerListScreen> createState() => _FollowerListScreenState();
 }
 
-class _AllCreatorsState extends State<AllCreators> {
+class _FollowerListScreenState extends State<FollowerListScreen> {
   fetchData() {
-    Provider.of<CreatorsController>(context, listen: false)
-        .fetchCreatorsList(context);
+    Provider.of<CreatorsController>(context, listen: false);
   }
 
   @override
@@ -26,7 +26,7 @@ class _AllCreatorsState extends State<AllCreators> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Users',
+          'Followers',
           style: TextStyle(
               fontWeight: FontWeight.bold, color: Colors.black, fontSize: 24),
         ),
@@ -38,9 +38,9 @@ class _AllCreatorsState extends State<AllCreators> {
         ),
         centerTitle: true,
       ),
-      body: Consumer<CreatorsController>(builder: (context, controller, child) {
+      body: Consumer<UserProfileController>(builder: (context, controller, child) {
         return ListView.builder(
-          itemCount: controller.creatorsModel.users?.length,
+          itemCount: 2,
           itemBuilder: (context, index) => Column(
             children: [
               Padding(
@@ -56,18 +56,12 @@ class _AllCreatorsState extends State<AllCreators> {
                     //   backgroundImage:
                     //       AssetImage("recipe_app/assets/images/userimage3.jpg"),
                     // ),
-                    title: Text(
-                      controller.creatorsModel.users?[index].username ?? "",
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    title: Text(""
                     ),
                     trailing: TextButton(
-                      onPressed: () {
-                        Provider.of<CreatorsController>(context,listen: false).followUser(
-                            context, controller.creatorsModel.users?[index].id.toString(),);
-                      },
+                      onPressed: () {},
                       child: const Text(
-                        'Follow',
+                        'Following',
                         style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
