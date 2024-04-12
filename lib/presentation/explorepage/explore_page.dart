@@ -246,7 +246,7 @@ class _FavoratePageState extends State<ExplorePage> {
                                                         child: Row(
                                                           children: [
                                                             CircleAvatar(
-                                                              maxRadius: 60,
+                                                              maxRadius: 45,
                                                               backgroundImage: NetworkImage(controller
                                                                       .categoryModel
                                                                       .data?[
