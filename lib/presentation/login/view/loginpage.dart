@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:recipe_app/presentation/bottom_navigation/bottom_navigation_bar.dart';
 import 'package:recipe_app/presentation/forgot_password_screen/view/forgot_password_screen.dart';
 import 'package:recipe_app/presentation/login/controller/login_controller.dart';
 import 'package:recipe_app/presentation/registration/view/registration.dart';
@@ -118,6 +119,7 @@ class LoginPage extends StatelessWidget {
                             passwordcontroller.text.trim());
                     emailcontroller.clear();
                     passwordcontroller.clear();
+                    // Navigator.push(context, MaterialPageRoute(builder: (context)=>BottomNav()));
                   },
                   child: Container(
                     width: double.infinity,
