@@ -54,7 +54,7 @@ class _FollowerListScreenState extends State<FollowerListScreen> {
                 child: Container(
                   decoration: BoxDecoration(
                       color: Colors.green[100],
-                      borderRadius: BorderRadius.circular(10)),
+                      borderRadius: BorderRadius.circular(10),),
                   child: ListTile(
                     // leading: const CircleAvatar(
                     //   maxRadius: 50,
@@ -84,7 +84,7 @@ class _FollowerListScreenState extends State<FollowerListScreen> {
             ],
           ),
         );
-      }),
+      },),
     );
   }
 }
