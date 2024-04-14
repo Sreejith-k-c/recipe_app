@@ -376,7 +376,7 @@ class _FavoratePageState extends State<ExplorePage> {
                                                 fontSize: 20,
                                                 fontWeight: FontWeight.bold),
                                           );
-                                        }),
+                                        },),
                                         MaterialButton(
                                           shape: StadiumBorder(),
                                           color: Colors.orange,
@@ -398,13 +398,13 @@ class _FavoratePageState extends State<ExplorePage> {
                             ),
                           )
                         ],
-                      )),
+                      ),),
                 ),
               ],
             ),
           ),
-        ))
-      ])),
+        ),)
+      ],),),
     );
   }
 }

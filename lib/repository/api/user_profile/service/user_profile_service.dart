@@ -9,8 +9,8 @@ class UserProfileService {
     try {
       var decodedData = await ApiHelper.getDataWithoutStatus(
           endPoint: "user/profile/avatar/",
-          header: ApiHelper.getApiHeader(
-              access: await AppUtils.getAccessToken()));
+          header:
+              ApiHelper.getApiHeader(access: await AppUtils.getAccessToken()));
       return decodedData;
     } catch (e) {
       log("$e");
@@ -22,8 +22,8 @@ class UserProfileService {
     try {
       var decodedData = await ApiHelper.getDataWithoutStatus(
           endPoint: "user/",
-          header: ApiHelper.getApiHeader(
-              access: await AppUtils.getAccessToken()));
+          header:
+              ApiHelper.getApiHeader(access: await AppUtils.getAccessToken()));
       return decodedData;
     } catch (e) {
       log("$e");
@@ -35,23 +35,36 @@ class UserProfileService {
     try {
       var decodedData = await ApiHelper.getDataWithoutStatus(
           endPoint: "recipe/my-recipes/",
-          header: ApiHelper.getApiHeader(
-              access: await AppUtils.getAccessToken()));
+          header:
+              ApiHelper.getApiHeader(access: await AppUtils.getAccessToken()));
       return decodedData;
     } catch (e) {
       log("$e");
     }
   }
 
-  static Future<dynamic> fetchFollower() async {
+  static Future fetchFollower() async {
     try {
-      var decodedData = await ApiHelper.getData(
+      //  var decodedData = await ApiHelper.getData(
+      //     endPoint: "followers/followers-list/",
+      //     header:
+      //         ApiHelper.getApiHeader(access: await AppUtils.getAccessToken()));
+      // if (decodedData["status"]==1) {
+      //   return decodedData;
+      // } else {
+      //   log("failed in sewrvice>>>>${decodedData.toString()}");
+      //   return decodedData;
+      // }
+     
+            
+      var decodedData = await ApiHelper.getDataWithoutStatus1(
           endPoint: "followers/followers-list/",
           header: ApiHelper.getApiHeader(
               access: await AppUtils.getAccessToken()));
+log("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<$decodedData");
       return decodedData;
-    }catch(e){
-      log("$e");
+    } catch (e) {
+      log(">>>>>><<<<<>>>$e");
     }
   }
 }

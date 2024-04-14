@@ -52,7 +52,7 @@ class ApiHelper {
     required String endPoint,
     Map<String, String>? header,
   }) async {
-    log("ApiHelper>getData");
+    log("ApiHelper>getData>in>>>Api Helper");
     final url = Uri.parse(AppConfig.baseurl + endPoint);
     try {
       log("$url");
@@ -60,7 +60,7 @@ class ApiHelper {
       log("ApiHelper>>Api Called => status code=${response.statusCode}");
       if (response.statusCode == 200) {
         var decodedData = jsonDecode(response.body);
-        log(decodedData.toString());
+        log(">>>>>>ApiHelper>>>>>>${decodedData.toString()}");
         var data = {
           "status": 1,
           "data": decodedData,
@@ -71,6 +71,37 @@ class ApiHelper {
         var data = {
           "status": 0,
           "data": null,
+        };
+        return data;
+      }
+    } catch (e) {
+      log("$e");
+      rethrow;
+    }
+  }
+  static getDataWithoutStatus1({
+    required String endPoint,
+    Map<String, String>? header,
+  }) async {
+    log("ApiHelper>getData>in>>>Api Helper");
+    final url = Uri.parse(AppConfig.baseurl + endPoint);
+    try {
+      log("$url");
+      var response = await http.get(url,headers: header);
+      log("ApiHelper>getDatawithoutsstatus1>>Api Called => status code=${response.statusCode}");
+      if (response.statusCode == 200) {
+        var decodedData = jsonDecode(response.body);
+        log(">>>>>>ApiHelper>>>>>>${decodedData.toString()}<<<<<<<<<<<<Api helper111");
+        var data = {
+          "status": 1,
+          "followers": decodedData,
+        };
+        return data;
+      } else {
+        log("ApiHelper >> Else Condition >> Api failed");
+        var data = {
+          "status": 0,
+          "followers": null,
         };
         return data;
       }

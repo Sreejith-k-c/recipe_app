@@ -12,6 +12,7 @@ class UserProfileController extends ChangeNotifier {
   UsernameEmailModel usernameEmailModel = UsernameEmailModel();
   RecipeModel recipeModel = RecipeModel();
   FollowerCountModel followerCountModel=FollowerCountModel();
+  List<Follower>? followers;
   bool isLoading = false;
   bool isLoading2 = false;
 
@@ -43,17 +44,22 @@ class UserProfileController extends ChangeNotifier {
     UserProfileService.fetchUserRecipe().then((value) {
       if (value["status"] == 1) {
         recipeModel = RecipeModel.fromJson(value);
+        log(">>>>>>>>>>>>>${recipeModel.data?.length}");
       } else {}
       notifyListeners();
     });
   }
 
    fetchFollowerList() async{
+      log(">>>>>>>>> fetch followers");
     UserProfileService.fetchFollower().then((value) {
       if(value["status"]==1){
         followerCountModel= FollowerCountModel.fromJson(value);
+          log(">>>>>>>>> ${followerCountModel.followers?.length}");
+
       }else{
         log("else in controller");
+       log(">>>>>>>>> else in controller");
       }
       notifyListeners();
     });

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:recipe_app/app_config/app_config.dart';
+import 'package:recipe_app/presentation/followers_list_screen/view/followers_list_screen.dart';
 import 'package:recipe_app/presentation/search_details_screen/view/widgets/search_single_itemscreen.dart';
 import 'package:recipe_app/presentation/splashscreen/get_started.dart';
 import 'package:recipe_app/presentation/user_profile/controller/user_profile_controller.dart';
@@ -21,10 +22,14 @@ class _ProfilePageState extends State<ProfilePage> {
   File? profilePic;
 
   fetchData() {
-    Provider.of<UserProfileController>(context, listen: false).fetchUserAvatar();
-    Provider.of<UserProfileController>(context, listen: false).fetchUserNameEmail();
-    Provider.of<UserProfileController>(context, listen: false).fetchUSerRecipe();
-    Provider.of<UserProfileController>(context, listen: false).fetchFollowerList();
+    Provider.of<UserProfileController>(context, listen: false)
+        .fetchUserAvatar();
+    Provider.of<UserProfileController>(context, listen: false)
+        .fetchUserNameEmail();
+    Provider.of<UserProfileController>(context, listen: false)
+        .fetchUSerRecipe();
+    Provider.of<UserProfileController>(context, listen: false)
+        .fetchFollowerList();
   }
 
   @override
@@ -50,6 +55,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+     final provider = Provider.of<UserProfileController>(context);
     return Consumer<UserProfileController>(builder: (context, controller, _) {
       return controller.isLoading
           ? Center(child: CircularProgressIndicator())
@@ -72,7 +78,9 @@ class _ProfilePageState extends State<ProfilePage> {
                         onPressed: () {
                           userLogout();
                           Navigator.pushReplacement(
-                              context, MaterialPageRoute(builder: (context) => GetStarted()));
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => GetStarted()));
                         },
                         icon: Icon(
                           Icons.logout_rounded,
@@ -100,7 +108,8 @@ class _ProfilePageState extends State<ProfilePage> {
                               },
                               child: CircleAvatar(
                                 radius: 45,
-                                backgroundImage: NetworkImage(controller.isLoading
+                                backgroundImage: NetworkImage(controller
+                                        .isLoading
                                     ? Center(child: CircularProgressIndicator())
                                     : controller.userAvatarModel.avatar ??
                                         "https://t4.ftcdn.net/jpg/00/65/77/27/360_F_65772719_A1UV5kLi5nCEWI0BNLLiFaBPEkUbv5Fv.jpg"),
@@ -113,48 +122,59 @@ class _ProfilePageState extends State<ProfilePage> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               //  following
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    "following",
-                                    style: TextStyle(
-                                      fontStyle: FontStyle.italic,
-                                      fontWeight: FontWeight.w400,
+                              InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              FollowerListScreen()));
+                                },
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "following",
+                                      style: TextStyle(
+                                        fontStyle: FontStyle.italic,
+                                        fontWeight: FontWeight.w400,
+                                      ),
                                     ),
-                                  ),
-                                  Text(
-                                    controller.followerCountModel.followers?.length.toString() ?? "0",
-                                    style: TextStyle(
-                                      fontStyle: FontStyle.italic,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 20,
-                                    ),
-                                  )
-                                ],
+                                    Text(
+                                      provider.followerCountModel.followers?.length 
+                                              .toString() ??
+                                          "0",
+                                      style: TextStyle(
+                                        fontStyle: FontStyle.italic,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 20,
+                                      ),
+                                    )
+                                  ],
+                                ),
                               ),
 
-                              // followers
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    "followers",
-                                    style: TextStyle(
-                                      fontStyle: FontStyle.italic,
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                  Text(
-                                    "200",
-                                    style: TextStyle(
-                                      fontStyle: FontStyle.italic,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 20,
-                                    ),
-                                  )
-                                ],
-                              ),
+                              // // followers
+                              // Column(
+                              //   mainAxisAlignment: MainAxisAlignment.center,
+                              //   children: [
+                              //     Text(
+                              //       "followers",
+                              //       style: TextStyle(
+                              //         fontStyle: FontStyle.italic,
+                              //         fontWeight: FontWeight.w400,
+                              //       ),
+                              //     ),
+                              //     Text(
+                              //       "200",
+                              //       style: TextStyle(
+                              //         fontStyle: FontStyle.italic,
+                              //         fontWeight: FontWeight.w600,
+                              //         fontSize: 20,
+                              //       ),
+                              //     )
+                              //   ],
+                              // ),
 
                               // posts
 
@@ -169,7 +189,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                     ),
                                   ),
                                   Text(
-                                    "20",
+                                    controller.recipeModel.data?.length.toString()??"",
                                     style: TextStyle(
                                       fontStyle: FontStyle.italic,
                                       fontWeight: FontWeight.w600,
@@ -187,8 +207,10 @@ class _ProfilePageState extends State<ProfilePage> {
                   SizedBox(height: 30),
                   Expanded(
                     child: RefreshIndicator(
-                      onRefresh: () =>
-                          Provider.of<UserProfileController>(context, listen: false).fetchUSerRecipe(),
+                      onRefresh: () => Provider.of<UserProfileController>(
+                              context,
+                              listen: false)
+                          .fetchUSerRecipe(),
                       child: Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: GridView.count(
@@ -203,11 +225,18 @@ class _ProfilePageState extends State<ProfilePage> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => SearchSingleItemScreen(
-                                            title: controller.recipeModel.data?[index].title,
-                                            image: controller.recipeModel.data?[index].picture,
-                                            ingredient: controller.recipeModel.data?[index].ingredients,
-                                            prepare: controller.recipeModel.data?[index].procedure)));
+                                        builder: (context) =>
+                                            SearchSingleItemScreen(
+                                                title: controller.recipeModel
+                                                    .data?[index].title,
+                                                image: controller.recipeModel
+                                                    .data?[index].picture,
+                                                ingredient: controller
+                                                    .recipeModel
+                                                    .data?[index]
+                                                    .ingredients,
+                                                prepare: controller.recipeModel
+                                                    .data?[index].procedure)));
                               },
                               child: Container(
                                 decoration: BoxDecoration(

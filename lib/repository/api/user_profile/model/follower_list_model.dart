@@ -1,12 +1,3 @@
-// To parse this JSON data, do
-//
-//     final followerCountModel = followerCountModelFromJson(jsonString);
-
-import 'dart:convert';
-
-FollowerCountModel followerCountModelFromJson(String str) => FollowerCountModel.fromJson(json.decode(str));
-
-String followerCountModelToJson(FollowerCountModel data) => json.encode(data.toJson());
 
 class FollowerCountModel {
   int? status;
