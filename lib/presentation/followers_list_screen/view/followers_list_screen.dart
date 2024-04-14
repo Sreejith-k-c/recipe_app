@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:recipe_app/presentation/creators/controller/creators_controller.dart';
+import 'package:recipe_app/presentation/user_profile/controller/user_profile_controller.dart';
 
-class AllCreators extends StatefulWidget {
-  const AllCreators({super.key});
+class FollowerListScreen extends StatefulWidget {
+  const FollowerListScreen({super.key});
 
   @override
-  State<AllCreators> createState() => _AllCreatorsState();
+  State<FollowerListScreen> createState() => _FollowerListScreenState();
 }
 
-class _AllCreatorsState extends State<AllCreators> {
-  fetchData() {
-    Provider.of<CreatorsController>(context, listen: false)
-        .fetchCreatorsList(context);
+class _FollowerListScreenState extends State<FollowerListScreen> {
+  fetchData() async {
+  await  Provider.of<UserProfileController>(context, listen: false)
+        .fetchFollowerList();
+     
   }
 
   @override
@@ -23,10 +25,12 @@ class _AllCreatorsState extends State<AllCreators> {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<UserProfileController>(context);
+    
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Users',
+          'Followers',
           style: TextStyle(
               fontWeight: FontWeight.bold, color: Colors.black, fontSize: 24),
         ),
@@ -38,9 +42,11 @@ class _AllCreatorsState extends State<AllCreators> {
         ),
         centerTitle: true,
       ),
-      body: Consumer<CreatorsController>(builder: (context, controller, child) {
+      body: Consumer<UserProfileController>(
+          builder: (context, controller, child) {
         return ListView.builder(
-          itemCount: controller.creatorsModel.users?.length,
+          // itemCount: 10,
+          itemCount: controller.followerCountModel.followers?.length ,
           itemBuilder: (context, index) => Column(
             children: [
               Padding(
@@ -48,7 +54,7 @@ class _AllCreatorsState extends State<AllCreators> {
                 child: Container(
                   decoration: BoxDecoration(
                       color: Colors.green[100],
-                      borderRadius: BorderRadius.circular(10)),
+                      borderRadius: BorderRadius.circular(10),),
                   child: ListTile(
                     // leading: const CircleAvatar(
                     //   maxRadius: 50,
@@ -57,17 +63,14 @@ class _AllCreatorsState extends State<AllCreators> {
                     //       AssetImage("recipe_app/assets/images/userimage3.jpg"),
                     // ),
                     title: Text(
-                      controller.creatorsModel.users?[index].username ?? "",
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
+                        // controller
+                        //     .followerCountModel.followers?[index].username
+                        //      ??
+                      controller.followerCountModel.followers?[index].username??""),
                     trailing: TextButton(
-                      onPressed: () {
-                        Provider.of<CreatorsController>(context,listen: false).followUser(
-                            context, controller.creatorsModel.users?[index].id.toString(),);
-                      },
+                      onPressed: () {},
                       child: const Text(
-                        'Follow',
+                        'Following',
                         style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
@@ -81,7 +84,7 @@ class _AllCreatorsState extends State<AllCreators> {
             ],
           ),
         );
-      }),
+      },),
     );
   }
 }

@@ -5,6 +5,7 @@ import 'package:recipe_app/presentation/all_categories/controller/all_categories
 import 'package:recipe_app/presentation/creators/controller/creators_controller.dart';
 import 'package:recipe_app/presentation/detailed_catagory_screen/controller/detailed_catogary_controller.dart';
 import 'package:recipe_app/presentation/explorepage/controller/expolre_page_controller.dart';
+import 'package:recipe_app/presentation/forgot_password_screen/controller/forgot_password_controller.dart';
 import 'package:recipe_app/presentation/login/controller/login_controller.dart';
 import 'package:recipe_app/presentation/registration/controller/registration_controller.dart';
 import 'package:recipe_app/presentation/splashscreen/welcom.dart';
@@ -26,6 +27,7 @@ void main() {
       ChangeNotifierProvider(create: (context) =>CreatorsController() ),
       ChangeNotifierProvider(create: (context) => DetailedCatogoryController()),
       ChangeNotifierProvider(create: (context) => UserProfileController()),
+      ChangeNotifierProvider(create: (context) => ForgotPasswordController()),
     ],
     child: const MyApp(),
   ));
