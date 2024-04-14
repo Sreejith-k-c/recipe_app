@@ -18,9 +18,9 @@ class _FeedPageState extends State<FeedPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.orange[300],
+      // backgroundColor: Colors.orange[300],
       appBar: AppBar(
-        backgroundColor: Colors.orange,
+        // backgroundColor: Colors.orange,
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
           onPressed: () {
