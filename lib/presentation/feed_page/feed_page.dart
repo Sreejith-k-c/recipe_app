@@ -30,11 +30,13 @@ class _FeedPageState extends State<FeedPage> {
         title: Text('Feed'),
       ),
       body: Center(
+        //edh pole baki set akenm
+        //vnm enkil vere edit akenm
         child: FeedWidget(
             profPic: "",
             name: "Food Name/ 'title'",
             timePosted: "time Posted",
-            captionPosted: "description Posted 'desc'",
+            descriptionPosted: "description Posted 'desc'",
             imagePosted: "image posted",
             likeCount: "like count",
             commentCount: "commentCount",

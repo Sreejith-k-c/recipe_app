@@ -6,9 +6,10 @@ class FeedWidget extends StatelessWidget {
   final String profPic;
   final String name;
   final String timePosted;
-  final String captionPosted;
+  final String descriptionPosted;
   final String imagePosted;
-  final bool showBlueTick;
+
+  // final bool showBlueTick;
   final String likeCount;
   final String commentCount;
   final String shareCount;
@@ -17,9 +18,9 @@ class FeedWidget extends StatelessWidget {
       {required this.profPic,
       required this.name,
       required this.timePosted,
-      required this.captionPosted,
+      required this.descriptionPosted,
       required this.imagePosted,
-      this.showBlueTick = false,
+      // this.showBlueTick = false,
       required this.likeCount,
       required this.commentCount,
       required this.shareCount});
@@ -31,10 +32,8 @@ class FeedWidget extends StatelessWidget {
       child: Column(
         children: [
           postCardHeader(),
-
           imageSection(),
           titleSection(),
-
           HeaderButtonSection(
             buttonOne: headerButton(
                 buttonText: "Like",
@@ -136,10 +135,10 @@ class FeedWidget extends StatelessWidget {
   }
 
   Widget titleSection() {
-    return captionPosted != null && captionPosted != ""
+    return descriptionPosted != null && descriptionPosted != ""
         ? Container(
             padding: const EdgeInsets.only(bottom: 5),
-            child: Text(captionPosted == null ? "" : captionPosted,
+            child: Text(descriptionPosted == null ? "" : descriptionPosted,
                 style: const TextStyle(color: Colors.black, fontSize: 16)),
           )
         : const SizedBox();
@@ -148,20 +147,18 @@ class FeedWidget extends StatelessWidget {
   Widget postCardHeader() {
     return ListTile(
       // leading: ProfilePics(displayImage: profPic, displayStatus: false),
-      title: Row(children: [
-        Text(
-          name,
-          style: const TextStyle(color: Colors.black),
-        ),
-        const SizedBox(
-          width: 10,
-        ),
-        // showBlueTick ? const BlueTick() : const SizedBox()
-      ]),
+      title: Row(
+        children: [
+          Text(
+            name,
+            style: const TextStyle(color: Colors.black),
+          ),
+          const SizedBox(
+            width: 10,
+          ),
+        ],
+      ),
       subtitle: Text(timePosted == null ? "" : timePosted),
-      //  SizedBox(
-      //   width: 10,
-      // ),
 
       trailing: Text("cook Time"),
     );
@@ -181,19 +178,17 @@ class HeaderButtonSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget verticalDivider = VerticalDivider(
-      thickness: 1,
-      color: Colors.grey[300],
-    );
+    // Widget verticalDivider = VerticalDivider(
+    //   thickness: 1,
+    //   color: Colors.grey[300],
+    // );
     return SizedBox(
       height: 40,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           buttonOne,
-          // verticalDivider,
           buttonTwo,
-          // verticalDivider,
           buttonThree,
         ],
       ),
