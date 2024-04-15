@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:recipe_app/presentation/creators/controller/creators_controller.dart';
 import 'package:recipe_app/presentation/user_profile/controller/user_profile_controller.dart';
 
 class FollowerListScreen extends StatefulWidget {
