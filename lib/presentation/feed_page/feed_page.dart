@@ -38,9 +38,9 @@ class _FeedPageState extends State<FeedPage> {
             timePosted: "time Posted",
             descriptionPosted: "description Posted 'desc'",
             imagePosted: "image posted",
-            likeCount: "like count",
-            commentCount: "commentCount",
-            shareCount: "shareCount"),
+            likeCount: "10like",
+            commentCount: "10",
+            shareCount: "1"),
       ),
     );
   }

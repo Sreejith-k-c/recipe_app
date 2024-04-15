@@ -34,6 +34,7 @@ class FeedWidget extends StatelessWidget {
           postCardHeader(),
           imageSection(),
           titleSection(),
+          footerSection(),
           HeaderButtonSection(
             buttonOne: headerButton(
                 buttonText: "Like",
@@ -63,69 +64,69 @@ class FeedWidget extends StatelessWidget {
     );
   }
 
-  // Widget footerSection() {
-  //   return Container(
-  //     height: 50,
-  //     padding: const EdgeInsets.only(left: 10, right: 10),
-  //     child: Row(
-  //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //       children: [
-  //         Row(
-  //           children: [
-  //             Container(
-  //               width: 15,
-  //               height: 15,
-  //               decoration: const BoxDecoration(
-  //                   color: Colors.blue, shape: BoxShape.circle),
-  //               child:
-  //                   const Icon(Icons.thumb_up, color: Colors.white, size: 10),
-  //             ),
-  //             const SizedBox(
-  //               width: 4,
-  //             ),
-  //             displayText(label: likeCount),
-  //           ],
-  //         ),
-  //         Row(
-  //           children: [
-  //             displayText(label: commentCount),
-  //             const SizedBox(
-  //               width: 4,
-  //             ),
-  //             displayText(label: "Comments"),
-  //             const SizedBox(
-  //               width: 12,
-  //             ),
-  //             displayText(label: shareCount),
-  //             const SizedBox(
-  //               width: 4,
-  //             ),
-  //             displayText(label: "Shares"),
+  Widget footerSection() {
+    return Container(
+      height: 50,
+      padding: const EdgeInsets.only(left: 10, right: 10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            children: [
+              Container(
+                width: 15,
+                height: 15,
+                decoration: const BoxDecoration(
+                    color: Colors.blue, shape: BoxShape.circle),
+                child:
+                    const Icon(Icons.thumb_up, color: Colors.white, size: 10),
+              ),
+              const SizedBox(
+                width: 4,
+              ),
+              displayText(label: likeCount),
+            ],
+          ),
+          Row(
+            children: [
+              displayText(label: commentCount),
+              const SizedBox(
+                width: 4,
+              ),
+              displayText(label: "Comments"),
+              const SizedBox(
+                width: 12,
+              ),
+              displayText(label: shareCount),
+              const SizedBox(
+                width: 4,
+              ),
+              displayText(label: "Bookmarks"),
 
-  //             // ProfilePics(
-  //             //   displayImage: profPic,
-  //             //   displayStatus: false,
-  //             //   profHeight: 25,
-  //             //   profWidth: 25,
-  //             // ),
-  //             const SizedBox(
-  //               width: 3,
-  //             ),
-  //             IconButton(
-  //               onPressed: () {
-  //                 // print("Drop down pressed");
-  //               },
-  //               icon: Icon(
-  //                 Icons.arrow_drop_down,
-  //                 color: Colors.grey[700],
-  //               ),
-  //             ),
-  //           ],
-  //         )
-  //       ],
-  //     ),
-  //   );
-  // }
+              // ProfilePics(
+              //   displayImage: profPic,
+              //   displayStatus: false,
+              //   profHeight: 25,
+              //   profWidth: 25,
+              // ),
+              // const SizedBox(
+              //   width: 3,
+              // ),
+              // IconButton(
+              //   onPressed: () {
+              //     // print("Drop down pressed");
+              //   },
+              //   icon: Icon(
+              //     Icons.arrow_drop_down,
+              //     color: Colors.grey[700],
+              //   ),
+              // ),
+            ],
+          )
+        ],
+      ),
+    );
+  }
 
   Widget imageSection() {
     return Container(
