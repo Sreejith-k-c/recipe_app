@@ -92,32 +92,32 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                               ),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  IconButton(
-                                    onPressed: () {
-                                      _showCommentDialog(context);
-                                    },
-                                    icon: Icon(
-                                      Icons.comment,
-                                      color: Colors.black,
-                                      size: 30,
-                                    ),
-                                  ),
-                                  IconButton(
-                                    icon: Icon(
-                                      Icons.bookmark_add_outlined,
-                                      size: 30,
-                                      color: Colors.black,
-                                    ),
-                                    onPressed: () {},
-                                  ),
-                                ],
-                              ),
-                            ),
+                            // Padding(
+                            //   padding: const EdgeInsets.all(8.0),
+                            //   child: Row(
+                            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            //     children: [
+                            //       IconButton(
+                            //         onPressed: () {
+                            //           _showCommentDialog(context);
+                            //         },
+                            //         icon: Icon(
+                            //           Icons.comment,
+                            //           color: Colors.black,
+                            //           size: 30,
+                            //         ),
+                            //       ),
+                            //       IconButton(
+                            //         icon: Icon(
+                            //           Icons.bookmark_add_outlined,
+                            //           size: 30,
+                            //           color: Colors.black,
+                            //         ),
+                            //         onPressed: () {},
+                            //       ),
+                            //     ],
+                            //   ),
+                            // ),
                           ],
                         ),
                       ),

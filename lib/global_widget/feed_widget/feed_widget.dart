@@ -1,57 +1,124 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../app_config/app_config.dart';
+import '../../presentation/feed_page/feed_page_controller.dart';
 
 class FeedWidget extends StatelessWidget {
   //const PostCard({super.key});
 
-  final String profPic;
+  final String? profPic;
   final String name;
   final String timePosted;
   final String descriptionPosted;
   final String imagePosted;
 
-  // final bool showBlueTick;
-  final String likeCount;
+  final bool? showBlueTick;
+  final String? likeCount;
   final String commentCount;
   final String shareCount;
+  final int? itemId;
 
   FeedWidget(
-      {required this.profPic,
+      {this.profPic,
       required this.name,
       required this.timePosted,
       required this.descriptionPosted,
       required this.imagePosted,
-      // this.showBlueTick = false,
-      required this.likeCount,
+      this.showBlueTick = false,
+      this.likeCount,
       required this.commentCount,
-      required this.shareCount});
+      required this.shareCount,
+      this.itemId
+      });
 
   @override
   Widget build(BuildContext context) {
+    var imageUrl = imagePosted == null
+        ? "https://th.bing.com/th/id/OIP.y6HMdOJ4LiIUWk7n5ZGlpAHaHa?w=480&h=480&rs=1&pid=ImgDetMain"
+        : AppConfig.mediaurl + imagePosted!;
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
         children: [
-          postCardHeader(),
-          imageSection(),
+          // postCardHeader(),
+          ListTile(
+            // leading: ProfilePics(displayImage: profPic, displayStatus: false),
+            title: Row(
+              children: [
+                Text(
+                  name,
+                  style: const TextStyle(color: Colors.black),
+                ),
+                const SizedBox(
+                  width: 5,
+                ),
+                Icon(
+                  showBlueTick == true ? Icons.done : null,
+                  color: Colors.blue,
+                  size: 26,
+                )
+              ],
+            ),
+            subtitle: Text(timePosted == null ? "" : timePosted),
+          ),
+          // imageSection(),
+          Container(
+            padding: const EdgeInsets.only(top: 5, bottom: 5),
+            child: Image.network(imageUrl),
+          ),
           titleSection(),
           footerSection(),
-          HeaderButtonSection(
-            buttonOne: headerButton(
-                buttonText: "Like",
-                buttonIcon: Icons.thumb_up_alt_outlined,
-                buttonAction: () {},
-                buttonColor: Colors.orange),
-            buttonTwo: headerButton(
+          // HeaderButtonSection(
+          //   buttonOne: headerButton(
+          //       buttonText: "Like",
+          //       buttonIcon: Icons.thumb_up_alt_outlined,
+          //       buttonAction: () {
+          //         Provider.of<FeedPageController>(context, listen: false)
+          //             .likeTapped();
+          //       },
+          //       buttonColor: Colors.orange),
+          //   buttonTwo: headerButton(
+          //       buttonText: "Comment",
+          //       buttonIcon: Icons.message_outlined,
+          //       buttonAction: () {},
+          //       buttonColor: Colors.orange),
+          //   buttonThree: headerButton(
+          //       buttonText: "BookMark",
+          //       buttonIcon: Icons.bookmark_add_outlined,
+          //       buttonAction: () {},
+          //       buttonColor: Colors.orange),
+          // )
+          SizedBox(
+      height: 40,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          TextButton.icon(
+      onPressed: (){
+        Provider.of<FeedPageController>(context,listen: false).likeTapped(itemId);
+      },
+      icon: Icon(
+        Icons.thumb_up_alt_outlined,
+        color: Colors.orange,
+      ),
+      label: Text(
+        "Like",
+        style: TextStyle(color: Colors.black, fontWeight: FontWeight.w400),
+      )),
+          headerButton(
                 buttonText: "Comment",
                 buttonIcon: Icons.message_outlined,
                 buttonAction: () {},
                 buttonColor: Colors.orange),
-            buttonThree: headerButton(
+            headerButton(
                 buttonText: "BookMark",
                 buttonIcon: Icons.bookmark_add_outlined,
                 buttonAction: () {},
                 buttonColor: Colors.orange),
-          )
+        ],
+      ),
+    )
         ],
       ),
     );
@@ -84,12 +151,12 @@ class FeedWidget extends StatelessWidget {
               const SizedBox(
                 width: 4,
               ),
-              displayText(label: likeCount),
+              displayText(label: "$likeCount"),
             ],
           ),
           Row(
             children: [
-              displayText(label: commentCount),
+              displayText(label: "$commentCount"),
               const SizedBox(
                 width: 4,
               ),
@@ -97,7 +164,7 @@ class FeedWidget extends StatelessWidget {
               const SizedBox(
                 width: 12,
               ),
-              displayText(label: shareCount),
+              displayText(label: "$shareCount"),
               const SizedBox(
                 width: 4,
               ),
@@ -128,12 +195,12 @@ class FeedWidget extends StatelessWidget {
     );
   }
 
-  Widget imageSection() {
-    return Container(
-      padding: const EdgeInsets.only(top: 5, bottom: 5),
-      child: Image.asset(imagePosted),
-    );
-  }
+  // Widget imageSection() {
+  //   return Container(
+  //     padding: const EdgeInsets.only(top: 5, bottom: 5),
+  //     child: Image.network(),
+  //   );
+  // }
 
   Widget titleSection() {
     return descriptionPosted != null && descriptionPosted != ""
@@ -145,25 +212,26 @@ class FeedWidget extends StatelessWidget {
         : const SizedBox();
   }
 
-  Widget postCardHeader() {
-    return ListTile(
-      // leading: ProfilePics(displayImage: profPic, displayStatus: false),
-      title: Row(
-        children: [
-          Text(
-            name,
-            style: const TextStyle(color: Colors.black),
-          ),
-          const SizedBox(
-            width: 10,
-          ),
-        ],
-      ),
-      subtitle: Text(timePosted == null ? "" : timePosted),
+  // Widget postCardHeader() {
+  //   return ListTile(
+  //     // leading: ProfilePics(displayImage: profPic, displayStatus: false),
+  //     title: Row(
+  //       children: [
+  //         Text(
+  //           name,
+  //           style: const TextStyle(color: Colors.black),
+  //         ),
+  //         const SizedBox(
+  //           width: 5,
+  //         ),
 
-      trailing: Text("cook Time"),
-    );
-  }
+  //       ],
+  //     ),
+  //     subtitle: Text(timePosted == null ? "" : timePosted),
+
+  //     trailing: Text("cook Time"),
+  //   );
+  // }
 }
 
 class HeaderButtonSection extends StatelessWidget {

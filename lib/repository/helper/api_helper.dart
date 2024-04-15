@@ -133,14 +133,13 @@ class ApiHelper {
   static postData({
     required String endPoint,
     Map<String, String>? header,
-    required Map<String, dynamic> body,
+     Map<String, dynamic>? body,
     Map<String, String>? headers,
   }) async {
     log("Api-helper -> postData");
     log("$body");
     final url = Uri.parse(AppConfig.baseurl + endPoint);
     log("header=$header");
-    log("headers=$headers");
     log("$url");
     try {
       var response = await http.post(url, body: body,headers: header);

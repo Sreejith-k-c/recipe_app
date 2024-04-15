@@ -6,6 +6,7 @@ import 'package:recipe_app/presentation/chef_registartion_page/controller/chef_r
 import 'package:recipe_app/presentation/creators/controller/creators_controller.dart';
 import 'package:recipe_app/presentation/detailed_catagory_screen/controller/detailed_catogary_controller.dart';
 import 'package:recipe_app/presentation/explorepage/controller/expolre_page_controller.dart';
+import 'package:recipe_app/presentation/feed_page/feed_page_controller.dart';
 import 'package:recipe_app/presentation/forgot_password_screen/controller/forgot_password_controller.dart';
 import 'package:recipe_app/presentation/login/controller/login_controller.dart';
 import 'package:recipe_app/presentation/registration/controller/registration_controller.dart';
@@ -30,6 +31,7 @@ void main() {
       ChangeNotifierProvider(create: (context) => UserProfileController()),
       ChangeNotifierProvider(create: (context) => ForgotPasswordController()),
       ChangeNotifierProvider(create: (context) => ChefRegistrationController()),
+       ChangeNotifierProvider(create: (context) => FeedPageController()),
     ],
     child: const MyApp(),
   ));
