@@ -26,43 +26,27 @@ class CreatorsServiceScreen {
   }
 
   static followUser(Map<String, dynamic> data) async {
-    // SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    // String? token = sharedPreferences.getString(AppConfig.loginData);
-
-    // Future<String?> getAccessToken() async {
-    //   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    //   String? tokenJsonString = sharedPreferences.getString(AppConfig.loginData);
-    //   if (tokenJsonString != null) {
-    //     Map<String, dynamic> tokenData = jsonDecode(tokenJsonString);
-    //     String? accessToken = tokenData['tokens']['access'];
-    //     return accessToken;
-    //   }
-    //   return null;
-    // }
     try {
-      // String? accessToken = await getAccessToken();
-      var decodedData = await ApiHelper.postData(
-          endPoint: "followers/follow/",
-          body: data,
-          // headers: {"Authorization": "Bearer $accessToken"}
-      header: ApiHelper.getApiHeader(access: await AppUtils.getAccessToken()) );
-      log("service=>>>>>>>>>>> " + decodedData.toString());
-      if (decodedData['status'] == 1) {
-        log("Follow success");
-        return decodedData;
-      } else {
-        log("folow fail >>>>>: ${decodedData?['status']}");
-        return decodedData;
+      Future<String?> getAccessToken() async {
+        SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+        String? tokenJsonString = sharedPreferences.getString(AppConfig.loginData);
+        if (tokenJsonString != null) {
+          Map<String, dynamic> tokenData = jsonDecode(tokenJsonString);
+          String? accessToken = tokenData['tokens']['access'];
+          return accessToken;
+        }
+        return null;
       }
+      String? accessToken = await getAccessToken();
+      var decodedData = await ApiHelper.postData(
+        endPoint: "followers/follow/",
+        body: data,
+        header: {"Authorization": "Bearer $accessToken"}
+        // header: ApiHelper.getApiHeaderForException(access: await AppUtils.getAccessToken()),
+      );
+      return decodedData;
     } catch (e) {
       log("fail >>>>>>: $e");
-      return null;
     }
-    // try{
-    //   var decodedData= await ApiHelper.postData(endPoint: "followers/follow/", body: data, headers: {"Authorization": "Bearer $token"});
-    //   return decodedData;
-    // }catch (e){
-    //   return null;
-    // }
   }
 }
