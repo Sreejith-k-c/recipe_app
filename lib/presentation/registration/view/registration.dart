@@ -1,16 +1,40 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:recipe_app/presentation/login/view/loginpage.dart';
 import 'package:recipe_app/presentation/registration/controller/registration_controller.dart';
 
-class RegistrationPage extends StatelessWidget {
+import '../../../global_widget/image_icon.dart';
+
+class RegistrationPage extends StatefulWidget {
   RegistrationPage({super.key});
+
+  @override
+  State<RegistrationPage> createState() => _RegistrationPageState();
+}
+
+class _RegistrationPageState extends State<RegistrationPage> {
   final TextEditingController emailcontroller = TextEditingController();
+
   final TextEditingController usernamecontroller = TextEditingController();
+
   final TextEditingController passwordcontroller = TextEditingController();
+  File? image;
+
+  Future<void> getImage(ImageSource source) async {
+    final pickedImage = await ImagePicker().pickImage(source: source);
+    if (pickedImage != null) {
+      setState(() {
+        image = File(pickedImage.path);
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -67,7 +91,33 @@ class RegistrationPage extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(
+            SizedBox(
+              height: 15,
+            ),
+            Row(
+              children: [
+                SelectImageButton(
+                  onPressed: () {
+                    getImage(ImageSource.gallery);
+                  },
+                  icon: Icons.photo,
+                  label: "Choose DP",
+                  iconColor: Colors.orange,
+                  labelColor: Colors.orange,
+                ),
+                if (image != null)
+                  Container(
+                    margin: EdgeInsets.only(left: size.width * .2),
+                    height: 100,
+                    width: 100,
+                    child: Image.file(
+                      image!,
+                      fit: BoxFit.cover,
+                    ),
+                  )
+              ],
+            ),
+            SizedBox(
               height: 15,
             ),
             Padding(
