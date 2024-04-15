@@ -150,7 +150,7 @@ class _FavoratePageState extends State<ExplorePage> {
                                       child: CircleAvatar(
                                           maxRadius: 60,
                                           backgroundImage: AssetImage(
-                                              "recipe_app/assets/images/userimage3.jpg")),
+                                              "assets/images/userimage3.jpg")),
                                     ),
                                     Consumer<CreatorsController>(
                                       builder: (context, controller, child) {
@@ -488,7 +488,7 @@ class _FavoratePageState extends State<ExplorePage> {
                                               child: const CircleAvatar(
                                                   maxRadius: 60,
                                                   backgroundImage: AssetImage(
-                                                      "recipe_app/assets/images/userimage3.jpg")),
+                                                      "assets/images/userimage3.jpg")),
                                             ),
                                             Consumer<CreatorsController>(
                                               builder:
