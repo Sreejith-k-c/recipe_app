@@ -22,6 +22,27 @@ class ApiHelper {
       };
     }
   }
+
+  static Map<String, String> getApiHeaderForException(
+      {String? access, String? dbName}) {
+    if (access != null) {
+      return {
+        // 'Content-Type': 'application/json',
+        'Accept': '/',
+        'Authorization': 'Bearer $access'
+      };
+    } else if (dbName != null) {
+      return {
+        // 'Content-Type': 'application/json',
+        'dbName': dbName
+      };
+    } else {
+      return {
+        // 'Content-Type': 'application/json',
+      };
+    }
+  }
+
   // get method
   static getData({
     required String endPoint,
@@ -31,7 +52,7 @@ class ApiHelper {
     final url = Uri.parse(AppConfig.baseurl + endPoint);
     try {
       log("$url");
-      var response = await http.get(url);
+      var response = await http.get(url,headers: header);
       log("ApiHelper>>Api Called => status code=${response.statusCode}");
       if (response.statusCode == 200) {
         var decodedData = jsonDecode(response.body);
@@ -116,12 +137,12 @@ class ApiHelper {
     Map<String, String>? header,
     required Map<String, dynamic> body,  Map<String, String>? headers,
   }) async {
-    log("Api-helper>postData");
+    log("Api-helper -> postData");
     log("$body");
     final url = Uri.parse(AppConfig.baseurl + endPoint);
     log("$url");
     try {
-      var response = await http.post(url, body: body);
+      var response = await http.post(url, body: body,headers: header);
       log("ApiHelper>>Api Called => status code=${response.statusCode}");
       if (response.statusCode == 200) {
         var decodedData = jsonDecode(response.body);

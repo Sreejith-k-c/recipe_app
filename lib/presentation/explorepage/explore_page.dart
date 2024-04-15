@@ -1,8 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
-import 'package:recipe_app/global_widget/chef_details/chef_details.dart';
 import 'package:recipe_app/presentation/creators/controller/creators_controller.dart';
 import 'package:recipe_app/presentation/explorepage/controller/expolre_page_controller.dart';
 import 'package:recipe_app/presentation/feed_page/feed_page.dart';

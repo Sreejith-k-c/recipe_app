@@ -55,7 +55,7 @@ class UserProfileController extends ChangeNotifier {
     UserProfileService.fetchFollower().then((value) {
       if(value["status"]==1){
         followerCountModel= FollowerCountModel.fromJson(value);
-          log(">>>>>>>>> ${followerCountModel.followers?.length}");
+          log("Follower count -> ${followerCountModel.followers?.length}");
 
       }else{
         log("else in controller");

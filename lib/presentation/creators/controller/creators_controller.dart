@@ -1,4 +1,3 @@
-
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
@@ -26,8 +25,7 @@ class CreatorsController with ChangeNotifier {
   }
 
   followUser(context, userId) async {
-    // isLoading = true;
-    // notifyListeners();
+    log("CreatorsController -> followUser()");
     var data = {"user_id": userId};
     CreatorsServiceScreen.followUser(data).then((value) {
       if (value["status"] == 1) {
@@ -37,7 +35,7 @@ class CreatorsController with ChangeNotifier {
         // creatorsModel = CreatorsModel.fromJson(value);
         // isLoading = false;
       } else {
-        AppUtils.oneTimeSnackBar(value["error"], context: context,bgColor: Colors.red);
+        AppUtils.oneTimeSnackBar(value["data"]["error"], context: context, bgColor: Colors.red);
       }
       notifyListeners();
     });
