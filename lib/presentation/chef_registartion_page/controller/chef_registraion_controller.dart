@@ -10,7 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../app_config/app_config.dart';
 
-class RegistrationController extends ChangeNotifier {
+class ChefRegistrationController extends ChangeNotifier {
   late SharedPreferences sharedPreferences;
 
   void onRegistration(BuildContext context, String uname, String email,

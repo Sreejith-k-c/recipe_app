@@ -9,6 +9,7 @@ import 'package:recipe_app/presentation/registration/controller/registration_con
 import 'package:recipe_app/presentation/registration/view/registration.dart';
 
 import '../../../../global_widget/image_icon.dart';
+import '../controller/chef_registraion_controller.dart';
 
 class ChefRegistrationPage extends StatefulWidget {
   ChefRegistrationPage({super.key});
@@ -177,7 +178,7 @@ class _ChefRegistrationPageState extends State<ChefRegistrationPage> {
               padding: const EdgeInsets.only(left: 10, right: 10),
               child: InkWell(
                 onTap: () {
-                  Provider.of<RegistrationController>(context, listen: false)
+                  Provider.of<ChefRegistrationController>(context, listen: false)
                       .onRegistration(
                       context,
                       usernamecontroller.text.trim(),
