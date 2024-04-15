@@ -45,23 +45,11 @@ class UserProfileService {
 
   static Future fetchFollower() async {
     try {
-      //  var decodedData = await ApiHelper.getData(
-      //     endPoint: "followers/followers-list/",
-      //     header:
-      //         ApiHelper.getApiHeader(access: await AppUtils.getAccessToken()));
-      // if (decodedData["status"]==1) {
-      //   return decodedData;
-      // } else {
-      //   log("failed in sewrvice>>>>${decodedData.toString()}");
-      //   return decodedData;
-      // }
-     
-            
-      var decodedData = await ApiHelper.getDataWithoutStatus1(
+      log("UserProfileService -> fetchFollower()");
+      var decodedData = await ApiHelper.getData(
           endPoint: "followers/followers-list/",
-          header: ApiHelper.getApiHeader(
-              access: await AppUtils.getAccessToken()));
-log("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<$decodedData");
+          header:
+              ApiHelper.getApiHeader(access: await AppUtils.getAccessToken()));
       return decodedData;
     } catch (e) {
       log(">>>>>><<<<<>>>$e");

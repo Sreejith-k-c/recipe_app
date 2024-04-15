@@ -137,7 +137,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
-                                        "following",
+                                        "Followers",
                                         style: TextStyle(
                                           fontStyle: FontStyle.italic,
                                           fontWeight: FontWeight.w400,
@@ -186,7 +186,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
-                                      "posts",
+                                      "Posts",
                                       style: TextStyle(
                                         fontStyle: FontStyle.italic,
                                         fontWeight: FontWeight.w400,
