@@ -40,17 +40,17 @@ class FeedWidget extends StatelessWidget {
                 buttonText: "Like",
                 buttonIcon: Icons.thumb_up_alt_outlined,
                 buttonAction: () {},
-                buttonColor: Colors.grey),
+                buttonColor: Colors.orange),
             buttonTwo: headerButton(
                 buttonText: "Comment",
                 buttonIcon: Icons.message_outlined,
                 buttonAction: () {},
-                buttonColor: Colors.grey),
+                buttonColor: Colors.orange),
             buttonThree: headerButton(
                 buttonText: "BookMark",
                 buttonIcon: Icons.bookmark_add_outlined,
                 buttonAction: () {},
-                buttonColor: Colors.grey),
+                buttonColor: Colors.orange),
           )
         ],
       ),
@@ -60,7 +60,7 @@ class FeedWidget extends StatelessWidget {
   Widget displayText({required String label}) {
     return Text(
       label == null ? "" : label,
-      style: TextStyle(color: Colors.grey[700]),
+      style: TextStyle(color: Colors.black, fontWeight: FontWeight.w400),
     );
   }
 
@@ -74,12 +74,12 @@ class FeedWidget extends StatelessWidget {
           Row(
             children: [
               Container(
-                width: 15,
-                height: 15,
+                width: 20,
+                height: 20,
                 decoration: const BoxDecoration(
-                    color: Colors.blue, shape: BoxShape.circle),
+                    color: Colors.orange, shape: BoxShape.circle),
                 child:
-                    const Icon(Icons.thumb_up, color: Colors.white, size: 10),
+                    const Icon(Icons.thumb_up, color: Colors.white, size: 14),
               ),
               const SizedBox(
                 width: 4,
@@ -203,11 +203,13 @@ Widget headerButton(
     required void Function() buttonAction,
     required Color buttonColor}) {
   return TextButton.icon(
-    onPressed: buttonAction,
-    icon: Icon(
-      buttonIcon,
-      color: buttonColor,
-    ),
-    label: Text(buttonText),
-  );
+      onPressed: buttonAction,
+      icon: Icon(
+        buttonIcon,
+        color: buttonColor,
+      ),
+      label: Text(
+        buttonText,
+        style: TextStyle(color: Colors.black, fontWeight: FontWeight.w400),
+      ));
 }

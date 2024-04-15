@@ -1,6 +1,6 @@
 class AppConfig {
   //base url is set
-  static String baseurl = "http://10.11.0.89:8000/api/";
+  static String baseurl = "http://10.10.109.21:8000/api/";
 
   //key to store data from api function in LoginController in json format used in AppUtils to get accesskey &userid
   static const String loginData = 'logInData';
