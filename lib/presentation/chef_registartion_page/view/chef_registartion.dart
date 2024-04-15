@@ -6,17 +6,18 @@ import 'package:provider/provider.dart';
 import 'package:recipe_app/presentation/chef_registartion_page/view/chef_registartion.dart';
 import 'package:recipe_app/presentation/login/view/loginpage.dart';
 import 'package:recipe_app/presentation/registration/controller/registration_controller.dart';
+import 'package:recipe_app/presentation/registration/view/registration.dart';
 
-import '../../../global_widget/image_icon.dart';
+import '../../../../global_widget/image_icon.dart';
 
-class RegistrationPage extends StatefulWidget {
-  RegistrationPage({super.key});
+class ChefRegistrationPage extends StatefulWidget {
+  ChefRegistrationPage({super.key});
 
   @override
-  State<RegistrationPage> createState() => _RegistrationPageState();
+  State<ChefRegistrationPage> createState() => _ChefRegistrationPageState();
 }
 
-class _RegistrationPageState extends State<RegistrationPage> {
+class _ChefRegistrationPageState extends State<ChefRegistrationPage> {
   final TextEditingController emailcontroller = TextEditingController();
 
   final TextEditingController usernamecontroller = TextEditingController();
@@ -45,7 +46,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
               height: 60,
             ),
             const Text(
-              'Create Account',
+              'Create Account \nas Chef',textAlign: TextAlign.center,
               style: TextStyle(
                 fontStyle: FontStyle.italic,
                 fontSize: 26,
@@ -141,7 +142,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     getImage(ImageSource.camera);
                   },
                   icon: Icons.photo,
-                  label: "Choose DP",
+                  label: "Choose from Gallery",
                   iconColor: Colors.orange,
                   labelColor: Colors.orange,
                 ),
@@ -178,11 +179,11 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 onTap: () {
                   Provider.of<RegistrationController>(context, listen: false)
                       .onRegistration(
-                          context,
-                          usernamecontroller.text.trim(),
-                          emailcontroller.text.trim(),
-                          passwordcontroller.text.trim(),
-                          image);
+                      context,
+                      usernamecontroller.text.trim(),
+                      emailcontroller.text.trim(),
+                      passwordcontroller.text.trim(),
+                      image);
                   usernamecontroller.clear();
                   emailcontroller.clear();
                   passwordcontroller.clear();
@@ -219,7 +220,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => ChefRegistrationPage()));
+                          builder: (context) => RegistrationPage()));
                 },
                 child: Container(
                   width: double.infinity,
@@ -231,7 +232,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     padding: EdgeInsets.all(10.0),
                     child: Center(
                       child: Text(
-                        'Sign up as Chef',
+                        'Sign up as User',
                         style: TextStyle(
                           fontStyle: FontStyle.italic,
                           fontSize: 20,
