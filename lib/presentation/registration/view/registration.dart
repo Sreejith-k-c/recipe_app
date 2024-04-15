@@ -101,7 +101,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     getImage(ImageSource.gallery);
                   },
                   icon: Icons.photo,
-                  label: "Choose DP",
+                  label: "Choose Profile",
                   iconColor: Colors.orange,
                   labelColor: Colors.orange,
                 ),
