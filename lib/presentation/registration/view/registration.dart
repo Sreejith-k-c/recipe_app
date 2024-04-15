@@ -96,15 +96,30 @@ class _RegistrationPageState extends State<RegistrationPage> {
             ),
             Row(
               children: [
+                SizedBox(
+                  width: 10,
+                ),
                 SelectImageButton(
                   onPressed: () {
-                    getImage(ImageSource.gallery);
+                    getImage(ImageSource.camera);
                   },
                   icon: Icons.photo,
                   label: "Choose DP",
                   iconColor: Colors.orange,
                   labelColor: Colors.orange,
                 ),
+                SizedBox(
+                  width: 10,
+                ),
+                // SelectImageButton(
+                //   onPressed: () {
+                //     getImage(ImageSource.camera);
+                //   },
+                //   icon: Icons.camera_alt,
+                //   label: "Open Camera",
+                //   iconColor: Colors.orange,
+                //   labelColor: Colors.orange,
+                // ),
                 if (image != null)
                   Container(
                     margin: EdgeInsets.only(left: size.width * .2),
@@ -167,7 +182,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
                           context,
                           usernamecontroller.text.trim(),
                           emailcontroller.text.trim(),
-                          passwordcontroller.text.trim());
+                          passwordcontroller.text.trim(),
+                  image);
                   usernamecontroller.clear();
                   emailcontroller.clear();
                   passwordcontroller.clear();
