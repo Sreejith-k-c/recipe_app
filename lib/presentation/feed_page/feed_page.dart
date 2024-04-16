@@ -36,42 +36,48 @@ class _FeedPageState extends State<FeedPage> {
         ),
         body: Consumer<FeedPageController>(
           builder: (context, fContro, child) {
-            return fContro.isLoading ==true
+            return fContro.isLoading == true
                 ? Center(
                     child: CircularProgressIndicator(),
                   )
-                : ListView.builder(
-                    itemCount: fContro.feedModel.data?.length,
-                    itemBuilder: (context, index) {
-                      return Center(
-                        //edh pole baki set akenm
-                        //vnm enkil vere edit akenm
-                        child: FeedWidget(
-                            // profPic: fContro.feedModel.data![index].picture.toString(),
-                            name: fContro.feedModel.data![index].username
-                                .toString(),
-                            timePosted: fContro.feedModel.data![index].cookTime
-                                .toString(),
-                            descriptionPosted: fContro
-                                .feedModel.data![index].procedure
-                                .toString(),
-                            imagePosted: fContro.feedModel.data![index].picture
-                                .toString(),
-                            showBlueTick: fContro.feedModel.data![index].staff,
-                            likeCount: fContro
-                                .feedModel.data![index].totalNumberOfLikes
-                                .toString(),
-                            commentCount: fContro
-                                .feedModel.data![index].totalNumberOfComments
-                                .toString(),
-                            shareCount: fContro
-                                .feedModel.data![index].totalNumberOfBookmarks
-                                .toString(),
-                            itemId:  fContro
-                                .feedModel.data![index].id,    
-                                ),
-                      );
-                    });
+                : fContro.feedModel.data!.isEmpty
+                    ? Center(
+                        child: Text("No data found"),
+                      )
+                    : ListView.builder(
+                        itemCount: fContro.feedModel.data?.length,
+                        itemBuilder: (context, index) {
+                          return Center(
+                            //edh pole baki set akenm
+                            //vnm enkil vere edit akenm
+                            child: FeedWidget(
+                              // profPic: fContro.feedModel.data![index].picture.toString(),
+                              name: fContro.feedModel.data![index].username
+                                  .toString(),
+                              timePosted: fContro
+                                  .feedModel.data![index].cookTime
+                                  .toString(),
+                              descriptionPosted: fContro
+                                  .feedModel.data![index].procedure
+                                  .toString(),
+                              imagePosted: fContro
+                                  .feedModel.data![index].picture
+                                  .toString(),
+                              showBlueTick:
+                                  fContro.feedModel.data![index].staff,
+                              likeCount: fContro
+                                  .feedModel.data![index].totalNumberOfLikes
+                                  .toString(),
+                              commentCount: fContro
+                                  .feedModel.data![index].totalNumberOfComments
+                                  .toString(),
+                              shareCount: fContro
+                                  .feedModel.data![index].totalNumberOfBookmarks
+                                  .toString(),
+                              itemId: fContro.feedModel.data![index].id,
+                            ),
+                          );
+                        });
           },
         ));
   }
