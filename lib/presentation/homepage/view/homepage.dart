@@ -40,9 +40,21 @@ class _HomeScreenState extends State<HomeScreen> {
           }),
         ),
         title: Consumer<UserProfileController>(builder: (context, controller, _) {
-          return Text(
-            "Welcome ${controller.usernameEmailModel.username}",
-            style: TextStyle(fontStyle: FontStyle.italic, fontWeight: FontWeight.bold),
+          return Row(
+            children: [
+              Text(
+                "Welcome ${controller.usernameEmailModel.username}",
+                style: TextStyle(fontStyle: FontStyle.italic, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(
+                width: 5,
+              ),
+              Icon(
+                controller.usernameEmailModel.isStaff == true ? Icons.done : null,
+                color: Colors.blue,
+                size: 26,
+              )
+            ],
           );
         }),
         actions: [],
