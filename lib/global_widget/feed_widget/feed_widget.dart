@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import '../../app_config/app_config.dart';
-import '../../presentation/feed_page/feed_page_controller.dart';
 
-class FeedWidget extends StatelessWidget {
+class FeedWidget extends StatefulWidget {
   //const PostCard({super.key});
 
   final String? profPic;
@@ -18,25 +16,32 @@ class FeedWidget extends StatelessWidget {
   final String commentCount;
   final String shareCount;
   final int? itemId;
+  final void Function() likePressed;
 
-  FeedWidget(
-      {this.profPic,
-      required this.name,
-      required this.timePosted,
-      required this.descriptionPosted,
-      required this.imagePosted,
-      this.showBlueTick = false,
-      this.likeCount,
-      required this.commentCount,
-      required this.shareCount,
-      this.itemId
-      });
+  FeedWidget({
+    this.profPic,
+    required this.name,
+    required this.timePosted,
+    required this.descriptionPosted,
+    required this.imagePosted,
+    this.showBlueTick = false,
+    this.likeCount,
+    required this.commentCount,
+    required this.shareCount,
+    this.itemId,
+    required this.likePressed,
+  });
 
   @override
+  State<FeedWidget> createState() => _FeedWidgetState();
+}
+
+class _FeedWidgetState extends State<FeedWidget> {
+  @override
   Widget build(BuildContext context) {
-    var imageUrl = imagePosted == null
+    var imageUrl = widget.imagePosted == null
         ? "https://th.bing.com/th/id/OIP.y6HMdOJ4LiIUWk7n5ZGlpAHaHa?w=480&h=480&rs=1&pid=ImgDetMain"
-        : AppConfig.mediaurl + imagePosted!;
+        : AppConfig.mediaurl + widget.imagePosted!;
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
@@ -47,20 +52,20 @@ class FeedWidget extends StatelessWidget {
             title: Row(
               children: [
                 Text(
-                  name,
+                  widget.name,
                   style: const TextStyle(color: Colors.black),
                 ),
                 const SizedBox(
                   width: 5,
                 ),
                 Icon(
-                  showBlueTick == true ? Icons.verified : null,
+                  widget.showBlueTick == true ? Icons.verified : null,
                   color: Colors.blue,
                   size: 26,
                 )
               ],
             ),
-            subtitle: Text(timePosted == null ? "" : timePosted),
+            subtitle: Text(widget.timePosted == null ? "" : widget.timePosted),
           ),
           // imageSection(),
           Container(
@@ -90,35 +95,33 @@ class FeedWidget extends StatelessWidget {
           //       buttonColor: Colors.orange),
           // )
           SizedBox(
-      height: 40,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          TextButton.icon(
-      onPressed: (){
-        Provider.of<FeedPageController>(context,listen: false).likeTapped(itemId);
-      },
-      icon: Icon(
-        Icons.thumb_up_alt_outlined,
-        color: Colors.orange,
-      ),
-      label: Text(
-        "Like",
-        style: TextStyle(color: Colors.black, fontWeight: FontWeight.w400),
-      )),
-          headerButton(
-                buttonText: "Comment",
-                buttonIcon: Icons.message_outlined,
-                buttonAction: () {},
-                buttonColor: Colors.orange),
-            headerButton(
-                buttonText: "BookMark",
-                buttonIcon: Icons.bookmark_add_outlined,
-                buttonAction: () {},
-                buttonColor: Colors.orange),
-        ],
-      ),
-    )
+            height: 40,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                TextButton.icon(
+                    onPressed: widget.likePressed,
+                    icon: Icon(
+                      Icons.thumb_up_alt_outlined,
+                      color: Colors.orange,
+                    ),
+                    label: Text(
+                      "Like",
+                      style: TextStyle(color: Colors.black, fontWeight: FontWeight.w400),
+                    )),
+                headerButton(
+                    buttonText: "Comment",
+                    buttonIcon: Icons.message_outlined,
+                    buttonAction: () {},
+                    buttonColor: Colors.orange),
+                headerButton(
+                    buttonText: "BookMark",
+                    buttonIcon: Icons.bookmark_add_outlined,
+                    buttonAction: () {},
+                    buttonColor: Colors.orange),
+              ],
+            ),
+          )
         ],
       ),
     );
@@ -143,20 +146,18 @@ class FeedWidget extends StatelessWidget {
               Container(
                 width: 20,
                 height: 20,
-                decoration: const BoxDecoration(
-                    color: Colors.orange, shape: BoxShape.circle),
-                child:
-                    const Icon(Icons.thumb_up, color: Colors.white, size: 14),
+                decoration: const BoxDecoration(color: Colors.orange, shape: BoxShape.circle),
+                child: const Icon(Icons.thumb_up, color: Colors.white, size: 14),
               ),
               const SizedBox(
                 width: 4,
               ),
-              displayText(label: "$likeCount"),
+              displayText(label: "${widget.likeCount}"),
             ],
           ),
           Row(
             children: [
-              displayText(label: "$commentCount"),
+              displayText(label: "${widget.commentCount}"),
               const SizedBox(
                 width: 4,
               ),
@@ -164,7 +165,7 @@ class FeedWidget extends StatelessWidget {
               const SizedBox(
                 width: 12,
               ),
-              displayText(label: "$shareCount"),
+              displayText(label: "${widget.shareCount}"),
               const SizedBox(
                 width: 4,
               ),
@@ -196,42 +197,15 @@ class FeedWidget extends StatelessWidget {
   }
 
   // Widget imageSection() {
-  //   return Container(
-  //     padding: const EdgeInsets.only(top: 5, bottom: 5),
-  //     child: Image.network(),
-  //   );
-  // }
-
   Widget titleSection() {
-    return descriptionPosted != null && descriptionPosted != ""
+    return widget.descriptionPosted != null && widget.descriptionPosted != ""
         ? Container(
             padding: const EdgeInsets.only(bottom: 5),
-            child: Text(descriptionPosted == null ? "" : descriptionPosted,
+            child: Text(widget.descriptionPosted == null ? "" : widget.descriptionPosted,
                 style: const TextStyle(color: Colors.black, fontSize: 16)),
           )
         : const SizedBox();
   }
-
-  // Widget postCardHeader() {
-  //   return ListTile(
-  //     // leading: ProfilePics(displayImage: profPic, displayStatus: false),
-  //     title: Row(
-  //       children: [
-  //         Text(
-  //           name,
-  //           style: const TextStyle(color: Colors.black),
-  //         ),
-  //         const SizedBox(
-  //           width: 5,
-  //         ),
-
-  //       ],
-  //     ),
-  //     subtitle: Text(timePosted == null ? "" : timePosted),
-
-  //     trailing: Text("cook Time"),
-  //   );
-  // }
 }
 
 class HeaderButtonSection extends StatelessWidget {
@@ -240,10 +214,7 @@ class HeaderButtonSection extends StatelessWidget {
   final Widget buttonThree;
 
   const HeaderButtonSection(
-      {super.key,
-      required this.buttonOne,
-      required this.buttonTwo,
-      required this.buttonThree});
+      {super.key, required this.buttonOne, required this.buttonTwo, required this.buttonThree});
 
   @override
   Widget build(BuildContext context) {

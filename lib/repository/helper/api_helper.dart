@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+
 import 'package:http/http.dart' as http;
 
 import '../../app_config/app_config.dart';
@@ -7,10 +8,7 @@ import '../../app_config/app_config.dart';
 class ApiHelper {
   static Map<String, String> getApiHeader({String? access, String? dbName}) {
     if (access != null) {
-      return {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer $access'
-      };
+      return {'Content-Type': 'application/json', 'Authorization': 'Bearer $access'};
     } else if (dbName != null) {
       return {'Content-Type': 'application/json', 'dbName': dbName};
     } else {
@@ -20,8 +18,7 @@ class ApiHelper {
     }
   }
 
-  static Map<String, String> getApiHeaderForException(
-      {String? access, String? dbName}) {
+  static Map<String, String> getApiHeaderForException({String? access, String? dbName}) {
     if (access != null) {
       return {
         // 'Content-Type': 'application/json',
@@ -49,7 +46,7 @@ class ApiHelper {
     final url = Uri.parse(AppConfig.baseurl + endPoint);
     try {
       log("$url");
-      var response = await http.get(url,headers: header);
+      var response = await http.get(url, headers: header);
       log("ApiHelper>>Api Called => status code=${response.statusCode}");
       if (response.statusCode == 200) {
         var decodedData = jsonDecode(response.body);
@@ -133,7 +130,7 @@ class ApiHelper {
   static postData({
     required String endPoint,
     Map<String, String>? header,
-     Map<String, dynamic>? body,
+    Map<String, dynamic>? body,
     Map<String, String>? headers,
   }) async {
     log("Api-helper -> postData");
@@ -142,7 +139,7 @@ class ApiHelper {
     log("header=$header");
     log("$url");
     try {
-      var response = await http.post(url, body: body,headers: header);
+      var response = await http.post(url, body: body, headers: header);
       log("ApiHelper>>Api Called => status code=${response.statusCode}");
       if (response.statusCode == 200) {
         var decodedData = jsonDecode(response.body);
@@ -177,11 +174,7 @@ class ApiHelper {
         return decodedData;
       } else if (response.statusCode == 400) {
         var decodedData = jsonDecode(response.body);
-        var data = {
-          "status": 0,
-          "msg": "RegisteredUser Already Exist",
-          "data": decodedData
-        };
+        var data = {"status": 0, "msg": "RegisteredUser Already Exist", "data": decodedData};
         return data;
       } else {
         log("Else Condition -> Api failed");
@@ -192,6 +185,32 @@ class ApiHelper {
     } catch (e) {
       log("$e");
       rethrow;
+    }
+  }
+
+  static postLike({
+    required String endPoint,
+    Map<String, String>? header,
+    Map<String, dynamic>? body,
+    Map<String, String>? headers,
+  }) async {
+    log("Api-helper -> postLike()");
+    final url = Uri.parse(AppConfig.baseurl + endPoint);
+    log("header -> $header");
+    log("final url -> $url");
+    try {
+      var response = await http.post(url, body: body, headers: header);
+      log("ApiHelper -> Api Called -> status code=${response.statusCode}");
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        var decodedData = jsonDecode(response.body);
+        return decodedData;
+      } else {
+        log("Else Condition -> Api failed");
+        var decodedData = jsonDecode(response.body);
+        return decodedData;
+      }
+    } catch (e) {
+      log("$e");
     }
   }
 }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:recipe_app/global_widget/feed_widget/feed_widget.dart';
 
-import 'feed_page_controller.dart';
+import '../controller/feed_page_controller.dart';
 
 class FeedPage extends StatefulWidget {
   @override
@@ -47,34 +47,26 @@ class _FeedPageState extends State<FeedPage> {
                     : ListView.builder(
                         itemCount: fContro.feedModel.data?.length,
                         itemBuilder: (context, index) {
+                          int? itemId = fContro.feedModel.data![index].id;
                           return Center(
                             //edh pole baki set akenm
                             //vnm enkil vere edit akenm
                             child: FeedWidget(
                               // profPic: fContro.feedModel.data![index].picture.toString(),
-                              name: fContro.feedModel.data![index].username
-                                  .toString(),
-                              timePosted: fContro
-                                  .feedModel.data![index].cookTime
-                                  .toString(),
-                              descriptionPosted: fContro
-                                  .feedModel.data![index].procedure
-                                  .toString(),
-                              imagePosted: fContro
-                                  .feedModel.data![index].picture
-                                  .toString(),
-                              showBlueTick:
-                                  fContro.feedModel.data![index].staff,
-                              likeCount: fContro
-                                  .feedModel.data![index].totalNumberOfLikes
-                                  .toString(),
-                              commentCount: fContro
-                                  .feedModel.data![index].totalNumberOfComments
-                                  .toString(),
-                              shareCount: fContro
-                                  .feedModel.data![index].totalNumberOfBookmarks
-                                  .toString(),
-                              itemId: fContro.feedModel.data![index].id,
+                              name: fContro.feedModel.data![index].username.toString(),
+                              timePosted: fContro.feedModel.data![index].cookTime.toString(),
+                              descriptionPosted: fContro.feedModel.data![index].procedure.toString(),
+                              imagePosted: fContro.feedModel.data![index].picture.toString(),
+                              showBlueTick: fContro.feedModel.data![index].staff,
+                              likeCount: fContro.feedModel.data![index].totalNumberOfLikes.toString(),
+                              commentCount: fContro.feedModel.data![index].totalNumberOfComments.toString(),
+                              shareCount: fContro.feedModel.data![index].totalNumberOfBookmarks.toString(),
+                              likePressed: () {
+                                setState(() {
+                                  Provider.of<FeedPageController>(context, listen: false)
+                                      .likeTapped(itemId, context);
+                                });
+                              },
                             ),
                           );
                         });

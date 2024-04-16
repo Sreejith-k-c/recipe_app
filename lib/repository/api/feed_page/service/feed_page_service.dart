@@ -16,6 +16,7 @@ class FeedPageService {
 
   static Future<dynamic> likedItem(id) async{
     var data={};
-    var decodedData=ApiHelper.postData(endPoint: "recipe/$id/like/", header: ApiHelper.getApiHeader(access: await AppUtils.getAccessToken()) );
+    var decodedData=ApiHelper.postLike(endPoint: "recipe/$id/like/", header: ApiHelper.getApiHeader(access: await AppUtils.getAccessToken()) );
+    return decodedData;
   }
 }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:recipe_app/presentation/creators/controller/creators_controller.dart';
 import 'package:recipe_app/presentation/explorepage/controller/expolre_page_controller.dart';
-import 'package:recipe_app/presentation/feed_page/feed_page.dart';
+import 'package:recipe_app/presentation/feed_page/view/feed_page.dart';
 
 import '../all_categories/all_categories.dart';
 import '../all_categories/controller/all_categories_controller.dart';
