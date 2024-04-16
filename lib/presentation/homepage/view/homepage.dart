@@ -33,9 +33,11 @@ class _HomeScreenState extends State<HomeScreen> {
         leading: Padding(
           padding: const EdgeInsets.only(left: 10),
           child: Consumer<UserProfileController>(builder: (context, controller, _) {
+            var imageUrl = controller.usernameEmailModel.image== null
+                ? "https://th.bing.com/th/id/OIP.y6HMdOJ4LiIUWk7n5ZGlpAHaHa?w=480&h=480&rs=1&pid=ImgDetMain"
+                : controller.usernameEmailModel.image ;
             return CircleAvatar(
-              backgroundImage: NetworkImage(controller.userAvatarModel.avatar ??
-                  "https://t4.ftcdn.net/jpg/00/65/77/27/360_F_65772719_A1UV5kLi5nCEWI0BNLLiFaBPEkUbv5Fv.jpg"),
+              backgroundImage: NetworkImage(imageUrl),
             );
           }),
         ),
