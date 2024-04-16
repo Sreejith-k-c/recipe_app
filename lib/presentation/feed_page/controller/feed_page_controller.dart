@@ -35,4 +35,14 @@ class FeedPageController extends ChangeNotifier {
 
     });
   }
+
+  void onUnlike(id,context){
+    FeedPageService.onUnlike(id).then((value) {
+      if(value["status"]==1){
+        AppUtils.oneTimeSnackBar(value["message"], context: context);
+      }else{
+        AppUtils.oneTimeSnackBar(value["message"], context: context,bgColor: Colors.redAccent);
+      }
+    });
+  }
 }

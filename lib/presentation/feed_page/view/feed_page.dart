@@ -66,7 +66,12 @@ class _FeedPageState extends State<FeedPage> {
                                   Provider.of<FeedPageController>(context, listen: false)
                                       .likeTapped(itemId, context);
                                 });
-                              },
+                              }, unlike: () {
+                              setState(() {
+                                Provider.of<FeedPageController>(context, listen: false)
+                                    .onUnlike(itemId, context);
+                              });
+                            },
                             ),
                           );
                         });
