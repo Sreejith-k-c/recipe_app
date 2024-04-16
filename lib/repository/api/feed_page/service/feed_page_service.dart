@@ -35,4 +35,15 @@ class FeedPageService {
       log("$e");
     }
   }
+
+  static Future<dynamic> fetchComments(id) async {
+    try {
+      var decodedData = ApiHelper.getDataWithoutStatus(
+          endPoint: "recipe/$id/comment/",
+          header: ApiHelper.getApiHeader(access: await AppUtils.getAccessToken()));
+      return decodedData;
+    } catch (e) {
+      log("$e");
+    }
+  }
 }
