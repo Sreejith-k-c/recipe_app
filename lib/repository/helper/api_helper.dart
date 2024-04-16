@@ -156,6 +156,32 @@ class ApiHelper {
     }
   }
 
+  static delete({
+    required String endPoint,
+    Map<String, String>? header,
+    Map<String, dynamic>? body,
+    Map<String, String>? headers,
+  }) async {
+    log("Api-helper -> delete()");
+    final url = Uri.parse(AppConfig.baseurl + endPoint);
+    log("header -> $header");
+    log("final url -> $url");
+    try {
+      var response = await http.delete(url, body: body, headers: header);
+      log("ApiHelper -> Api Called -> status code=${response.statusCode}");
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        var decodedData = jsonDecode(response.body);
+        return decodedData;
+      } else {
+        log("Else Condition -> Api failed");
+        var decodedData = jsonDecode(response.body);
+        return decodedData;
+      }
+    } catch (e) {
+      log("$e");
+    }
+  }
+
   //for post
   static postRegisterData({
     required String endPoint,
