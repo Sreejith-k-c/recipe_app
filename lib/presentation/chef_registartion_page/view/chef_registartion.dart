@@ -47,7 +47,8 @@ class _ChefRegistrationPageState extends State<ChefRegistrationPage> {
               height: 60,
             ),
             const Text(
-              'Create Account \nas Chef',textAlign: TextAlign.center,
+              'Create Account \nas Chef',
+              textAlign: TextAlign.center,
               style: TextStyle(
                 fontStyle: FontStyle.italic,
                 fontSize: 26,
@@ -61,13 +62,13 @@ class _ChefRegistrationPageState extends State<ChefRegistrationPage> {
               padding: EdgeInsets.only(left: 30, right: 30),
               child: Text(
                 'Fill your information below or Login with your account',
-
                 style: TextStyle(
                   fontStyle: FontStyle.italic,
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                   color: Colors.grey,
-                ),textAlign: TextAlign.center,
+                ),
+                textAlign: TextAlign.center,
               ),
             ),
             const SizedBox(
@@ -87,16 +88,13 @@ class _ChefRegistrationPageState extends State<ChefRegistrationPage> {
                 controller: usernamecontroller,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'username',
+                  labelText: 'Username',
                   labelStyle: TextStyle(
                     color: Colors.grey,
                     fontStyle: FontStyle.italic,
                   ),
                 ),
               ),
-            ),
-            SizedBox(
-              height: 15,
             ),
             SizedBox(
               height: 15,
@@ -125,7 +123,7 @@ class _ChefRegistrationPageState extends State<ChefRegistrationPage> {
                 controller: passwordcontroller,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'password',
+                  labelText: 'Password',
                   labelStyle: TextStyle(
                     color: Colors.grey,
                     fontStyle: FontStyle.italic,
@@ -140,10 +138,10 @@ class _ChefRegistrationPageState extends State<ChefRegistrationPage> {
                 ),
                 SelectImageButton(
                   onPressed: () {
-                    getImage(ImageSource.camera);
+                    getImage(ImageSource.gallery);
                   },
                   icon: Icons.photo,
-                  label: "Choose from Gallery",
+                  label: "Choose Dp from Gallery",
                   iconColor: Colors.orange,
                   labelColor: Colors.orange,
                 ),
@@ -178,13 +176,14 @@ class _ChefRegistrationPageState extends State<ChefRegistrationPage> {
               padding: const EdgeInsets.only(left: 10, right: 10),
               child: InkWell(
                 onTap: () {
-                  Provider.of<ChefRegistrationController>(context, listen: false)
+                  Provider.of<ChefRegistrationController>(context,
+                          listen: false)
                       .onRegistration(
-                      context,
-                      usernamecontroller.text.trim(),
-                      emailcontroller.text.trim(),
-                      passwordcontroller.text.trim(),
-                      image);
+                          context,
+                          usernamecontroller.text.trim(),
+                          emailcontroller.text.trim(),
+                          passwordcontroller.text.trim(),
+                          image);
                   usernamecontroller.clear();
                   emailcontroller.clear();
                   passwordcontroller.clear();

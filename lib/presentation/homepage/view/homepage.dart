@@ -27,9 +27,9 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.orange,
+      // backgroundColor: Colors.orange,
       appBar: AppBar(
-        backgroundColor: Colors.orange,
+        // backgroundColor: Colors.orange,
         leading: Padding(
           padding: const EdgeInsets.only(left: 10),
           child: Consumer<UserProfileController>(builder: (context, controller, _) {

@@ -59,13 +59,13 @@ class _RegistrationPageState extends State<RegistrationPage> {
               padding: EdgeInsets.only(left: 30, right: 30),
               child: Text(
                 'Fill your information below or Login with your account',
-
                 style: TextStyle(
                   fontStyle: FontStyle.italic,
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                   color: Colors.grey,
-                ),textAlign: TextAlign.center,
+                ),
+                textAlign: TextAlign.center,
               ),
             ),
             const SizedBox(
@@ -96,9 +96,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
             SizedBox(
               height: 15,
             ),
-            SizedBox(
-              height: 15,
-            ),
             Padding(
               padding: const EdgeInsets.only(left: 15, right: 15),
               child: TextField(
@@ -123,7 +120,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 controller: passwordcontroller,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'password',
+                  labelText: 'Password',
                   labelStyle: TextStyle(
                     color: Colors.grey,
                     fontStyle: FontStyle.italic,
@@ -138,10 +135,10 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 ),
                 SelectImageButton(
                   onPressed: () {
-                    getImage(ImageSource.camera);
+                    getImage(ImageSource.gallery);
                   },
                   icon: Icons.photo,
-                  label: "Choose DP",
+                  label: "Choose Dp from Gallery",
                   iconColor: Colors.orange,
                   labelColor: Colors.orange,
                 ),
