@@ -52,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 width: 5,
               ),
               Icon(
-                controller.usernameEmailModel.isStaff == true ? Icons.done : null,
+                controller.usernameEmailModel.isStaff == true ? Icons.verified : null,
                 color: Colors.blue,
                 size: 26,
               )

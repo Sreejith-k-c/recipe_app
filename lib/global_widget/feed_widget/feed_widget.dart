@@ -54,7 +54,7 @@ class FeedWidget extends StatelessWidget {
                   width: 5,
                 ),
                 Icon(
-                  showBlueTick == true ? Icons.done : null,
+                  showBlueTick == true ? Icons.verified : null,
                   color: Colors.blue,
                   size: 26,
                 )
