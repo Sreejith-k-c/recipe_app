@@ -1,11 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
-import 'package:recipe_app/global_widget/chef_details/chef_details.dart';
 import 'package:recipe_app/presentation/creators/controller/creators_controller.dart';
 import 'package:recipe_app/presentation/explorepage/controller/expolre_page_controller.dart';
-import 'package:recipe_app/presentation/feed_page/feed_page.dart';
+import 'package:recipe_app/presentation/feed_page/view/feed_page.dart';
 
 import '../all_categories/all_categories.dart';
 import '../all_categories/controller/all_categories_controller.dart';
@@ -86,183 +83,189 @@ class _FavoratePageState extends State<ExplorePage> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(left: 10, right: 10),
-                        child: Container(
-                          height: 300,
-                          padding: const EdgeInsets.only(
-                            left: 10,
-                            right: 10,
-                          ),
-                          decoration: BoxDecoration(
-                            color: Colors.orange[300],
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.only(top: 20),
-                                    child: Text(
-                                      "Feed",
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      FeedPage(), //new class create cheyanm
+                                ));
+                          },
+                          child: Container(
+                            height: 300,
+                            padding: const EdgeInsets.only(
+                              left: 10,
+                              right: 10,
+                            ),
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  fit: BoxFit.cover,
+                                  image: NetworkImage(
+                                      "https://images.unsplash.com/photo-1499028344343-cd173ffc68a9?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")),
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "New Feeds",
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 26,
-                                          color: Colors.black),
+                                          fontStyle: FontStyle.italic,
+                                          fontSize: 30,
+                                          color: Colors.deepOrangeAccent),
                                     ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.only(top: 20),
-                                    child: TextButton(
-                                        onPressed: () {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    FeedPage(), //new class create cheyanm
-                                              ));
-                                        },
-                                        child: Text(
-                                          'See All',
-                                          style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        )),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Padding(
-                                padding: EdgeInsets.all(4),
-                                child: Column(
-                                  children: [
-                                    GestureDetector(
-                                      onTap: () {
-                                        print("image clicked");
-                                      },
-                                      child: CircleAvatar(
-                                          maxRadius: 60,
-                                          backgroundImage: AssetImage(
-                                              "recipe_app/assets/images/userimage3.jpg")),
-                                    ),
-                                    Consumer<CreatorsController>(
-                                      builder: (context, controller, child) {
-                                        return Text(
-                                          // controller
-                                          //     .creatorsModel
-                                          //     .users?[index]
-                                          //     .username ??
-                                          "",
-                                          style: TextStyle(
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.bold),
-                                        );
-                                      },
-                                    ),
-                                    Text(
-                                      'Name',
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18,
-                                      ),
-                                    ),
+                                    // Padding(
+                                    //   padding: EdgeInsets.only(top: 20),
+                                    //   child: TextButton(
+                                    //       onPressed: () {
+
+                                    //       },
+                                    //       child: Text(
+                                    //         'See All',
+                                    //         style: TextStyle(
+                                    //           color: Colors.black,
+                                    //           fontSize: 16,
+                                    //           fontWeight: FontWeight.bold,
+                                    //         ),
+                                    //       )),
+                                    // ),
                                   ],
                                 ),
-                              )
-                              // Expanded(
-                              //   child: SizedBox(
-                              //     width: double.infinity,
-                              //     child: ListView.builder(
-                              //       scrollDirection: Axis.horizontal,
-                              //       itemCount: 3,
-                              //       itemBuilder: (context, index) => Consumer<
-                              //               AllCategoriesScreenController>(
-                              //           builder: (context, controller, child) =>
-                              //               controller.isLoading == true
-                              //                   ? Center(
-                              //                       child: Padding(
-                              //                       padding:
-                              //                           const EdgeInsets.all(
-                              //                               15.0),
-                              //                       child:
-                              //                           CircularProgressIndicator(),
-                              //                     ))
-                              //                   : InkWell(
-                              //                       onTap: () {
-                              //                         Navigator.push(
-                              //                             context,
-                              //                             MaterialPageRoute(
-                              //                                 builder: (context) => DetailedCatogoryScreen(
-                              //                                     tag: controller
-                              //                                         .categoryModel
-                              //                                         .data?[
-                              //                                             index]
-                              //                                         .tag)));
-                              //                       },
-                              //                       child: Padding(
-                              //                         padding:
-                              //                             EdgeInsets.all(8.0),
-                              //                         child: Row(
-                              //                           children: [
-                              //                             ClipRRect(
-                              //                               borderRadius:
-                              //                                   BorderRadius
-                              //                                       .circular(
-                              //                                           30),
-                              //                               child: Container(
-                              //                                 color:
-                              //                                     Colors.white,
-                              //                                 padding:
-                              //                                     EdgeInsets
-                              //                                         .all(10),
-                              //                                 width: 250,
-                              //                                 child: Row(
-                              //                                   children: [
-                              //                                     CircleAvatar(
-                              //                                       maxRadius:
-                              //                                           45,
-                              //                                       backgroundImage: NetworkImage(controller
-                              //                                               .categoryModel
-                              //                                               .data?[index]
-                              //                                               .categoryImage ??
-                              //                                           ""),
-                              //                                     ),
-                              //                                     SizedBox(
-                              //                                       width: 10,
-                              //                                     ),
-                              //                                     Text(
-                              //                                       controller
-                              //                                               .categoryModel
-                              //                                               .data?[index]
-                              //                                               .displayName ??
-                              //                                           "",
-                              //                                       style: TextStyle(
-                              //                                           fontWeight:
-                              //                                               FontWeight
-                              //                                                   .bold,
-                              //                                           fontSize:
-                              //                                               20),
-                              //                                     )
-                              //                                   ],
-                              //                                 ),
-                              //                               ),
-                              //                             ),
-                              //                           ],
-                              //                         ),
-                              //                       ),
-                              //                     )),
-                              //     ),
-                              //   ),
-                              // ),
-                            ],
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                // Padding(
+                                //   padding: EdgeInsets.all(4),
+                                //   child: Column(
+                                //     children: [
+                                //       GestureDetector(
+                                //         onTap: () {
+                                //           print("image clicked");
+                                //         },
+                                //         child: CircleAvatar(
+                                //             maxRadius: 60,
+                                //             backgroundImage: AssetImage(
+                                //                 "assets/images/userimage3.jpg")),
+                                //       ),
+                                //       Consumer<CreatorsController>(
+                                //         builder: (context, controller, child) {
+                                //           return Text(
+                                //             // controller
+                                //             //     .creatorsModel
+                                //             //     .users?[index]
+                                //             //     .username ??
+                                //             "",
+                                //             style: TextStyle(
+                                //                 fontSize: 20,
+                                //                 fontWeight: FontWeight.bold),
+                                //           );
+                                //         },
+                                //       ),
+                                //       Text(
+                                //         'Name',
+                                //         style: TextStyle(
+                                //           color: Colors.black,
+                                //           fontWeight: FontWeight.bold,
+                                //           fontSize: 18,
+                                //         ),
+                                //       ),
+                                //     ],
+                                //   ),
+                                // )
+                                // Expanded(
+                                //   child: SizedBox(
+                                //     width: double.infinity,
+                                //     child: ListView.builder(
+                                //       scrollDirection: Axis.horizontal,
+                                //       itemCount: 3,
+                                //       itemBuilder: (context, index) => Consumer<
+                                //               AllCategoriesScreenController>(
+                                //           builder: (context, controller, child) =>
+                                //               controller.isLoading == true
+                                //                   ? Center(
+                                //                       child: Padding(
+                                //                       padding:
+                                //                           const EdgeInsets.all(
+                                //                               15.0),
+                                //                       child:
+                                //                           CircularProgressIndicator(),
+                                //                     ))
+                                //                   : InkWell(
+                                //                       onTap: () {
+                                //                         Navigator.push(
+                                //                             context,
+                                //                             MaterialPageRoute(
+                                //                                 builder: (context) => DetailedCatogoryScreen(
+                                //                                     tag: controller
+                                //                                         .categoryModel
+                                //                                         .data?[
+                                //                                             index]
+                                //                                         .tag)));
+                                //                       },
+                                //                       child: Padding(
+                                //                         padding:
+                                //                             EdgeInsets.all(8.0),
+                                //                         child: Row(
+                                //                           children: [
+                                //                             ClipRRect(
+                                //                               borderRadius:
+                                //                                   BorderRadius
+                                //                                       .circular(
+                                //                                           30),
+                                //                               child: Container(
+                                //                                 color:
+                                //                                     Colors.white,
+                                //                                 padding:
+                                //                                     EdgeInsets
+                                //                                         .all(10),
+                                //                                 width: 250,
+                                //                                 child: Row(
+                                //                                   children: [
+                                //                                     CircleAvatar(
+                                //                                       maxRadius:
+                                //                                           45,
+                                //                                       backgroundImage: NetworkImage(controller
+                                //                                               .categoryModel
+                                //                                               .data?[index]
+                                //                                               .categoryImage ??
+                                //                                           ""),
+                                //                                     ),
+                                //                                     SizedBox(
+                                //                                       width: 10,
+                                //                                     ),
+                                //                                     Text(
+                                //                                       controller
+                                //                                               .categoryModel
+                                //                                               .data?[index]
+                                //                                               .displayName ??
+                                //                                           "",
+                                //                                       style: TextStyle(
+                                //                                           fontWeight:
+                                //                                               FontWeight
+                                //                                                   .bold,
+                                //                                           fontSize:
+                                //                                               20),
+                                //                                     )
+                                //                                   ],
+                                //                                 ),
+                                //                               ),
+                                //                             ),
+                                //                           ],
+                                //                         ),
+                                //                       ),
+                                //                     )),
+                                //     ),
+                                //   ),
+                                // ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -488,7 +491,7 @@ class _FavoratePageState extends State<ExplorePage> {
                                               child: const CircleAvatar(
                                                   maxRadius: 60,
                                                   backgroundImage: AssetImage(
-                                                      "recipe_app/assets/images/userimage3.jpg")),
+                                                      "assets/images/userimage3.jpg")),
                                             ),
                                             Consumer<CreatorsController>(
                                               builder:

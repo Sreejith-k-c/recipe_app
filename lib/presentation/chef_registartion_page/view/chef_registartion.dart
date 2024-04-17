@@ -6,17 +6,19 @@ import 'package:provider/provider.dart';
 import 'package:recipe_app/presentation/chef_registartion_page/view/chef_registartion.dart';
 import 'package:recipe_app/presentation/login/view/loginpage.dart';
 import 'package:recipe_app/presentation/registration/controller/registration_controller.dart';
+import 'package:recipe_app/presentation/registration/view/registration.dart';
 
-import '../../../global_widget/image_icon.dart';
+import '../../../../global_widget/image_icon.dart';
+import '../controller/chef_registraion_controller.dart';
 
-class RegistrationPage extends StatefulWidget {
-  RegistrationPage({super.key});
+class ChefRegistrationPage extends StatefulWidget {
+  ChefRegistrationPage({super.key});
 
   @override
-  State<RegistrationPage> createState() => _RegistrationPageState();
+  State<ChefRegistrationPage> createState() => _ChefRegistrationPageState();
 }
 
-class _RegistrationPageState extends State<RegistrationPage> {
+class _ChefRegistrationPageState extends State<ChefRegistrationPage> {
   final TextEditingController emailcontroller = TextEditingController();
 
   final TextEditingController usernamecontroller = TextEditingController();
@@ -45,7 +47,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
               height: 60,
             ),
             const Text(
-              'Create Account',
+              'Create Account \nas Chef',
+              textAlign: TextAlign.center,
               style: TextStyle(
                 fontStyle: FontStyle.italic,
                 fontSize: 26,
@@ -85,7 +88,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 controller: usernamecontroller,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'username',
+                  labelText: 'Username',
                   labelStyle: TextStyle(
                     color: Colors.grey,
                     fontStyle: FontStyle.italic,
@@ -173,7 +176,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
               padding: const EdgeInsets.only(left: 10, right: 10),
               child: InkWell(
                 onTap: () {
-                  Provider.of<RegistrationController>(context, listen: false)
+                  Provider.of<ChefRegistrationController>(context,
+                          listen: false)
                       .onRegistration(
                           context,
                           usernamecontroller.text.trim(),
@@ -216,7 +220,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => ChefRegistrationPage()));
+                          builder: (context) => RegistrationPage()));
                 },
                 child: Container(
                   width: double.infinity,
@@ -228,7 +232,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     padding: EdgeInsets.all(10.0),
                     child: Center(
                       child: Text(
-                        'Sign up as Chef',
+                        'Sign up as User',
                         style: TextStyle(
                           fontStyle: FontStyle.italic,
                           fontSize: 20,

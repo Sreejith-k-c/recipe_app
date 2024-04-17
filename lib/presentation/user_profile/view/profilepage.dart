@@ -58,22 +58,36 @@ class _ProfilePageState extends State<ProfilePage> {
     final provider = Provider.of<UserProfileController>(context);
     return Consumer<UserProfileController>(
       builder: (context, controller, _) {
+        var imageUrl = controller.usernameEmailModel.image== null
+            ? "https://th.bing.com/th/id/OIP.y6HMdOJ4LiIUWk7n5ZGlpAHaHa?w=480&h=480&rs=1&pid=ImgDetMain"
+            : controller.usernameEmailModel.image ;
         return controller.isLoading
             ? Center(child: CircularProgressIndicator())
             : Scaffold(
                 appBar: AppBar(
                   backgroundColor: Colors.white,
-                  leading: Icon(Icons.account_circle),
                   title: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        controller.usernameEmailModel.username ?? "",
-                        style: TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.w600,
-                          fontStyle: FontStyle.italic,
-                        ),
+                      Row(
+                        children: [
+                          Text(
+                            controller.usernameEmailModel.username ?? "",
+                            style: TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.w600,
+                              fontStyle: FontStyle.italic,
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          Icon(
+                            controller.usernameEmailModel.isStaff == true ? Icons.verified : null,
+                            color: Colors.blue,
+                            size: 26,
+                          )
+                        ],
                       ),
                       IconButton(
                         onPressed: () {
@@ -110,14 +124,30 @@ class _ProfilePageState extends State<ProfilePage> {
                                 },
                                 child: CircleAvatar(
                                   radius: 45,
-                                  backgroundImage: NetworkImage(controller
-                                          .isLoading
-                                      ? Center(
-                                          child: CircularProgressIndicator())
-                                      : controller.userAvatarModel.avatar ??
-                                          "https://t4.ftcdn.net/jpg/00/65/77/27/360_F_65772719_A1UV5kLi5nCEWI0BNLLiFaBPEkUbv5Fv.jpg"),
+                                  backgroundImage: NetworkImage(imageUrl),
                                 ),
                               ),
+                            ),
+                            SizedBox(height: 20),
+                            Row(
+                              children: [
+                                Text(
+                                  controller.usernameEmailModel.username ?? "",
+                                  style: TextStyle(
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.w600,
+                                    fontStyle: FontStyle.italic,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 5,
+                                ),
+                                Icon(
+                                  controller.usernameEmailModel.isStaff == true ? Icons.verified : null,
+                                  color: Colors.blue,
+                                  size: 26,
+                                )
+                              ],
                             ),
                             SizedBox(height: 20),
                             Row(
@@ -137,7 +167,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
-                                        "following",
+                                        "Followers",
                                         style: TextStyle(
                                           fontStyle: FontStyle.italic,
                                           fontWeight: FontWeight.w400,
@@ -186,7 +216,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
-                                      "posts",
+                                      "Posts",
                                       style: TextStyle(
                                         fontStyle: FontStyle.italic,
                                         fontWeight: FontWeight.w400,
