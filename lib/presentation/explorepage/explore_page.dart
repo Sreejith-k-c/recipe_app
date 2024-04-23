@@ -139,7 +139,7 @@ class _FavoratePageState extends State<ExplorePage> {
                 Padding(
                   padding: const EdgeInsets.only(left: 10, right: 10),
                   child: Container(
-                    height: 300,
+                    height: 250,
                     padding: const EdgeInsets.only(
                       left: 10,
                       right: 10,

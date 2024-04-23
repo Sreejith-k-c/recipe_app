@@ -40,7 +40,7 @@ class _FollowerListScreenState extends State<FollowerListScreen> {
       ),
       body: Consumer<UserProfileController>(builder: (context, controller, child) {
         return ListView.builder(
-          itemCount: 2,
+          itemCount: ,
           itemBuilder: (context, index) => Column(
             children: [
               Padding(
