@@ -26,7 +26,7 @@ class _AllCreatorsState extends State<AllCreators> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Chef',
+          'Users',
           style: TextStyle(
               fontWeight: FontWeight.bold, color: Colors.black, fontSize: 24),
         ),
@@ -62,7 +62,10 @@ class _AllCreatorsState extends State<AllCreators> {
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                     trailing: TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Provider.of<CreatorsController>(context,listen: false).followUser(
+                            context, controller.creatorsModel.users?[index].id.toString(),);
+                      },
                       child: const Text(
                         'Follow',
                         style: TextStyle(

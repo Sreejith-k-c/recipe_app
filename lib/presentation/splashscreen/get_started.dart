@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_app/presentation/login/view/loginpage.dart';
+import 'package:recipe_app/presentation/registration/view/registration.dart';
 
 class GetStarted extends StatelessWidget {
   const GetStarted({super.key});
@@ -95,7 +96,7 @@ class GetStarted extends StatelessWidget {
                       onTap: () => Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => LoginPage(),
+                            builder: (context) => RegistrationPage(),
                           )),
                       child: const Padding(
                         padding: EdgeInsets.all(9.0),

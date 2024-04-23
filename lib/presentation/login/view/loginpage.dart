@@ -118,6 +118,7 @@ class LoginPage extends StatelessWidget {
                             passwordcontroller.text.trim());
                     emailcontroller.clear();
                     passwordcontroller.clear();
+                    // Navigator.push(context, MaterialPageRoute(builder: (context)=>BottomNav()));
                   },
                   child: Container(
                     width: double.infinity,
@@ -177,7 +178,8 @@ class LoginPage extends StatelessWidget {
                     ),
                   )
                 ],
-              )
+              ),
+
             ],
           ),
         ),

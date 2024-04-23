@@ -10,40 +10,36 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../app_config/app_config.dart';
 
-class RegistrationController extends ChangeNotifier {
+class ChefRegistrationController extends ChangeNotifier {
   late SharedPreferences sharedPreferences;
 
   void onRegistration(BuildContext context, String uname, String email,
-      String password, File? image) async {
-    try {
-      var imageUrl = "${AppConfig.baseurl}user/register/";
-      onUpload(imageUrl, image, uname, email, password).then((value) {
+      String password, File? image) async{
+    try{
+      var imageUrl = "${AppConfig.baseurl}chef/register/";
+      onUpload(imageUrl, image, uname,email,password)
+          .then((value) {
         if (value.statusCode == 201) {
           log("on upload${value.statusCode}");
           var data = jsonDecode(value.body);
           log("$data");
           log("Added Successfully");
-          AppUtils.oneTimeSnackBar("Registered Succesfully",
-              context: context, bgColor: Colors.green);
-          Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => LoginPage(),
-          ));
+          AppUtils.oneTimeSnackBar("Registered Successfully", context: context,bgColor: Colors.green);
+          Navigator.of(context).push(MaterialPageRoute(builder: (context)=>LoginPage(),));
         } else {
           log("FAILED TO UPLOAD");
-          AppUtils.oneTimeSnackBar(" Error adding ",
-              context: context, bgColor: Colors.red);
+          AppUtils.oneTimeSnackBar(" Error adding ", context: context,bgColor: Colors.red);
         }
       });
-    } catch (e) {}
+    }catch(e){
+
+    }
   }
 
   Future<http.Response> onUpload(
-    String url,
-    File? selectedImage,
-    String uname,
-    String email,
-    String password,
-  ) async {
+      String url,
+      File? selectedImage, String uname, String email, String password,
+      ) async {
     var request = http.MultipartRequest('POST', Uri.parse(url));
 
     if (selectedImage != null) {
@@ -63,6 +59,7 @@ class RegistrationController extends ChangeNotifier {
     request.fields['password'] = password;
 
     print("Request URL>>>>>: $url");
+    // print("Request Headers>>>>>>>: $headers");
     print("Request Body: ${request.fields},Files>>>> ${request.files}");
 
     var res = await request.send();
