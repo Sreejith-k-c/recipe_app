@@ -26,12 +26,12 @@ void main() {
       ChangeNotifierProvider(
           create: (context) => AllCategoriesScreenController()),
       ChangeNotifierProvider(create: (context) => ExplorePageController()),
-      ChangeNotifierProvider(create: (context) =>CreatorsController() ),
+      ChangeNotifierProvider(create: (context) => CreatorsController()),
       ChangeNotifierProvider(create: (context) => DetailedCatogoryController()),
       ChangeNotifierProvider(create: (context) => UserProfileController()),
       ChangeNotifierProvider(create: (context) => ForgotPasswordController()),
       ChangeNotifierProvider(create: (context) => ChefRegistrationController()),
-       ChangeNotifierProvider(create: (context) => FeedPageController()),
+      ChangeNotifierProvider(create: (context) => FeedPageController()),
     ],
     child: const MyApp(),
   ));
