@@ -1,6 +1,6 @@
 class AppConfig {
   //base url is set
-  static String baseurl = "http://10.11.0.89:8000/api/";
+  static String baseurl = "http://192.168.1.56:8000/api/";
 
   static String mediaurl = "http://10.11.0.89:8000";
 
